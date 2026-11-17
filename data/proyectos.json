@@ -1,0 +1,23 @@
+{
+  "_ayuda": "Proyectos de obra. estado del proyecto: 'idea' | 'planificado' | 'en-curso' | 'terminado' | 'descartado'. estado de tarea: 'pendiente' | 'en-curso' | 'hecha'. Ítems de presupuesto: monto (número), moneda 'ARS' | 'USD', estado 'estimado' | 'cotizado' | 'pagado'. 'ambientes' resalta esos locales en el plano (ids de casa.json). 'overlay' (opcional) dibuja el cambio propuesto: lista de {nivel, tipo: 'linea'|'poligono'|'punto', puntos, etiqueta}.",
+  "proyectos": [
+    {
+      "id": "relevamiento-sanitario",
+      "nombre": "Relevamiento sanitario",
+      "estado": "planificado",
+      "prioridad": "alta",
+      "fase": null,
+      "descripcion": "El plano conforme a obra no dibuja los desagües. Hay que relevar cloaca, pluviales y piletas de patio para completar la capa de desagües antes de encarar cualquier obra en cocina o baños.",
+      "ambientes": ["cocina", "lavadero", "bano-pb", "bano-pa"],
+      "tareas": [
+        { "id": "t1", "titulo": "Ubicar la cámara de inspección y la conexión a la red cloacal", "estado": "pendiente", "responsable": null, "fecha": null },
+        { "id": "t2", "titulo": "Ubicar piletas de patio y rejillas (cocina, lavadero, baños, patio, galería)", "estado": "pendiente", "responsable": null, "fecha": null },
+        { "id": "t3", "titulo": "Marcar el recorrido de la cañería primaria y secundaria", "estado": "pendiente", "responsable": null, "fecha": null },
+        { "id": "t4", "titulo": "Relevar bajadas pluviales de los tres techos y dónde descargan", "estado": "pendiente", "responsable": null, "fecha": null },
+        { "id": "t5", "titulo": "Sacar fotos con referencia de medidas y cargarlas en data/desagues.json", "estado": "pendiente", "responsable": null, "fecha": null }
+      ],
+      "presupuesto": [],
+      "overlay": []
+    }
+  ]
+}

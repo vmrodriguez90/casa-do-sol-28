@@ -1,0 +1,4 @@
+{
+  "_ayuda": "Tipo de cambio de referencia para mostrar totales en ARS y USD. Actualizalo cuando cargues presupuestos nuevos.",
+  "tipo_cambio": { "ars_por_usd": 1450, "fecha": "2026-11-17", "fuente": "referencia manual, editar" }
+}

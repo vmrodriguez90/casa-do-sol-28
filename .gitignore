@@ -1,0 +1,7 @@
+# Documentos originales con datos personales (plano municipal, carátula, etc.)
+privado/
+*.pdf
+
+.DS_Store
+__pycache__/
+.claude/

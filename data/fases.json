@@ -1,0 +1,58 @@
+{
+  "_ayuda": "Etapas de la casa. 'superficies' son los polígonos numerados del cuadro de superficies del plano (en cm, mismo sistema que casa.json). Para sumar una fase futura, agregá un objeto con tipo 'futura' y, si querés, 'proyectos': [ids de proyectos.json].",
+  "fases": [
+    {
+      "id": "aprobada",
+      "nombre": "Superficie aprobada original",
+      "fecha": "1998",
+      "tipo": "historica",
+      "color": "aprobada",
+      "descripcion": "Planta baja cubierta, planta alta y dos semicubiertos (galería y frente), según el plano aprobado original.",
+      "superficies": [
+        { "n": 1, "nivel": "pb", "tipo": "cubierta", "medidas": "3,75 × 6,75", "m2": 25.31, "poligono": [[275, 805], [650, 805], [650, 1480], [275, 1480]] },
+        { "n": 2, "nivel": "pb", "tipo": "cubierta", "medidas": "4,50 × 9,35", "m2": 42.07, "poligono": [[650, 685], [1100, 685], [1100, 1620], [650, 1620]] },
+        { "n": 3, "nivel": "pa", "tipo": "cubierta", "medidas": "4,50 × 9,35", "m2": 42.07, "poligono": [[650, 685], [1100, 685], [1100, 1620], [650, 1620]] },
+        { "n": 4, "nivel": "pb", "tipo": "semicubierta", "medidas": "3,20 × 1,20", "m2": 3.84, "poligono": [[330, 685], [650, 685], [650, 805], [330, 805]] },
+        { "n": 5, "nivel": "pb", "tipo": "semicubierta", "medidas": "6,50 × 1,40", "m2": 9.1, "poligono": [[0, 1480], [650, 1480], [650, 1620], [0, 1620]] }
+      ],
+      "total_m2": 122.39
+    },
+    {
+      "id": "cerramiento",
+      "nombre": "Cerramiento de semicubiertos",
+      "fecha": null,
+      "tipo": "historica",
+      "color": "cerramiento",
+      "descripcion": "Superficie que figuraba como semicubierta y pasó a cubierta: el garage y el paso junto a la galería.",
+      "superficies": [
+        { "n": 6, "nivel": "pb", "tipo": "cubierta", "medidas": "0,55 × 1,20", "m2": 0.66, "poligono": [[275, 685], [330, 685], [330, 805], [275, 805]] },
+        { "n": 7, "nivel": "pb", "tipo": "cubierta", "medidas": "2,75 × 7,95", "m2": 21.86, "poligono": [[0, 685], [275, 685], [275, 1480], [0, 1480]] }
+      ],
+      "total_m2": 22.52
+    },
+    {
+      "id": "ampliacion",
+      "nombre": "Ampliación: quincho y entrepiso",
+      "fecha": null,
+      "tipo": "historica",
+      "color": "ampliacion",
+      "descripcion": "Quincho al fondo y entrepiso de madera sobre el garage.",
+      "superficies": [
+        { "n": 8, "nivel": "pb", "tipo": "cubierta", "medidas": "3,30 × 6,85", "m2": 22.6, "poligono": [[0, 0], [330, 0], [330, 685], [0, 685]] },
+        { "n": 9, "nivel": "ent", "tipo": "cubierta", "medidas": "2,90 × 3,40", "m2": 9.86, "poligono": [[0, 911], [290, 911], [290, 1251], [0, 1251]] }
+      ],
+      "total_m2": 32.46
+    },
+    {
+      "id": "actual",
+      "nombre": "Estado actual (plano conforme a obra)",
+      "fecha": "2026",
+      "tipo": "actual",
+      "color": "actual",
+      "descripcion": "Todo lo construido hoy. Terreno 201,30 m², superficie libre 75,86 m².",
+      "incluye": ["aprobada", "cerramiento", "ampliacion"],
+      "superficies": [],
+      "total_m2": 177.37
+    }
+  ]
+}

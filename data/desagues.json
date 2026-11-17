@@ -1,0 +1,33 @@
+{
+  "_ayuda": "Instalación sanitaria. estado: 'plano' = figura en el plano conforme a obra; 'estimado' = supuesto, falta confirmar; 'verificado' = confirmado en obra. Coordenadas en cm (mismo sistema que casa.json). Para agregar un caño: sumá un objeto a 'tramos' con red ('cloacal' | 'pluvial' | 'ventilacion' | 'agua'), diametro, estado y 'puntos' (polilínea).",
+  "artefactos": [
+    { "id": "anafe", "tipo": "anafe", "nombre": "Anafe / cocina", "nivel": "pb", "ambiente": "cocina", "pos": [1057, 752], "desague": false, "estado": "plano" },
+    { "id": "pileta-cocina", "tipo": "pileta", "nombre": "Pileta de cocina", "nivel": "pb", "ambiente": "cocina", "pos": [1057, 868], "desague": "secundario", "estado": "plano" },
+    { "id": "pileta-lavadero", "tipo": "pileta", "nombre": "Pileta de lavadero", "nivel": "pb", "ambiente": "lavadero", "pos": [914, 1117], "desague": "secundario", "estado": "plano" },
+    { "id": "termotanque", "tipo": "termotanque", "nombre": "Termotanque (TT)", "nivel": "pb", "ambiente": "lavadero", "pos": [1062, 1100], "desague": false, "estado": "plano", "nota": "Sale por la chimenea CH TT 4\" al techo." },
+    { "id": "lavatorio-pb", "tipo": "lavatorio", "nombre": "Lavatorio", "nivel": "pb", "ambiente": "bano-pb", "pos": [914, 1169], "desague": "secundario", "estado": "plano" },
+    { "id": "inodoro-pb", "tipo": "inodoro", "nombre": "Inodoro", "nivel": "pb", "ambiente": "bano-pb", "pos": [1048, 1193], "desague": "primario", "estado": "plano" },
+    { "id": "banera-pa", "tipo": "banera", "nombre": "Bañera", "nivel": "pa", "ambiente": "bano-pa", "pos": [1008, 1049], "desague": "secundario", "estado": "plano" },
+    { "id": "inodoro-pa", "tipo": "inodoro", "nombre": "Inodoro", "nivel": "pa", "ambiente": "bano-pa", "pos": [919, 1285], "desague": "primario", "estado": "plano" },
+    { "id": "bidet-pa", "tipo": "bidet", "nombre": "Bidet", "nivel": "pa", "ambiente": "bano-pa", "pos": [977, 1296], "desague": "secundario", "estado": "plano" },
+    { "id": "lavatorio-pa", "tipo": "lavatorio", "nombre": "Lavatorio", "nivel": "pa", "ambiente": "bano-pa", "pos": [1058, 1203], "desague": "secundario", "estado": "plano" },
+    { "id": "parrilla", "tipo": "parrilla", "nombre": "Parrilla", "nivel": "pb", "ambiente": "quincho", "pos": [165, 45], "desague": false, "estado": "plano" }
+  ],
+  "ventilaciones": [
+    { "id": "cv-1", "nombre": "Caño de ventilación cloacal CV 4\"", "nivel": "techos", "pos": [1095, 1137], "estado": "plano" },
+    { "id": "cv-2", "nombre": "Caño de ventilación cloacal CV 4\"", "nivel": "techos", "pos": [1095, 1160], "estado": "plano" },
+    { "id": "ch-tt", "nombre": "Chimenea termotanque CH TT 4\"", "nivel": "techos", "pos": [1095, 1114], "estado": "plano" },
+    { "id": "vf-lavadero", "nombre": "Ventilación forzada por conducto 4\" (lavadero)", "nivel": "pb", "ambiente": "lavadero", "pos": [1075, 1020], "estado": "plano" },
+    { "id": "vf-bano-pb", "nombre": "Ventilación forzada por conducto 4\" (baño PB)", "nivel": "pb", "ambiente": "bano-pb", "pos": [1075, 1160], "estado": "plano" },
+    { "id": "vf-bano-pa", "nombre": "Ventilación forzada por conducto 4\" (baño PA)", "nivel": "pa", "ambiente": "bano-pa", "pos": [1075, 1135], "estado": "plano" }
+  ],
+  "camaras": [],
+  "tramos": [],
+  "pendiente_relevar": [
+    "Cámara de inspección y conexión a la red cloacal (frente, Calle 28)",
+    "Piletas de patio abiertas / cerradas en cocina, lavadero y baños",
+    "Recorrido de la cañería primaria (inodoros) y secundaria",
+    "Bajadas pluviales de los tres techos y su descarga (patio, vereda, cordón)",
+    "Rejillas de piso en patio, galería y frente"
+  ]
+}
