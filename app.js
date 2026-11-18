@@ -9,7 +9,7 @@
     casa: null, fases: null, desagues: null, proyectos: null, config: null,
     svgs: {},            // nivel -> {muros, rellenos, detalle} (nodos importados)
     nivel: "pb",
-    capas: { etiquetas: true, desagues: true, proyectos: true, cotas: false, exterior: true },
+    capas: { etiquetas: true, muebles: true, desagues: true, proyectos: true, cotas: false, exterior: true },
     sel: null,           // {tipo:'amb'|'art'|'vent', id}
     resaltar: null,      // id de ambiente pedido por URL
     fase: "actual",
@@ -138,6 +138,7 @@
   // ---------- controles del plano ----------
   const CAPAS = [
     ["etiquetas", "Nombres y medidas"],
+    ["muebles", "Muebles y equipamiento"],
     ["desagues", "Desagües y ventilaciones"],
     ["proyectos", "Proyectos activos"],
     ["cotas", "Cotas generales"],
@@ -308,7 +309,7 @@
     if (nivel === "ent") { cota(0, 911, 290, 911, "2,90", -30); cota(0, 911, 0, 1251, "3,40", -36); }
   }
 
-  const ICONO = { inodoro: "I", bidet: "Bd", lavatorio: "L", pileta: "P", banera: "B", termotanque: "TT", anafe: "A", parrilla: "Pa", ducha: "D", rejilla: "R" };
+  const ICONO = { lavarropas: "Lr", inodoro: "I", bidet: "Bd", lavatorio: "L", pileta: "P", banera: "B", termotanque: "TT", anafe: "A", parrilla: "Pa", ducha: "D", rejilla: "R" };
   function dibujarDesagues(g, nivel) {
     const d = S.desagues;
     for (const t of d.tramos.filter((t) => t.nivel === nivel || (nivel === "techos" && t.red === "pluvial" && t.nivel === "techos"))) {
@@ -373,6 +374,56 @@
     }
   }
 
+  /** Esconde líneas del plano importado que caen completas dentro de los recuadros de corrección. */
+  function ocultarDetalle(g, rects) {
+    if (!rects.length) return;
+    for (const path of g.querySelectorAll("path")) {
+      let b;
+      try { b = path.getBBox(); } catch { continue; }
+      if (!b.width && !b.height) continue;
+      if (rects.some(({ rect: [x, y, w, h] }) => b.x >= x && b.y >= y && b.x + b.width <= x + w && b.y + b.height <= y + h)) path.remove();
+    }
+  }
+
+  function dibujarEquipamiento(g, nivel) {
+    for (const m of (S.casa.equipamiento || []).filter((m) => m.nivel === nivel)) {
+      const grupo = el("g", { class: `eq eq-${m.tipo}` }, g);
+      el("title", {}, grupo, m.nombre);
+      if (m.linea) {
+        const [[x1, y1], [x2, y2]] = m.linea;
+        if (m.tipo === "puerta-plegadiza") {
+          const n = m.modulos || 4, pts2 = [];
+          for (let i = 0; i <= n; i++) {
+            const t = i / n;
+            const off = i % 2 ? 18 : 0;
+            pts2.push([x1 + (x2 - x1) * t, y1 + (y2 - y1) * t + off]);
+          }
+          el("polyline", { points: pts(pts2), class: "eq-linea" }, grupo);
+        } else {
+          el("line", { x1, y1, x2, y2, class: m.tipo === "porton" ? "eq-porton" : "eq-linea" }, grupo);
+        }
+        continue;
+      }
+      const [x, y, w, h] = m.rect;
+      el("rect", { x, y, width: w, height: h, rx: m.tipo === "bacha" ? 6 : 2, class: "eq-cuerpo" }, grupo);
+      if (m.tipo === "anafe") {
+        for (const [dx, dy] of [[.28, .28], [.72, .28], [.28, .72], [.72, .72]]) el("circle", { cx: x + w * dx, cy: y + h * dy, r: Math.min(w, h) * .16, class: "eq-linea-f" }, grupo);
+      } else if (m.tipo === "bacha") {
+        el("rect", { x: x + 5, y: y + 5, width: w - 10, height: h - 10, rx: 5, class: "eq-linea-f" }, grupo);
+      } else if (m.tipo === "lavarropas") {
+        el("circle", { cx: x + w / 2, cy: y + h / 2, r: Math.min(w, h) * .32, class: "eq-linea-f" }, grupo);
+      } else if (m.tipo === "parrilla") {
+        for (let i = 1; i < 6; i++) el("line", { x1: x + 8, y1: y + h * i / 6, x2: x + w - 8, y2: y + h * i / 6, class: "eq-linea-f" }, grupo);
+      }
+      const corto = { heladera: "Heladera", horno: "Horno", lavarropas: "", anafe: "", bacha: "", parrilla: "Parrilla", mesa: "Mesa", barra: "Barra" }[m.tipo];
+      const txt = corto ?? (w > 120 || h > 120 ? m.nombre : "");
+      if (txt) {
+        const vertical = h > w * 2.2;
+        el("text", { x: x + w / 2, y: y + h / 2, class: "eq-etq", transform: vertical ? `rotate(-90 ${x + w / 2} ${y + h / 2})` : null }, grupo, txt);
+      }
+    }
+  }
+
   /** Dibuja una planta completa dentro de `svg`. */
   function dibujarPlanta(svg, nivel, opts = {}) {
     svg.innerHTML = "";
@@ -385,7 +436,21 @@
       dibujarAmbientes(el("g", {}, raiz), nivel, !opts.mini);
       if (opts.fase) opts.fase(raiz);
       const s = S.svgs[nivel];
-      if (s) { importar(s.rellenos, "relleno-svg", raiz); importar(s.detalle, "detalle-svg", raiz); importar(s.muros, "muros", raiz); }
+      const corr = (S.casa.correcciones || []).filter((c) => c.nivel === nivel);
+      if (s) {
+        const det = el("g", {}, raiz);
+        importar(s.rellenos, "relleno-svg", det);
+        importar(s.detalle, "detalle-svg", det);
+        ocultarDetalle(det, corr.filter((c) => c.tipo === "ocultar-detalle"));
+        if (capas.muebles !== false && !opts.mini) dibujarEquipamiento(el("g", {}, raiz), nivel);
+        importar(s.muros, "muros", raiz);
+        const g2 = el("g", {}, raiz);
+        for (const c of corr) {
+          const [x, y, w, h] = c.rect;
+          if (c.tipo === "quitar-muro") el("rect", { x, y, width: w, height: h, class: "muro-quitado" }, g2);
+          if (c.tipo === "agregar-muro") el("rect", { x, y, width: w, height: h, class: "muro-agregado" }, g2);
+        }
+      }
     } else {
       dibujarTechos(el("g", {}, raiz));
     }

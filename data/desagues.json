@@ -8,11 +8,11 @@
       "nivel": "pb",
       "ambiente": "cocina",
       "pos": [
-        1057,
-        752
+        1054,
+        812
       ],
       "desague": false,
-      "estado": "plano"
+      "estado": "verificado"
     },
     {
       "id": "pileta-cocina",
@@ -21,11 +21,12 @@
       "nivel": "pb",
       "ambiente": "cocina",
       "pos": [
-        1057,
-        868
+        952,
+        732
       ],
       "desague": "secundario",
-      "estado": "plano"
+      "estado": "verificado",
+      "nota": "Contra el fondo, bajo la ventana. El desagüe está ahí abajo y probablemente se conecta con el lavadero."
     },
     {
       "id": "pileta-lavadero",
@@ -34,11 +35,25 @@
       "nivel": "pb",
       "ambiente": "lavadero",
       "pos": [
-        914,
-        1117
+        986,
+        1113
       ],
       "desague": "secundario",
-      "estado": "plano"
+      "estado": "verificado"
+    },
+    {
+      "id": "lavarropas",
+      "tipo": "lavarropas",
+      "nombre": "Lavarropas",
+      "nivel": "pb",
+      "ambiente": "lavadero",
+      "pos": [
+        911,
+        1113
+      ],
+      "desague": "secundario",
+      "estado": "verificado",
+      "nota": "Bajo la mesada del lavadero."
     },
     {
       "id": "termotanque",
@@ -50,22 +65,22 @@
         1062,
         1100
       ],
-      "desague": false,
-      "estado": "plano",
-      "nota": "Sale por la chimenea CH TT 4\" al techo."
+      "desague": "secundario",
+      "estado": "verificado",
+      "nota": "Sale por la chimenea CH TT 4\" al techo. Según vos, desagota al desagüe del lavadero."
     },
     {
       "id": "lavatorio-pb",
       "tipo": "lavatorio",
-      "nombre": "Lavatorio",
+      "nombre": "Bacha rectangular",
       "nivel": "pb",
       "ambiente": "bano-pb",
       "pos": [
-        914,
-        1169
+        945,
+        1172
       ],
       "desague": "secundario",
-      "estado": "plano"
+      "estado": "verificado"
     },
     {
       "id": "inodoro-pb",
@@ -139,11 +154,11 @@
       "nivel": "pb",
       "ambiente": "quincho",
       "pos": [
-        165,
+        90,
         45
       ],
       "desague": false,
-      "estado": "plano"
+      "estado": "verificado"
     }
   ],
   "ventilaciones": [
@@ -234,6 +249,11 @@
       "id": "sanitario-1998",
       "nombre": "Plano de instalación sanitaria aprobado (1998)",
       "nota": "Es el proyecto original, de antes del quincho, el cerramiento del garage y el entrepiso. Lo que se carga desde este plano queda como 'estimado' hasta verificarlo en obra. Se aplica de a pasos."
+    },
+    {
+      "id": "revision",
+      "nombre": "Relevamiento del propietario (marcas de revisión)",
+      "nota": "Datos corregidos a partir de las marcas hechas sobre el plano."
     }
   ],
   "notas_plano": [
@@ -411,23 +431,19 @@
       "fuente": "sanitario-1998",
       "puntos": [
         [
-          1057,
-          868
+          952,
+          732
         ],
         [
-          1065,
+          952,
           1000
-        ],
-        [
-          990,
-          1060
         ],
         [
           955,
           1075
         ]
       ],
-      "nota": "Desde la pileta de cocina hasta la PPA del lavadero, por el lado de la medianera derecha."
+      "nota": "Desde la pileta de cocina (contra el fondo) hasta la PPA del lavadero. Que se conecta con el lavadero es lo más probable, falta confirmarlo."
     },
     {
       "id": "sec-lavadero",
@@ -439,8 +455,8 @@
       "fuente": "sanitario-1998",
       "puntos": [
         [
-          914,
-          1117
+          986,
+          1113
         ],
         [
           955,
@@ -474,7 +490,7 @@
     },
     {
       "id": "sec-lavatorio-pb",
-      "nombre": "Desagüe del lavatorio (baño PB)",
+      "nombre": "Desagüe de la bacha (baño PB)",
       "red": "secundaria",
       "diametro": "Ø 40–50 mm",
       "nivel": "pb",
@@ -482,8 +498,8 @@
       "fuente": "sanitario-1998",
       "puntos": [
         [
-          914,
-          1169
+          945,
+          1172
         ],
         [
           965,
@@ -633,6 +649,49 @@
         ]
       ],
       "nota": "Al pie de la bajada suele haber una curva con tapa de inspección o una boca de acceso."
+    },
+    {
+      "id": "sec-lavarropas",
+      "nombre": "Desagüe del lavarropas",
+      "red": "secundaria",
+      "diametro": "Ø 40–50 mm",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "revision",
+      "puntos": [
+        [
+          911,
+          1113
+        ],
+        [
+          955,
+          1075
+        ]
+      ]
+    },
+    {
+      "id": "sec-termotanque",
+      "nombre": "Desagote del termotanque",
+      "red": "secundaria",
+      "diametro": "Ø 13–19 mm",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "revision",
+      "puntos": [
+        [
+          1062,
+          1100
+        ],
+        [
+          1000,
+          1068
+        ],
+        [
+          955,
+          1075
+        ]
+      ],
+      "nota": "Válvula de alivio / desagote del termotanque hacia el desagüe del lavadero."
     }
   ],
   "pendiente_relevar": [

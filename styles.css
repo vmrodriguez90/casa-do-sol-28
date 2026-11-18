@@ -381,3 +381,15 @@ tr.cond td { color: var(--ink-2); font-style: italic; }
 .rev-chip { flex: none; display: inline-grid; place-items: center; min-width: 22px; height: 22px; border-radius: 999px; background: #e5484d; color: #fff; font-size: 12px; font-weight: 700; padding: 0 6px; }
 .rev-item.resuelta .rev-chip { background: var(--ok); }
 kbd { font: 12px ui-monospace, monospace; border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; background: var(--surface); }
+
+/* Equipamiento y correcciones del plano */
+.eq-cuerpo { fill: var(--surface); stroke: var(--detail); stroke-width: 1.4; vector-effect: non-scaling-stroke; }
+.eq-mesada .eq-cuerpo, .eq-barra .eq-cuerpo { fill: var(--paving); }
+.eq-heladera .eq-cuerpo { fill: var(--room-wet); }
+.eq-linea-f { fill: none; stroke: var(--detail); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+.eq-linea { fill: none; stroke: var(--detail); stroke-width: 2.5; vector-effect: non-scaling-stroke; }
+.eq-porton { stroke: var(--detail); stroke-width: 6; stroke-dasharray: 22 10; }
+.eq-etq { fill: var(--ink-2); font-size: 14px; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+.eq { pointer-events: none; }
+.muro-quitado { fill: var(--room); }
+.muro-agregado { fill: var(--wall); }

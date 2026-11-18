@@ -1,21 +1,35 @@
 {
   "_ayuda": "Geometría en centímetros. Origen (0,0) = eje medianero izquierdo y eje medianero del fondo. x crece hacia la medianera derecha, y crece hacia la calle (línea municipal en y = 1830). Las plantas, muros y detalle vienen de planos/*.svg (generados con tools/importar_pdf.py). Acá van los ambientes clickeables, zonas exteriores y techos.",
   "nombre": "Casa do Sol",
-  "terreno": { "frente_m": 11.0, "fondo_m": 18.3, "superficie_m2": 201.3 },
+  "terreno": {
+    "frente_m": 11.0,
+    "fondo_m": 18.3,
+    "superficie_m2": 201.3
+  },
   "niveles": [
     {
       "id": "pb",
       "nombre": "Planta baja",
       "corto": "PB",
       "svg": "planos/planta-baja.svg",
-      "viewBox": [-60, -60, 1240, 2330]
+      "viewBox": [
+        -60,
+        -60,
+        1240,
+        2330
+      ]
     },
     {
       "id": "ent",
       "nombre": "Entrepiso",
       "corto": "Entrepiso",
       "svg": "planos/entrepiso.svg",
-      "viewBox": [-60, -60, 1240, 2330],
+      "viewBox": [
+        -60,
+        -60,
+        1240,
+        2330
+      ],
       "fantasma": "pb"
     },
     {
@@ -23,7 +37,12 @@
       "nombre": "Planta alta",
       "corto": "PA",
       "svg": "planos/planta-alta.svg",
-      "viewBox": [-60, -60, 1240, 2330],
+      "viewBox": [
+        -60,
+        -60,
+        1240,
+        2330
+      ],
       "fantasma": "pb"
     },
     {
@@ -31,145 +50,1360 @@
       "nombre": "Techos",
       "corto": "Techos",
       "svg": null,
-      "viewBox": [-60, -60, 1240, 2330],
+      "viewBox": [
+        -60,
+        -60,
+        1240,
+        2330
+      ],
       "fantasma": "pb"
     }
   ],
   "zonas": [
-    { "id": "lote", "nivel": "pb", "tipo": "lote", "nombre": "Lote", "poligono": [[0, 0], [1100, 0], [1100, 1830], [0, 1830]] },
-    { "id": "patio", "nivel": "pb", "tipo": "cesped", "nombre": "Patio (terreno libre, césped)", "poligono": [[330, 15], [1085, 15], [1085, 685], [330, 685]] },
-    { "id": "galeria", "nivel": "pb", "tipo": "solado", "nombre": "Galería (semicubierta)", "poligono": [[330, 685], [650, 685], [650, 805], [330, 805]] },
-    { "id": "frente", "nivel": "pb", "tipo": "solado", "nombre": "Acceso y semicubierto del frente", "poligono": [[15, 1460], [650, 1460], [650, 1620], [1100, 1620], [1100, 1830], [0, 1830], [0, 1460]] },
-    { "id": "vereda", "nivel": "pb", "tipo": "vereda", "nombre": "Vereda (placas cerámicas 46×46)", "poligono": [[0, 1830], [1100, 1830], [1100, 2230], [0, 2230]] },
-    { "id": "cantero-vereda", "nivel": "pb", "tipo": "cesped", "nombre": "Cantero con tilos", "poligono": [[340, 2085], [1100, 2085], [1100, 2230], [340, 2230]] }
+    {
+      "id": "lote",
+      "nivel": "pb",
+      "tipo": "lote",
+      "nombre": "Lote",
+      "poligono": [
+        [
+          0,
+          0
+        ],
+        [
+          1100,
+          0
+        ],
+        [
+          1100,
+          1830
+        ],
+        [
+          0,
+          1830
+        ]
+      ]
+    },
+    {
+      "id": "patio",
+      "nivel": "pb",
+      "tipo": "cesped",
+      "nombre": "Patio (terreno libre, césped)",
+      "poligono": [
+        [
+          330,
+          15
+        ],
+        [
+          1085,
+          15
+        ],
+        [
+          1085,
+          685
+        ],
+        [
+          330,
+          685
+        ]
+      ]
+    },
+    {
+      "id": "galeria",
+      "nivel": "pb",
+      "tipo": "solado",
+      "nombre": "Galería (semicubierta)",
+      "poligono": [
+        [
+          330,
+          685
+        ],
+        [
+          650,
+          685
+        ],
+        [
+          650,
+          805
+        ],
+        [
+          330,
+          805
+        ]
+      ]
+    },
+    {
+      "id": "frente",
+      "nivel": "pb",
+      "tipo": "solado",
+      "nombre": "Acceso y semicubierto del frente",
+      "poligono": [
+        [
+          15,
+          1460
+        ],
+        [
+          650,
+          1460
+        ],
+        [
+          650,
+          1620
+        ],
+        [
+          1100,
+          1620
+        ],
+        [
+          1100,
+          1830
+        ],
+        [
+          0,
+          1830
+        ],
+        [
+          0,
+          1460
+        ]
+      ]
+    },
+    {
+      "id": "vereda",
+      "nivel": "pb",
+      "tipo": "vereda",
+      "nombre": "Vereda (placas cerámicas 46×46)",
+      "poligono": [
+        [
+          0,
+          1830
+        ],
+        [
+          1100,
+          1830
+        ],
+        [
+          1100,
+          2230
+        ],
+        [
+          0,
+          2230
+        ]
+      ]
+    },
+    {
+      "id": "cantero-vereda",
+      "nivel": "pb",
+      "tipo": "cesped",
+      "nombre": "Cantero con tilos",
+      "poligono": [
+        [
+          340,
+          2085
+        ],
+        [
+          1100,
+          2085
+        ],
+        [
+          1100,
+          2230
+        ],
+        [
+          340,
+          2230
+        ]
+      ]
+    }
   ],
   "elementos_exteriores": [
-    { "tipo": "cerco", "nombre": "Cerco de mampostería h 2,00 m", "linea": [[330, 7], [1092, 7], [1092, 685]] },
-    { "tipo": "reja", "nombre": "Rejas metálicas h 1,80 m", "linea": [[380, 1800], [1085, 1800]] },
-    { "tipo": "porton", "nombre": "Acceso vehicular", "linea": [[15, 1800], [380, 1800]] },
-    { "tipo": "arbol", "nombre": "Tilo", "centro": [468, 2160], "radio": 55 },
-    { "tipo": "arbol", "nombre": "Tilo", "centro": [972, 2160], "radio": 55 },
-    { "tipo": "linea-municipal", "nombre": "Línea municipal", "linea": [[-40, 1830], [1140, 1830]] }
+    {
+      "tipo": "cerco",
+      "nombre": "Cerco de mampostería h 2,00 m",
+      "linea": [
+        [
+          330,
+          7
+        ],
+        [
+          1092,
+          7
+        ],
+        [
+          1092,
+          685
+        ]
+      ]
+    },
+    {
+      "tipo": "reja",
+      "nombre": "Rejas metálicas h 1,80 m",
+      "linea": [
+        [
+          380,
+          1800
+        ],
+        [
+          1085,
+          1800
+        ]
+      ]
+    },
+    {
+      "tipo": "porton",
+      "nombre": "Acceso vehicular",
+      "linea": [
+        [
+          15,
+          1800
+        ],
+        [
+          380,
+          1800
+        ]
+      ]
+    },
+    {
+      "tipo": "arbol",
+      "nombre": "Tilo",
+      "centro": [
+        468,
+        2160
+      ],
+      "radio": 55
+    },
+    {
+      "tipo": "arbol",
+      "nombre": "Tilo",
+      "centro": [
+        972,
+        2160
+      ],
+      "radio": 55
+    },
+    {
+      "tipo": "linea-municipal",
+      "nombre": "Línea municipal",
+      "linea": [
+        [
+          -40,
+          1830
+        ],
+        [
+          1140,
+          1830
+        ]
+      ]
+    }
   ],
   "ambientes": [
     {
-      "id": "quincho", "numero": 1, "nombre": "Quincho", "nivel": "pb",
-      "medidas": [3.0, 6.7], "area_m2": 20.1, "cota_piso": "+0.10", "humedo": false,
-      "nota": "Con parrilla y chimenea (0,65 × 0,30).",
-      "poligono": [[15, 15], [315, 15], [315, 685], [15, 685]]
+      "id": "quincho",
+      "numero": 1,
+      "nombre": "Quincho",
+      "nivel": "pb",
+      "medidas": [
+        3.0,
+        6.7
+      ],
+      "area_m2": 20.1,
+      "cota_piso": "+0.10",
+      "humedo": false,
+      "nota": "Parrilla desde la pared izquierda y mesada al lado, contra el fondo. Se comunica con el garage por una puerta de 4 módulos que se abre casi completa.",
+      "poligono": [
+        [
+          15,
+          15
+        ],
+        [
+          315,
+          15
+        ],
+        [
+          315,
+          685
+        ],
+        [
+          15,
+          685
+        ]
+      ]
     },
     {
-      "id": "cocina", "numero": 2, "nombre": "Cocina / comedor diario", "nivel": "pb",
-      "medidas": [4.15, 3.0], "area_m2": 12.45, "cota_piso": "+0.10", "humedo": true,
-      "poligono": [[670, 700], [1085, 700], [1085, 1000], [670, 1000]]
+      "id": "cocina",
+      "numero": 2,
+      "nombre": "Cocina / comedor diario",
+      "nivel": "pb",
+      "medidas": [
+        4.15,
+        3.0
+      ],
+      "area_m2": 12.45,
+      "cota_piso": "+0.10",
+      "humedo": true,
+      "poligono": [
+        [
+          670,
+          700
+        ],
+        [
+          1085,
+          700
+        ],
+        [
+          1085,
+          1000
+        ],
+        [
+          670,
+          1000
+        ]
+      ],
+      "nota": "Mesada en L (contra el fondo y la medianera derecha) con pileta, anafe y horno empotrado. Barra, mesa empotrada y heladera dentro de un mueble de melamina que da la espalda al lavadero."
     },
     {
-      "id": "garage", "numero": 3, "nombre": "Garage", "nivel": "pb",
-      "medidas": [2.6, 7.6], "area_m2": 19.76, "cota_piso": "+0.05", "humedo": false,
-      "poligono": [[15, 700], [275, 700], [275, 1460], [15, 1460]]
+      "id": "garage",
+      "numero": 3,
+      "nombre": "Garage",
+      "nivel": "pb",
+      "medidas": [
+        2.6,
+        7.6
+      ],
+      "area_m2": 19.76,
+      "cota_piso": "+0.05",
+      "humedo": false,
+      "poligono": [
+        [
+          15,
+          700
+        ],
+        [
+          275,
+          700
+        ],
+        [
+          275,
+          1460
+        ],
+        [
+          15,
+          1460
+        ]
+      ]
     },
     {
-      "id": "comedor", "numero": 4, "nombre": "Comedor", "nivel": "pb",
-      "medidas": [2.8, 6.4], "area_m2": 19.76, "cota_piso": "+0.10", "humedo": false,
+      "id": "comedor",
+      "numero": 4,
+      "nombre": "Comedor",
+      "nivel": "pb",
+      "medidas": [
+        2.8,
+        6.4
+      ],
+      "area_m2": 19.76,
+      "cota_piso": "+0.10",
+      "humedo": false,
       "nota": "Incluye la escalera de madera al entrepiso.",
-      "poligono": [[290, 820], [650, 820], [650, 1010], [665, 1010], [665, 1460], [290, 1460]]
+      "poligono": [
+        [
+          290,
+          820
+        ],
+        [
+          650,
+          820
+        ],
+        [
+          650,
+          1010
+        ],
+        [
+          665,
+          1010
+        ],
+        [
+          665,
+          1460
+        ],
+        [
+          290,
+          1460
+        ]
+      ]
     },
     {
-      "id": "lavadero", "numero": 5, "nombre": "Lavadero", "nivel": "pb",
-      "medidas": [2.1, 1.3], "area_m2": 2.73, "cota_piso": "+0.10", "humedo": true,
-      "nota": "Ventilación forzada por conducto 4\". Termotanque (TT).",
-      "poligono": [[875, 1010], [1085, 1010], [1085, 1140], [875, 1140]]
+      "id": "lavadero",
+      "numero": 5,
+      "nombre": "Lavadero",
+      "nivel": "pb",
+      "medidas": [
+        2.1,
+        1.3
+      ],
+      "area_m2": 2.73,
+      "cota_piso": "+0.10",
+      "humedo": true,
+      "nota": "Ventilación forzada por conducto 4\". Mesada con lavarropas, pileta y termotanque. Se entra desde la cocina por dos pasos abiertos, a los costados de la heladera. La puerta al pasillo ya no existe.",
+      "poligono": [
+        [
+          875,
+          1010
+        ],
+        [
+          1085,
+          1010
+        ],
+        [
+          1085,
+          1140
+        ],
+        [
+          875,
+          1140
+        ]
+      ],
+      "etiqueta": [
+        1030,
+        1045
+      ]
     },
     {
-      "id": "bano-pb", "numero": 6, "nombre": "Baño PB", "nivel": "pb",
-      "medidas": [2.1, 1.1], "area_m2": 2.73, "cota_piso": "+0.10", "humedo": true,
-      "nota": "Ventilación forzada por conducto 4\".",
-      "etiqueta": [965, 1232],
-      "poligono": [[875, 1150], [1085, 1150], [1085, 1320], [1015, 1320], [1015, 1260], [875, 1260]]
+      "id": "bano-pb",
+      "numero": 6,
+      "nombre": "Baño PB",
+      "nivel": "pb",
+      "medidas": [
+        2.1,
+        1.1
+      ],
+      "area_m2": 2.73,
+      "cota_piso": "+0.10",
+      "humedo": true,
+      "nota": "Ventilación forzada por conducto 4\". Bacha rectangular ubicada hacia el medio, no pegada a la pared.",
+      "etiqueta": [
+        965,
+        1232
+      ],
+      "poligono": [
+        [
+          875,
+          1150
+        ],
+        [
+          1085,
+          1150
+        ],
+        [
+          1085,
+          1320
+        ],
+        [
+          1015,
+          1320
+        ],
+        [
+          1015,
+          1260
+        ],
+        [
+          875,
+          1260
+        ]
+      ]
     },
     {
-      "id": "estar", "numero": 7, "nombre": "Estar", "nivel": "pb",
-      "medidas": [2.9, 2.7], "area_m2": 6.92, "cota_piso": "+0.10", "humedo": false,
-      "poligono": [[875, 1330], [1085, 1330], [1085, 1600], [795, 1600], [795, 1470], [875, 1470]]
+      "id": "estar",
+      "numero": 7,
+      "nombre": "Habitación (oficina)",
+      "nivel": "pb",
+      "medidas": [
+        2.9,
+        2.7
+      ],
+      "area_m2": 6.92,
+      "cota_piso": "+0.10",
+      "humedo": false,
+      "poligono": [
+        [
+          875,
+          1330
+        ],
+        [
+          1085,
+          1330
+        ],
+        [
+          1085,
+          1600
+        ],
+        [
+          795,
+          1600
+        ],
+        [
+          795,
+          1470
+        ],
+        [
+          875,
+          1470
+        ]
+      ],
+      "nota": "En el plano municipal figura como Estar (local 7). Es una habitación individual; hoy funciona como oficina. Se entra por una puerta en diagonal que va de pared a pared."
     },
     {
-      "id": "circulacion-pb", "numero": null, "nombre": "Circulación y escalera", "nivel": "pb",
-      "medidas": null, "area_m2": null, "cota_piso": "+0.10", "humedo": false,
-      "poligono": [[665, 1010], [865, 1010], [865, 1460], [785, 1460], [785, 1600], [665, 1600]]
+      "id": "circulacion-pb",
+      "numero": null,
+      "nombre": "Circulación y escalera",
+      "nivel": "pb",
+      "medidas": null,
+      "area_m2": null,
+      "cota_piso": "+0.10",
+      "humedo": false,
+      "poligono": [
+        [
+          665,
+          1010
+        ],
+        [
+          865,
+          1010
+        ],
+        [
+          865,
+          1460
+        ],
+        [
+          785,
+          1460
+        ],
+        [
+          785,
+          1600
+        ],
+        [
+          665,
+          1600
+        ]
+      ]
     },
     {
-      "id": "placard-pb", "numero": null, "nombre": "Placard", "nivel": "pb",
-      "medidas": null, "area_m2": null, "cota_piso": "+0.10", "humedo": false,
-      "poligono": [[875, 1270], [1005, 1270], [1005, 1320], [875, 1320]]
+      "id": "placard-pb",
+      "numero": null,
+      "nombre": "Placard",
+      "nivel": "pb",
+      "medidas": null,
+      "area_m2": null,
+      "cota_piso": "+0.10",
+      "humedo": false,
+      "poligono": [
+        [
+          875,
+          1270
+        ],
+        [
+          1005,
+          1270
+        ],
+        [
+          1005,
+          1320
+        ],
+        [
+          875,
+          1320
+        ]
+      ]
     },
     {
-      "id": "entrepiso", "numero": 8, "nombre": "Entrepiso", "nivel": "ent",
-      "medidas": [2.6, 3.4], "area_m2": 8.84, "cota_piso": "+2.45", "humedo": false,
+      "id": "entrepiso",
+      "numero": 8,
+      "nombre": "Entrepiso",
+      "nivel": "ent",
+      "medidas": [
+        2.6,
+        3.4
+      ],
+      "area_m2": 8.84,
+      "cota_piso": "+2.45",
+      "humedo": false,
       "nota": "Entrepiso de madera sobre el garage. Los extremos tienen altura inferior a la reglamentaria (no habitables).",
-      "poligono": [[15, 911], [275, 911], [275, 1251], [15, 1251]]
+      "poligono": [
+        [
+          15,
+          911
+        ],
+        [
+          275,
+          911
+        ],
+        [
+          275,
+          1251
+        ],
+        [
+          15,
+          1251
+        ]
+      ]
     },
     {
-      "id": "entrepiso-nh-fondo", "numero": null, "nombre": "Entrepiso: área no habitable", "nivel": "ent",
-      "medidas": null, "area_m2": null, "cota_piso": "+2.45", "humedo": false,
-      "poligono": [[15, 705], [275, 705], [275, 911], [15, 911]]
+      "id": "entrepiso-nh-fondo",
+      "numero": null,
+      "nombre": "Entrepiso: área no habitable",
+      "nivel": "ent",
+      "medidas": null,
+      "area_m2": null,
+      "cota_piso": "+2.45",
+      "humedo": false,
+      "poligono": [
+        [
+          15,
+          705
+        ],
+        [
+          275,
+          705
+        ],
+        [
+          275,
+          911
+        ],
+        [
+          15,
+          911
+        ]
+      ]
     },
     {
-      "id": "entrepiso-nh-frente", "numero": null, "nombre": "Entrepiso: área no habitable", "nivel": "ent",
-      "medidas": null, "area_m2": null, "cota_piso": "+2.45", "humedo": false,
-      "poligono": [[15, 1251], [275, 1251], [275, 1460], [15, 1460]]
+      "id": "entrepiso-nh-frente",
+      "numero": null,
+      "nombre": "Entrepiso: área no habitable",
+      "nivel": "ent",
+      "medidas": null,
+      "area_m2": null,
+      "cota_piso": "+2.45",
+      "humedo": false,
+      "poligono": [
+        [
+          15,
+          1251
+        ],
+        [
+          275,
+          1251
+        ],
+        [
+          275,
+          1460
+        ],
+        [
+          15,
+          1460
+        ]
+      ]
     },
     {
-      "id": "dormitorio-fondo", "numero": 9, "nombre": "Dormitorio (fondo)", "nivel": "pa",
-      "medidas": [3.7, 3.0], "area_m2": 11.1, "cota_piso": "+2.85", "humedo": false,
-      "poligono": [[665, 700], [1085, 700], [1085, 1000], [665, 1000]]
+      "id": "dormitorio-fondo",
+      "numero": 9,
+      "nombre": "Dormitorio (fondo)",
+      "nivel": "pa",
+      "medidas": [
+        3.7,
+        3.0
+      ],
+      "area_m2": 11.1,
+      "cota_piso": "+2.85",
+      "humedo": false,
+      "poligono": [
+        [
+          665,
+          700
+        ],
+        [
+          1085,
+          700
+        ],
+        [
+          1085,
+          1000
+        ],
+        [
+          665,
+          1000
+        ]
+      ]
     },
     {
-      "id": "bano-pa", "numero": 10, "nombre": "Baño PA", "nivel": "pa",
-      "medidas": [2.1, 3.1], "area_m2": 5.67, "cota_piso": "+2.85", "humedo": true,
+      "id": "bano-pa",
+      "numero": 10,
+      "nombre": "Baño PA",
+      "nivel": "pa",
+      "medidas": [
+        2.1,
+        3.1
+      ],
+      "area_m2": 5.67,
+      "cota_piso": "+2.85",
+      "humedo": true,
       "nota": "Bañera, inodoro, bidet y lavatorio. Ventilación forzada por conducto 4\".",
-      "etiqueta": [955, 1200],
-      "poligono": [[935, 1010], [1085, 1010], [1085, 1320], [875, 1320], [875, 1150], [935, 1150]]
+      "etiqueta": [
+        955,
+        1200
+      ],
+      "poligono": [
+        [
+          935,
+          1010
+        ],
+        [
+          1085,
+          1010
+        ],
+        [
+          1085,
+          1320
+        ],
+        [
+          875,
+          1320
+        ],
+        [
+          875,
+          1150
+        ],
+        [
+          935,
+          1150
+        ]
+      ]
     },
     {
-      "id": "circulacion-pa", "numero": null, "nombre": "Pasillo y escalera", "nivel": "pa",
-      "medidas": null, "area_m2": null, "cota_piso": "+2.85", "humedo": false,
-      "poligono": [[665, 1010], [865, 1010], [865, 1320], [665, 1320]]
+      "id": "circulacion-pa",
+      "numero": null,
+      "nombre": "Pasillo y escalera",
+      "nivel": "pa",
+      "medidas": null,
+      "area_m2": null,
+      "cota_piso": "+2.85",
+      "humedo": false,
+      "poligono": [
+        [
+          665,
+          1010
+        ],
+        [
+          865,
+          1010
+        ],
+        [
+          865,
+          1320
+        ],
+        [
+          665,
+          1320
+        ]
+      ]
     },
     {
-      "id": "placard-pa", "numero": null, "nombre": "Placard", "nivel": "pa",
-      "medidas": null, "area_m2": null, "cota_piso": "+2.85", "humedo": false,
-      "poligono": [[875, 1010], [925, 1010], [925, 1140], [875, 1140]]
+      "id": "placard-pa",
+      "numero": null,
+      "nombre": "Placard",
+      "nivel": "pa",
+      "medidas": null,
+      "area_m2": null,
+      "cota_piso": "+2.85",
+      "humedo": false,
+      "poligono": [
+        [
+          875,
+          1010
+        ],
+        [
+          925,
+          1010
+        ],
+        [
+          925,
+          1140
+        ],
+        [
+          875,
+          1140
+        ]
+      ]
     },
     {
-      "id": "dormitorio-frente", "numero": 11, "nombre": "Dormitorio (frente)", "nivel": "pa",
-      "medidas": [3.7, 2.7], "area_m2": 9.99, "cota_piso": "+2.85", "humedo": false,
-      "poligono": [[665, 1330], [1085, 1330], [1085, 1600], [665, 1600]]
+      "id": "dormitorio-frente",
+      "numero": 11,
+      "nombre": "Dormitorio (frente)",
+      "nivel": "pa",
+      "medidas": [
+        3.7,
+        2.7
+      ],
+      "area_m2": 9.99,
+      "cota_piso": "+2.85",
+      "humedo": false,
+      "poligono": [
+        [
+          665,
+          1330
+        ],
+        [
+          1085,
+          1330
+        ],
+        [
+          1085,
+          1600
+        ],
+        [
+          665,
+          1600
+        ]
+      ]
     }
   ],
   "techos": [
     {
-      "id": "techo-quincho", "nombre": "Techo quincho",
+      "id": "techo-quincho",
+      "nombre": "Techo quincho",
       "material": "Chapa trapezoidal prepintada (zinc/aluminio) sobre estructura de madera",
-      "pendiente": "15%", "escurre": "este",
-      "poligono": [[50, 15], [400, 15], [400, 684], [50, 684]]
+      "pendiente": "15%",
+      "escurre": "este",
+      "poligono": [
+        [
+          50,
+          15
+        ],
+        [
+          400,
+          15
+        ],
+        [
+          400,
+          684
+        ],
+        [
+          50,
+          684
+        ]
+      ]
     },
     {
-      "id": "techo-pb", "nombre": "Techo planta baja (garage, comedor, galería)",
+      "id": "techo-pb",
+      "nombre": "Techo planta baja (garage, comedor, galería)",
       "material": "Chapa trapezoidal prepintada (zinc/aluminio) sobre estructura de madera",
-      "pendiente": "30%", "escurre": "norte-sur", "cumbrera": [[34, 1151], [650, 1151]],
-      "poligono": [[34, 649], [650, 649], [650, 1654], [34, 1654]]
+      "pendiente": "30%",
+      "escurre": "norte-sur",
+      "cumbrera": [
+        [
+          34,
+          1151
+        ],
+        [
+          650,
+          1151
+        ]
+      ],
+      "poligono": [
+        [
+          34,
+          649
+        ],
+        [
+          650,
+          649
+        ],
+        [
+          650,
+          1654
+        ],
+        [
+          34,
+          1654
+        ]
+      ]
     },
     {
-      "id": "techo-pa", "nombre": "Techo planta alta",
+      "id": "techo-pa",
+      "nombre": "Techo planta alta",
       "material": "Chapa trapezoidal prepintada (zinc/aluminio) sobre estructura de madera",
-      "pendiente": "15%", "escurre": "este-oeste", "cumbrera": [[858, 649], [858, 1654]],
-      "poligono": [[616, 649], [1100, 649], [1100, 1654], [616, 1654]]
+      "pendiente": "15%",
+      "escurre": "este-oeste",
+      "cumbrera": [
+        [
+          858,
+          649
+        ],
+        [
+          858,
+          1654
+        ]
+      ],
+      "poligono": [
+        [
+          616,
+          649
+        ],
+        [
+          1100,
+          649
+        ],
+        [
+          1100,
+          1654
+        ],
+        [
+          616,
+          1654
+        ]
+      ]
     }
   ],
   "claraboyas": [
-    { "nombre": "Claraboya de acero galvanizado, vidrio doble (0,80 × 0,40)", "rect": [116, 1180, 60, 84] }
+    {
+      "nombre": "Claraboya de acero galvanizado, vidrio doble (0,80 × 0,40)",
+      "rect": [
+        116,
+        1180,
+        60,
+        84
+      ]
+    }
   ],
   "chimeneas": [
-    { "nombre": "Chimenea parrilla (0,65 × 0,30)", "rect": [173, 25, 55, 25] }
+    {
+      "nombre": "Chimenea parrilla (0,65 × 0,30)",
+      "rect": [
+        173,
+        25,
+        55,
+        25
+      ]
+    }
+  ],
+  "_ayuda_equipamiento": "equipamiento: muebles y artefactos dibujados sobre el plano (rect [x, y, ancho, alto] o linea). correcciones: ajustes sobre el plano importado del PDF. tipo 'quitar-muro' tapa un muro que ya no existe, 'agregar-muro' dibuja uno nuevo y 'ocultar-detalle' esconde líneas sobrantes. 'revision' es el número de la marca que originó el cambio.",
+  "equipamiento": [
+    {
+      "id": "parrilla",
+      "nivel": "pb",
+      "tipo": "parrilla",
+      "nombre": "Parrilla",
+      "rect": [
+        15,
+        15,
+        150,
+        60
+      ],
+      "revision": 1
+    },
+    {
+      "id": "mesada-quincho",
+      "nivel": "pb",
+      "tipo": "mesada",
+      "nombre": "Mesada",
+      "rect": [
+        165,
+        15,
+        150,
+        60
+      ],
+      "revision": 1
+    },
+    {
+      "id": "puerta-quincho-garage",
+      "nivel": "pb",
+      "tipo": "puerta-plegadiza",
+      "nombre": "Puerta de 4 módulos (abre casi completa)",
+      "linea": [
+        [
+          40,
+          692
+        ],
+        [
+          270,
+          692
+        ]
+      ],
+      "modulos": 4,
+      "revision": 22
+    },
+    {
+      "id": "porton-garage",
+      "nivel": "pb",
+      "tipo": "porton",
+      "nombre": "Portón de garage",
+      "linea": [
+        [
+          15,
+          1470
+        ],
+        [
+          275,
+          1470
+        ]
+      ],
+      "revision": 21
+    },
+    {
+      "id": "mesada-cocina-fondo",
+      "nivel": "pb",
+      "tipo": "mesada",
+      "nombre": "Mesada",
+      "rect": [
+        876,
+        700,
+        209,
+        62
+      ],
+      "revision": 12
+    },
+    {
+      "id": "mesada-cocina-lateral",
+      "nivel": "pb",
+      "tipo": "mesada",
+      "nombre": "Mesada / muebles",
+      "rect": [
+        1023,
+        762,
+        62,
+        238
+      ],
+      "revision": 13
+    },
+    {
+      "id": "bacha-cocina",
+      "nivel": "pb",
+      "tipo": "bacha",
+      "nombre": "Pileta de cocina",
+      "rect": [
+        915,
+        712,
+        75,
+        40
+      ],
+      "revision": 11
+    },
+    {
+      "id": "anafe",
+      "nivel": "pb",
+      "tipo": "anafe",
+      "nombre": "Anafe",
+      "rect": [
+        1030,
+        787,
+        48,
+        50
+      ],
+      "revision": 15
+    },
+    {
+      "id": "horno",
+      "nivel": "pb",
+      "tipo": "horno",
+      "nombre": "Horno empotrado",
+      "rect": [
+        1028,
+        864,
+        52,
+        54
+      ],
+      "revision": 14
+    },
+    {
+      "id": "barra-cocina",
+      "nivel": "pb",
+      "tipo": "barra",
+      "nombre": "Barra",
+      "rect": [
+        836,
+        700,
+        40,
+        178
+      ],
+      "revision": 16
+    },
+    {
+      "id": "mesa-cocina",
+      "nivel": "pb",
+      "tipo": "mesa",
+      "nombre": "Mesa empotrada",
+      "rect": [
+        735,
+        790,
+        95,
+        50
+      ],
+      "revision": 17
+    },
+    {
+      "id": "heladera",
+      "nivel": "pb",
+      "tipo": "heladera",
+      "nombre": "Heladera en mueble de melamina",
+      "rect": [
+        932,
+        935,
+        89,
+        65
+      ],
+      "revision": 8
+    },
+    {
+      "id": "mesada-lavadero",
+      "nivel": "pb",
+      "tipo": "mesada",
+      "nombre": "Mesada",
+      "rect": [
+        875,
+        1085,
+        210,
+        55
+      ],
+      "revision": 9
+    },
+    {
+      "id": "lavarropas",
+      "nivel": "pb",
+      "tipo": "lavarropas",
+      "nombre": "Lavarropas",
+      "rect": [
+        882,
+        1088,
+        58,
+        50
+      ],
+      "revision": 4
+    },
+    {
+      "id": "pileta-lavadero",
+      "nivel": "pb",
+      "tipo": "bacha",
+      "nombre": "Pileta de lavadero",
+      "rect": [
+        962,
+        1094,
+        48,
+        38
+      ],
+      "revision": 4
+    },
+    {
+      "id": "bacha-bano-pb",
+      "nivel": "pb",
+      "tipo": "bacha",
+      "nombre": "Bacha rectangular",
+      "rect": [
+        917,
+        1156,
+        56,
+        32
+      ],
+      "revision": 2
+    },
+    {
+      "id": "puerta-oficina",
+      "nivel": "pb",
+      "tipo": "puerta",
+      "nombre": "Puerta en diagonal (de pared a pared)",
+      "linea": [
+        [
+          869,
+          1409
+        ],
+        [
+          801,
+          1466
+        ]
+      ],
+      "revision": 19
+    }
+  ],
+  "correcciones": [
+    {
+      "nivel": "pb",
+      "tipo": "quitar-muro",
+      "rect": [
+        110,
+        15,
+        10,
+        60
+      ],
+      "motivo": "La parrilla va desde la pared",
+      "revision": 1
+    },
+    {
+      "nivel": "pb",
+      "tipo": "quitar-muro",
+      "rect": [
+        210,
+        15,
+        10,
+        60
+      ],
+      "motivo": "La parrilla va desde la pared",
+      "revision": 1
+    },
+    {
+      "nivel": "pb",
+      "tipo": "ocultar-detalle",
+      "rect": [
+        100,
+        12,
+        130,
+        68
+      ],
+      "motivo": "Parrilla redibujada",
+      "revision": 1
+    },
+    {
+      "nivel": "pb",
+      "tipo": "quitar-muro",
+      "rect": [
+        40,
+        684,
+        230,
+        17
+      ],
+      "motivo": "Puerta de 4 módulos entre quincho y garage",
+      "revision": 22
+    },
+    {
+      "nivel": "pb",
+      "tipo": "quitar-muro",
+      "rect": [
+        875,
+        998,
+        57,
+        14
+      ],
+      "motivo": "Paso abierto cocina–lavadero",
+      "revision": 5
+    },
+    {
+      "nivel": "pb",
+      "tipo": "quitar-muro",
+      "rect": [
+        1021,
+        998,
+        64,
+        14
+      ],
+      "motivo": "Paso abierto cocina–lavadero",
+      "revision": 7
+    },
+    {
+      "nivel": "pb",
+      "tipo": "agregar-muro",
+      "rect": [
+        865,
+        1018,
+        10,
+        64
+      ],
+      "motivo": "La puerta del pasillo al lavadero ya no existe",
+      "revision": 6
+    },
+    {
+      "nivel": "pb",
+      "tipo": "ocultar-detalle",
+      "rect": [
+        846,
+        1012,
+        100,
+        75
+      ],
+      "motivo": "Puerta que ya no existe",
+      "revision": 6
+    },
+    {
+      "nivel": "pb",
+      "tipo": "ocultar-detalle",
+      "rect": [
+        1010,
+        824,
+        88,
+        130
+      ],
+      "motivo": "Pileta de cocina mal ubicada",
+      "revision": 10
+    },
+    {
+      "nivel": "pb",
+      "tipo": "ocultar-detalle",
+      "rect": [
+        1022,
+        705,
+        70,
+        95
+      ],
+      "motivo": "Anafe redibujado",
+      "revision": 15
+    },
+    {
+      "nivel": "pb",
+      "tipo": "ocultar-detalle",
+      "rect": [
+        930,
+        950,
+        150,
+        50
+      ],
+      "motivo": "Línea de mesada vieja",
+      "revision": 8
+    },
+    {
+      "nivel": "pb",
+      "tipo": "ocultar-detalle",
+      "rect": [
+        868,
+        1088,
+        160,
+        55
+      ],
+      "motivo": "Artefactos del lavadero redibujados",
+      "revision": 4
+    },
+    {
+      "nivel": "pb",
+      "tipo": "ocultar-detalle",
+      "rect": [
+        868,
+        1150,
+        150,
+        50
+      ],
+      "motivo": "Lavatorio ovalado: es bacha rectangular",
+      "revision": 2
+    },
+    {
+      "nivel": "pb",
+      "tipo": "ocultar-detalle",
+      "rect": [
+        248,
+        1381,
+        173,
+        103
+      ],
+      "motivo": "Líneas de un escalón que no existe",
+      "revision": 20
+    },
+    {
+      "nivel": "pb",
+      "tipo": "ocultar-detalle",
+      "rect": [
+        780,
+        1400,
+        125,
+        75
+      ],
+      "motivo": "Puerta en diagonal redibujada",
+      "revision": 19
+    }
   ]
 }
