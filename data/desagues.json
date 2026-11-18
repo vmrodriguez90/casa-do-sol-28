@@ -97,16 +97,16 @@
     },
     {
       "id": "banera-pa",
-      "tipo": "banera",
-      "nombre": "Bañera",
+      "tipo": "ducha",
+      "nombre": "Ducha con panel",
       "nivel": "pa",
       "ambiente": "bano-pa",
       "pos": [
-        1008,
-        1049
+        1050,
+        1076
       ],
       "desague": "secundario",
-      "estado": "plano"
+      "estado": "verificado"
     },
     {
       "id": "inodoro-pa",
@@ -137,15 +137,15 @@
     {
       "id": "lavatorio-pa",
       "tipo": "lavatorio",
-      "nombre": "Lavatorio",
+      "nombre": "Lavatorio en mesada",
       "nivel": "pa",
       "ambiente": "bano-pa",
       "pos": [
         1058,
-        1203
+        1234
       ],
       "desague": "secundario",
-      "estado": "plano"
+      "estado": "verificado"
     },
     {
       "id": "parrilla",
@@ -755,7 +755,7 @@
     },
     {
       "id": "pa-banera",
-      "nombre": "Desagüe de la bañera",
+      "nombre": "Desagüe de la ducha (PA)",
       "red": "secundaria",
       "diametro": "Ø 40–50 mm",
       "nivel": "pa",
@@ -763,8 +763,12 @@
       "fuente": "sanitario-1998",
       "puntos": [
         [
-          1008,
-          1070
+          1050,
+          1076
+        ],
+        [
+          1030,
+          1150
         ],
         [
           1005,
@@ -783,7 +787,7 @@
       "puntos": [
         [
           1058,
-          1203
+          1234
         ],
         [
           1005,
@@ -1312,15 +1316,15 @@
           1110
         ],
         [
-          1040,
-          1060
+          1055,
+          1090
         ],
         [
-          1008,
-          1055
+          1050,
+          1076
         ]
       ],
-      "nota": "Sube desde el termotanque del lavadero por la pared y alimenta la bañera y el lavatorio."
+      "nota": "Sube desde el termotanque del lavadero por la pared y alimenta la ducha y el lavatorio."
     },
     {
       "id": "sec-ducha-pb",

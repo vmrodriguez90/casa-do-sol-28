@@ -760,7 +760,7 @@
       "area_m2": 5.67,
       "cota_piso": "+2.85",
       "humedo": true,
-      "nota": "Bañera, inodoro, bidet y lavatorio. Ventilación forzada por conducto 4\".",
+      "nota": "Ducha con panel de vidrio contra la medianera, inodoro, bidet y mesada de pared a pared con el lavatorio. Ventilación forzada por conducto 4\".",
       "etiqueta": [
         955,
         1200
@@ -1234,30 +1234,32 @@
       "fijo": true
     },
     {
-      "id": "banera-pa",
+      "id": "mesada-bano-pa",
       "nivel": "pa",
-      "tipo": "banera",
-      "nombre": "Bañera",
+      "tipo": "mesada",
+      "nombre": "Mesada (de pared a pared)",
       "rect": [
-        940,
-        1016,
-        140,
-        63
+        1028,
+        1150,
+        57,
+        170
       ],
-      "fijo": true
+      "fijo": true,
+      "revision": 41
     },
     {
       "id": "lavatorio-pa",
       "nivel": "pa",
       "tipo": "bacha",
-      "nombre": "Lavatorio",
+      "nombre": "Lavatorio en mesada",
       "rect": [
-        1043,
-        1180,
-        40,
-        46
+        1037,
+        1210,
+        42,
+        48
       ],
-      "fijo": true
+      "fijo": true,
+      "revision": 41
     },
     {
       "id": "placard-pb-1",
@@ -1340,6 +1342,30 @@
       ],
       "fijo": true,
       "revision": 38
+    },
+    {
+      "id": "ducha-pa",
+      "nivel": "pa",
+      "tipo": "ducha-panel",
+      "nombre": "Ducha con panel de vidrio",
+      "rect": [
+        1015,
+        1012,
+        70,
+        128
+      ],
+      "panel": [
+        [
+          1015,
+          1012
+        ],
+        [
+          1015,
+          1100
+        ]
+      ],
+      "fijo": true,
+      "revision": 40
     }
   ],
   "correcciones": [

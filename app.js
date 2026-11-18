@@ -562,7 +562,12 @@
       }
       const [x, y, w, h] = m.rect;
       el("rect", { x, y, width: w, height: h, rx: m.tipo === "bacha" ? 6 : m.tipo === "banera" ? 8 : 2, class: "eq-cuerpo" }, grupo);
-      if (m.tipo === "banera") {
+      if (m.tipo === "ducha-panel") {
+        el("line", { x1: x + 6, y1: y + h - 6, x2: x + w - 6, y2: y + 6, class: "eq-linea-f eq-tenue" }, grupo);
+        el("line", { x1: x + 6, y1: y + 6, x2: x + w - 6, y2: y + h - 6, class: "eq-linea-f eq-tenue" }, grupo);
+        el("circle", { cx: x + w / 2, cy: y + h / 2, r: 4, class: "eq-linea-f" }, grupo);
+        if (m.panel) el("line", { x1: m.panel[0][0], y1: m.panel[0][1], x2: m.panel[1][0], y2: m.panel[1][1], class: "eq-vidrio" }, grupo);
+      } else if (m.tipo === "banera") {
         el("rect", { x: x + 7, y: y + 7, width: w - 14, height: h - 14, rx: 14, class: "eq-linea-f" }, grupo);
         el("circle", { cx: x + w - 20, cy: y + h / 2, r: 3, class: "eq-linea-f" }, grupo);
       } else if (m.tipo === "placard") {
@@ -578,7 +583,7 @@
       } else if (m.tipo === "parrilla") {
         for (let i = 1; i < 6; i++) el("line", { x1: x + 8, y1: y + h * i / 6, x2: x + w - 8, y2: y + h * i / 6, class: "eq-linea-f" }, grupo);
       }
-      const corto = { heladera: "Heladera", horno: "Horno", lavarropas: "", anafe: "", bacha: "", parrilla: "Parrilla", mesa: "Mesa", barra: "Barra", banera: "", placard: "PL" }[m.tipo];
+      const corto = { heladera: "Heladera", horno: "Horno", lavarropas: "", anafe: "", bacha: "", parrilla: "Parrilla", mesa: "Mesa", barra: "Barra", banera: "", "ducha-panel": "", placard: "PL" }[m.tipo];
       const txt = corto ?? (w > 120 || h > 120 ? m.nombre : "");
       if (txt) {
         const vertical = h > w * 2.2;
