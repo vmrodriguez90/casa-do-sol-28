@@ -393,3 +393,6 @@ kbd { font: 12px ui-monospace, monospace; border: 1px solid var(--line); border-
 .eq { pointer-events: none; }
 .muro-quitado { fill: var(--room); }
 .muro-agregado { fill: var(--wall); }
+.camara.bajada-pluvial rect { fill: var(--rain); }
+.tramo.pluvial.canaleta { stroke-width: 5; stroke-dasharray: 4 6; }
+.eq-cerrada { stroke: var(--detail); stroke-width: 1.2; stroke-dasharray: 6 5; vector-effect: non-scaling-stroke; }

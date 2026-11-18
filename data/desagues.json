@@ -35,7 +35,7 @@
       "nivel": "pb",
       "ambiente": "lavadero",
       "pos": [
-        986,
+        907,
         1113
       ],
       "desague": "secundario",
@@ -48,7 +48,7 @@
       "nivel": "pb",
       "ambiente": "lavadero",
       "pos": [
-        911,
+        975,
         1113
       ],
       "desague": "secundario",
@@ -63,7 +63,7 @@
       "ambiente": "lavadero",
       "pos": [
         1062,
-        1100
+        1110
       ],
       "desague": "secundario",
       "estado": "verificado",
@@ -282,7 +282,7 @@
     {
       "n": 4,
       "titulo": "Pluviales: bajadas de techo y caño a la calle",
-      "estado": "pendiente"
+      "estado": "aplicado"
     },
     {
       "n": 5,
@@ -372,6 +372,114 @@
       "estado": "estimado",
       "fuente": "sanitario-1998",
       "nota": "Recibe bañera, bidet y lavatorio del baño de planta alta y descarga a la bajada. En planta alta suele ser una tapa ciega en el piso del baño."
+    },
+    {
+      "id": "bp-quincho",
+      "tipo": "bajada-pluvial",
+      "sigla": "BP",
+      "nombre": "Bajada pluvial del techo del quincho",
+      "nivel": "techos",
+      "pos": [
+        400,
+        670
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "nota": "El techo del quincho escurre hacia el patio. La canaleta va del lado del patio y baja cerca de la galería."
+    },
+    {
+      "id": "bp-fondo",
+      "tipo": "bajada-pluvial",
+      "sigla": "BP",
+      "nombre": "Bajada pluvial del fondo (techo PB)",
+      "nivel": "techos",
+      "pos": [
+        640,
+        662
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "nota": "La mitad de atrás del techo de PB (y la mitad oeste del techo de PA, que cae sobre él) escurre hacia la galería."
+    },
+    {
+      "id": "bp-frente",
+      "tipo": "bajada-pluvial",
+      "sigla": "BP",
+      "nombre": "Bajada pluvial del frente (techo PB)",
+      "nivel": "techos",
+      "pos": [
+        613,
+        1640
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "nota": "La mitad de adelante del techo de PB escurre hacia el frente."
+    },
+    {
+      "id": "bp-pa-este",
+      "tipo": "bajada-pluvial",
+      "sigla": "BP",
+      "nombre": "Bajada pluvial del techo PA (lado medianera)",
+      "nivel": "techos",
+      "pos": [
+        1092,
+        1640
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "nota": "El lado este del techo de PA escurre hacia la zinguería de contrapared, contra la medianera derecha, y baja en el frente."
+    },
+    {
+      "id": "bp-quincho-pb",
+      "tipo": "bajada-pluvial",
+      "sigla": "BP",
+      "nombre": "Bajada pluvial del techo del quincho (llegada a PB)",
+      "nivel": "pb",
+      "pos": [
+        400,
+        670
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998"
+    },
+    {
+      "id": "bp-fondo-pb",
+      "tipo": "bajada-pluvial",
+      "sigla": "BP",
+      "nombre": "Bajada pluvial del fondo (techo PB) (llegada a PB)",
+      "nivel": "pb",
+      "pos": [
+        640,
+        690
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998"
+    },
+    {
+      "id": "bp-frente-pb",
+      "tipo": "bajada-pluvial",
+      "sigla": "BP",
+      "nombre": "Bajada pluvial del frente (techo PB) (llegada a PB)",
+      "nivel": "pb",
+      "pos": [
+        613,
+        1640
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998"
+    },
+    {
+      "id": "bp-pa-este-pb",
+      "tipo": "bajada-pluvial",
+      "sigla": "BP",
+      "nombre": "Bajada pluvial del techo PA (lado medianera) (llegada a PB)",
+      "nivel": "pb",
+      "pos": [
+        1092,
+        1640
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998"
     }
   ],
   "tramos": [
@@ -455,7 +563,7 @@
       "fuente": "sanitario-1998",
       "puntos": [
         [
-          986,
+          907,
           1113
         ],
         [
@@ -660,7 +768,7 @@
       "fuente": "revision",
       "puntos": [
         [
-          911,
+          975,
           1113
         ],
         [
@@ -680,11 +788,11 @@
       "puntos": [
         [
           1062,
-          1100
+          1110
         ],
         [
-          1000,
-          1068
+          1010,
+          1072
         ],
         [
           955,
@@ -692,6 +800,165 @@
         ]
       ],
       "nota": "Válvula de alivio / desagote del termotanque hacia el desagüe del lavadero."
+    },
+    {
+      "id": "can-quincho",
+      "tipo": "canaleta",
+      "nombre": "Canaleta del techo del quincho",
+      "red": "pluvial",
+      "nivel": "techos",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          400,
+          20
+        ],
+        [
+          400,
+          670
+        ]
+      ]
+    },
+    {
+      "id": "can-fondo",
+      "tipo": "canaleta",
+      "nombre": "Canaleta del fondo (techo PB)",
+      "red": "pluvial",
+      "nivel": "techos",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          40,
+          652
+        ],
+        [
+          640,
+          652
+        ]
+      ]
+    },
+    {
+      "id": "can-frente",
+      "tipo": "canaleta",
+      "nombre": "Canaleta del frente (techo PB)",
+      "red": "pluvial",
+      "nivel": "techos",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          40,
+          1650
+        ],
+        [
+          613,
+          1650
+        ]
+      ]
+    },
+    {
+      "id": "can-pa-este",
+      "tipo": "canaleta",
+      "nombre": "Zinguería de contrapared (techo PA)",
+      "red": "pluvial",
+      "nivel": "techos",
+      "estado": "plano",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          1095,
+          655
+        ],
+        [
+          1095,
+          1640
+        ]
+      ],
+      "nota": "La zinguería de contrapared figura en la planta de techos del plano conforme a obra."
+    },
+    {
+      "id": "pl-fondo",
+      "nombre": "Colector pluvial del fondo",
+      "red": "pluvial",
+      "diametro": "Ø 100 mm",
+      "pendiente": "1:100",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          400,
+          670
+        ],
+        [
+          400,
+          700
+        ],
+        [
+          613,
+          700
+        ]
+      ],
+      "nota": "En el plano de 1998 hay un caño que junta las bajadas del fondo."
+    },
+    {
+      "id": "pl-principal",
+      "nombre": "Caño pluvial Ø 100 a la calle",
+      "red": "pluvial",
+      "diametro": "Ø 100 mm",
+      "pendiente": "1:100",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          640,
+          690
+        ],
+        [
+          613,
+          700
+        ],
+        [
+          613,
+          1640
+        ],
+        [
+          613,
+          1830
+        ],
+        [
+          613,
+          2230
+        ]
+      ],
+      "nota": "Según el plano de 1998 ('aguas de lluvia a la calle'), corre del fondo al frente por debajo del comedor y sale al cordón de la Calle 28. Es el tramo con menos certeza: confirmalo buscando la salida en el cordón."
+    },
+    {
+      "id": "pl-pa-este",
+      "nombre": "Bajada del techo PA al cordón",
+      "red": "pluvial",
+      "diametro": "Ø 100 mm",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          1092,
+          1640
+        ],
+        [
+          1092,
+          1830
+        ],
+        [
+          1092,
+          2230
+        ]
+      ],
+      "nota": "Probable: baja en el frente, junto a la medianera derecha, y va a la calle por la vereda."
     }
   ],
   "pendiente_relevar": [
@@ -700,7 +967,8 @@
     "¿El lavarropas descarga a la PPA o directo a la pileta de lavadero?",
     "Confirmar por dónde baja el caño del baño de PA (¿pared derecha, junto a la PPC?)",
     "Ver si al pie de la bajada hay tapa de inspección",
-    "Bajadas pluviales de los tres techos y su descarga (patio, vereda, cordón)",
-    "Desagües del quincho y del garage (agregados después del plano de 1998)"
+    "Desagües del quincho y del garage (agregados después del plano de 1998)",
+    "Pluviales: contar cuántas bajadas hay y dónde están (fondo, frente, quincho)",
+    "Pluviales: buscar la salida al cordón en la vereda (¿una o dos?)"
   ]
 }

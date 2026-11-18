@@ -445,7 +445,7 @@
       "area_m2": 2.73,
       "cota_piso": "+0.10",
       "humedo": true,
-      "nota": "Ventilación forzada por conducto 4\". Mesada con lavarropas, pileta y termotanque. Se entra desde la cocina por dos pasos abiertos, a los costados de la heladera. La puerta al pasillo ya no existe.",
+      "nota": "Ventilación forzada por conducto 4\". Mesada contra el fondo con, en orden: pileta, lavarropas y termotanque contra la pared. Está abierto hacia la cocina (dos pasos a los costados de la heladera) y hacia el pasillo. La pared del lado del pasillo solo existe a lo largo de la mesada.",
       "poligono": [
         [
           875,
@@ -1031,7 +1031,8 @@
         ]
       ],
       "modulos": 4,
-      "revision": 22
+      "revision": 26,
+      "abre": 1
     },
     {
       "id": "porton-garage",
@@ -1173,12 +1174,12 @@
       "tipo": "lavarropas",
       "nombre": "Lavarropas",
       "rect": [
-        882,
+        945,
         1088,
-        58,
+        60,
         50
       ],
-      "revision": 4
+      "revision": 23
     },
     {
       "id": "pileta-lavadero",
@@ -1186,12 +1187,12 @@
       "tipo": "bacha",
       "nombre": "Pileta de lavadero",
       "rect": [
-        962,
+        882,
         1094,
-        48,
+        50,
         38
       ],
-      "revision": 4
+      "revision": 23
     },
     {
       "id": "bacha-bano-pb",
@@ -1222,6 +1223,24 @@
         ]
       ],
       "revision": 19
+    },
+    {
+      "id": "puerta-pasillo",
+      "nivel": "pb",
+      "tipo": "puerta-batiente",
+      "nombre": "Puerta del pasillo",
+      "linea": [
+        [
+          777,
+          1110
+        ],
+        [
+          863,
+          1110
+        ]
+      ],
+      "abre": 1,
+      "revision": 24
     }
   ],
   "correcciones": [
@@ -1296,18 +1315,6 @@
       ],
       "motivo": "Paso abierto cocina–lavadero",
       "revision": 7
-    },
-    {
-      "nivel": "pb",
-      "tipo": "agregar-muro",
-      "rect": [
-        865,
-        1018,
-        10,
-        64
-      ],
-      "motivo": "La puerta del pasillo al lavadero ya no existe",
-      "revision": 6
     },
     {
       "nivel": "pb",
@@ -1404,6 +1411,42 @@
       ],
       "motivo": "Puerta en diagonal redibujada",
       "revision": 19
+    },
+    {
+      "nivel": "pb",
+      "tipo": "quitar-muro",
+      "rect": [
+        850,
+        998,
+        26,
+        14
+      ],
+      "motivo": "La pared cocina–lavadero termina antes del pasillo",
+      "revision": 25
+    },
+    {
+      "nivel": "pb",
+      "tipo": "quitar-muro",
+      "rect": [
+        864,
+        1008,
+        12,
+        77
+      ],
+      "motivo": "La pared del lavadero empieza donde arranca la mesada",
+      "revision": 25
+    },
+    {
+      "nivel": "pb",
+      "tipo": "ocultar-detalle",
+      "rect": [
+        775,
+        900,
+        112,
+        165
+      ],
+      "motivo": "Puerta entre cocina y pasillo que no existe",
+      "revision": 25
     }
   ]
 }

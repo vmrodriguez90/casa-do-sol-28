@@ -314,7 +314,7 @@
     const d = S.desagues;
     for (const t of d.tramos.filter((t) => t.nivel === nivel || (nivel === "techos" && t.red === "pluvial" && t.nivel === "techos"))) {
       const sel = S.sel?.tipo === "tramo" && S.sel.id === t.id;
-      el("polyline", { points: pts(t.puntos), class: `tramo ${t.red} ${t.estado}${sel ? " sel" : ""}` }, g);
+      el("polyline", { points: pts(t.puntos), class: `tramo ${t.red} ${t.estado} ${t.tipo || ""}${sel ? " sel" : ""}` }, g);
       const hit = el("polyline", { points: pts(t.puntos), class: "tramo-hit", "data-tramo": t.id }, g);
       el("title", {}, hit, t.nombre);
       // flecha de sentido de escurrimiento en el último segmento
@@ -323,11 +323,11 @@
       el("path", { d: "M-14,-11 L10,0 L-14,11 Z", class: `tramo-flecha ${t.red}`, transform: `translate(${(a[0] + b[0]) / 2},${(a[1] + b[1]) / 2}) rotate(${ang})` }, g);
     }
     for (const c of d.camaras.filter((c) => c.nivel === nivel)) {
-      const bajada = c.tipo === "bajada";
+      const bajada = (c.tipo || "").startsWith("bajada");
       const chica = bajada || (c.tipo || "").startsWith("pileta");
       const r = bajada ? 15 : chica ? 17 : 22;
       const sel = S.sel?.tipo === "cam" && S.sel.id === c.id;
-      const n = el("g", { class: `camara ${c.estado}${chica ? " pp" : ""}${bajada ? " bajada" : ""}${sel ? " sel" : ""}`, "data-cam": c.id }, g);
+      const n = el("g", { class: `camara ${c.estado}${chica ? " pp" : ""}${bajada ? " bajada " + c.tipo : ""}${sel ? " sel" : ""}`, "data-cam": c.id }, g);
       el("rect", { x: c.pos[0] - r, y: c.pos[1] - r, width: 2 * r, height: 2 * r, rx: chica ? r : 4 }, n);
       el("text", { x: c.pos[0], y: c.pos[1], style: chica ? "font-size:11px" : null }, n, c.sigla || "CI");
       el("title", {}, n, c.nombre);
@@ -391,14 +391,30 @@
       el("title", {}, grupo, m.nombre);
       if (m.linea) {
         const [[x1, y1], [x2, y2]] = m.linea;
-        if (m.tipo === "puerta-plegadiza") {
-          const n = m.modulos || 4, pts2 = [];
-          for (let i = 0; i <= n; i++) {
-            const t = i / n;
-            const off = i % 2 ? 18 : 0;
-            pts2.push([x1 + (x2 - x1) * t, y1 + (y2 - y1) * t + off]);
+        if (m.tipo === "puerta-batiente") {
+          // hoja abierta a 90° desde la bisagra (x1,y1) + arco de barrido
+          const L = Math.hypot(x2 - x1, y2 - y1), sgn = m.abre || 1;
+          const ox = x1 - (y2 - y1) * sgn, oy = y1 + (x2 - x1) * sgn;
+          el("line", { x1, y1, x2: ox, y2: oy, class: "eq-linea" }, grupo);
+          el("path", { d: `M${x2},${y2} A${L},${L} 0 0 ${sgn > 0 ? 1 : 0} ${ox},${oy}`, class: "eq-linea-f" }, grupo);
+        } else if (m.tipo === "puerta-plegadiza") {
+          // hojas plegadizas: la mitad pliega contra cada jamba, dibujadas entreabiertas a 60°
+          const n = m.modulos || 4, porLado = Math.max(1, Math.round(n / 2));
+          const L = Math.hypot(x2 - x1, y2 - y1), ux = (x2 - x1) / L, uy = (y2 - y1) / L;
+          const hoja = L / n, sgn = m.abre || 1, ang = Math.PI / 3;
+          const nx = -uy * sgn, ny = ux * sgn;
+          el("line", { x1, y1, x2, y2, class: "eq-cerrada" }, grupo);
+          for (const [sx, sy, dir] of [[x1, y1, 1], [x2, y2, -1]]) {
+            const pts2 = [[sx, sy]];
+            let cx = sx, cy = sy;
+            for (let i = 0; i < porLado; i++) {
+              const out = i % 2 === 0 ? 1 : -1;
+              cx += dir * ux * hoja * Math.cos(ang) + nx * hoja * Math.sin(ang) * out;
+              cy += dir * uy * hoja * Math.cos(ang) + ny * hoja * Math.sin(ang) * out;
+              pts2.push([cx, cy]);
+            }
+            el("polyline", { points: pts(pts2), class: "eq-linea" }, grupo);
           }
-          el("polyline", { points: pts(pts2), class: "eq-linea" }, grupo);
         } else {
           el("line", { x1, y1, x2, y2, class: m.tipo === "porton" ? "eq-porton" : "eq-linea" }, grupo);
         }
