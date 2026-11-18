@@ -13,6 +13,7 @@
     sel: null,           // {tipo:'amb'|'art'|'vent', id}
     resaltar: null,      // id de ambiente pedido por URL
     fase: "actual",
+    rev: { on: false, notas: [], marcando: false, borrador: null },
     view: { x: 0, y: 0, w: 0, h: 0 },
   };
 
@@ -78,12 +79,15 @@
       mostrarError(err.message);
       return;
     }
+    await cargarRevision();
+    if (S.rev.on) { CAPAS.push(["revision", "Marcas de revisión"]); S.capas.revision = true; }
     S.capas = Object.assign(S.capas, store.get("capas", {}));
     S.nivel = store.get("nivel", "pb");
     if (!S.casa.niveles.some((n) => n.id === S.nivel)) S.nivel = "pb";
     armarControles();
     armarZoom();
     armarTema();
+    armarRevision();
     window.addEventListener("hashchange", ruta);
     ruta();
   }
@@ -318,10 +322,11 @@
       el("path", { d: "M-14,-11 L10,0 L-14,11 Z", class: `tramo-flecha ${t.red}`, transform: `translate(${(a[0] + b[0]) / 2},${(a[1] + b[1]) / 2}) rotate(${ang})` }, g);
     }
     for (const c of d.camaras.filter((c) => c.nivel === nivel)) {
-      const chica = (c.tipo || "").startsWith("pileta");
-      const r = chica ? 17 : 22;
+      const bajada = c.tipo === "bajada";
+      const chica = bajada || (c.tipo || "").startsWith("pileta");
+      const r = bajada ? 15 : chica ? 17 : 22;
       const sel = S.sel?.tipo === "cam" && S.sel.id === c.id;
-      const n = el("g", { class: `camara ${c.estado}${chica ? " pp" : ""}${sel ? " sel" : ""}`, "data-cam": c.id }, g);
+      const n = el("g", { class: `camara ${c.estado}${chica ? " pp" : ""}${bajada ? " bajada" : ""}${sel ? " sel" : ""}`, "data-cam": c.id }, g);
       el("rect", { x: c.pos[0] - r, y: c.pos[1] - r, width: 2 * r, height: 2 * r, rx: chica ? r : 4 }, n);
       el("text", { x: c.pos[0], y: c.pos[1], style: chica ? "font-size:11px" : null }, n, c.sigla || "CI");
       el("title", {}, n, c.nombre);
@@ -389,6 +394,7 @@
     if (capas.proyectos) dibujarProyectos(el("g", {}, raiz), nivel);
     if (capas.etiquetas && nivel !== "techos") dibujarEtiquetas(el("g", {}, raiz), nivel);
     if (capas.desagues) dibujarDesagues(el("g", {}, raiz), nivel);
+    if (S.rev.on && (capas.revision || S.rev.borrador)) dibujarRevision(el("g", {}, raiz), nivel);
   }
 
   // ---------- plano interactivo ----------
@@ -426,7 +432,15 @@
 
     const punteros = new Map();
     let arrastre = null, pinch = null, movido = false;
+    let trazo = null;
     svg.addEventListener("pointerdown", (e) => {
+      if (S.rev.marcando && punteros.size === 0) {
+        const p0 = aSVG(e.clientX, e.clientY);
+        trazo = { x0: p0.x, y0: p0.y, nodo: el("rect", { class: "rev-temp", x: p0.x, y: p0.y, width: 0, height: 0 }, svg) };
+        svg.setPointerCapture(e.pointerId);
+        movido = true;
+        return;
+      }
       punteros.set(e.pointerId, { x: e.clientX, y: e.clientY });
       movido = false;
       if (punteros.size === 1) arrastre = { x: e.clientX, y: e.clientY, view: { ...S.view } };
@@ -437,6 +451,14 @@
       }
     });
     svg.addEventListener("pointermove", (e) => {
+      if (trazo) {
+        const p1 = aSVG(e.clientX, e.clientY);
+        const x = Math.min(trazo.x0, p1.x), y = Math.min(trazo.y0, p1.y);
+        Object.assign(trazo, { x, y, w: Math.abs(p1.x - trazo.x0), h: Math.abs(p1.y - trazo.y0) });
+        trazo.nodo.setAttribute("x", x); trazo.nodo.setAttribute("y", y);
+        trazo.nodo.setAttribute("width", trazo.w); trazo.nodo.setAttribute("height", trazo.h);
+        return;
+      }
       if (!punteros.has(e.pointerId)) return;
       punteros.set(e.pointerId, { x: e.clientX, y: e.clientY });
       const rect = svg.getBoundingClientRect();
@@ -455,6 +477,12 @@
       }
     });
     const fin = (e) => {
+      if (trazo) {
+        const t = trazo; trazo = null;
+        t.nodo.remove();
+        if ((t.w || 0) > 15 && (t.h || 0) > 15) terminarMarca([t.x, t.y, t.w, t.h].map((v) => Math.round(v)));
+        return;
+      }
       punteros.delete(e.pointerId);
       if (punteros.size < 2) pinch = null;
       if (punteros.size === 0) { arrastre = null; svg.classList.remove("dragging"); }
@@ -464,8 +492,9 @@
 
     svg.addEventListener("click", (e) => {
       if (movido) return;
-      const t = e.target.closest("[data-amb],[data-art],[data-vent],[data-tramo],[data-cam]");
+      const t = e.target.closest("[data-rev],[data-amb],[data-art],[data-vent],[data-tramo],[data-cam]");
       if (!t) { S.sel = null; }
+      else if (t.dataset.rev) S.sel = { tipo: "rev", id: t.dataset.rev };
       else if (t.dataset.art) S.sel = { tipo: "art", id: t.dataset.art };
       else if (t.dataset.tramo) S.sel = { tipo: "tramo", id: t.dataset.tramo };
       else if (t.dataset.cam) S.sel = { tipo: "cam", id: t.dataset.cam };
@@ -479,6 +508,7 @@
       const z = e.target.closest("button")?.dataset.zoom;
       if (!z) return;
       const v = S.view;
+      if (z === "marcar") { modoMarcar(!S.rev.marcando); return; }
       if (z === "reset") renderPlano(true);
       else zoomEn(z === "in" ? 0.75 : 1.33, v.x + v.w / 2, v.y + v.h / 2);
     });
@@ -493,6 +523,7 @@
     const box = $("#detalle");
     const s = S.sel;
     if (!s) { box.innerHTML = `<p class="muted">Tocá un ambiente o un artefacto para ver sus datos.</p>`; return; }
+    if (s.tipo === "rev") { detalleRevision(box, s.id); return; }
     if (s.tipo === "amb") {
       const a = ambiente(s.id);
       if (!a) { box.innerHTML = ""; return; }
@@ -533,6 +564,182 @@
         ${x.nota ? `<p>${esc(x.nota)}</p>` : ""}
         <p class="muted" style="font-size:13px">La posición es aproximada. Para corregirla, editá <code>data/desagues.json</code>.</p>`;
     }
+  }
+
+  // ---------- revisión (solo local, con tools/servidor.py) ----------
+  async function cargarRevision() {
+    if (!/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)) return;
+    try {
+      const r = await fetch("api/revision", { cache: "no-store" });
+      if (!r.ok) return;
+      S.rev.notas = (await r.json()).notas || [];
+      S.rev.on = true;
+    } catch { /* servidor sin API: modo solo lectura */ }
+  }
+  async function api(metodo, ruta, cuerpo) {
+    const r = await fetch(ruta, { method: metodo, headers: { "Content-Type": "application/json" }, body: cuerpo ? JSON.stringify(cuerpo) : undefined });
+    if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || r.status);
+    return r.json();
+  }
+  async function recargarRevision() {
+    S.rev.notas = (await api("GET", "api/revision")).notas || [];
+    renderRevisionPanel();
+    renderPlano(false);
+    renderDetalle();
+  }
+
+  function armarRevision() {
+    if (!S.rev.on) return;
+    $('[data-zoom="marcar"]').hidden = false;
+    $("#revision").hidden = false;
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && (S.rev.marcando || S.rev.borrador)) { S.rev.borrador = null; modoMarcar(false); renderRevisionPanel(); renderPlano(false); }
+    });
+    $("#revision").addEventListener("click", async (e) => {
+      const b = e.target.closest("[data-accion]");
+      if (!b) return;
+      const acc = b.dataset.accion;
+      if (acc === "marcar") modoMarcar(true);
+      else if (acc === "cancelar") { S.rev.borrador = null; renderRevisionPanel(); renderPlano(false); }
+      else if (acc === "guardar") {
+        const texto = $("#rev-texto").value.trim();
+        if (!texto) { $("#rev-texto").focus(); return; }
+        b.disabled = true;
+        try {
+          const nota = await api("POST", "api/revision", { ...S.rev.borrador, texto, contexto: contextoDe(S.rev.borrador) });
+          S.rev.borrador = null;
+          S.sel = { tipo: "rev", id: nota.id };
+          await recargarRevision();
+        } catch (err) { b.disabled = false; alert("No se pudo guardar: " + err.message); }
+      } else if (acc === "ir") irANota(b.dataset.id);
+    });
+    renderRevisionPanel();
+  }
+
+  function modoMarcar(on) {
+    S.rev.marcando = on;
+    $("#plano").classList.toggle("marcando", on);
+    $('[data-zoom="marcar"]').setAttribute("aria-pressed", String(on));
+    renderRevisionPanel();
+  }
+
+  function terminarMarca(rect) {
+    S.rev.borrador = { nivel: S.nivel, rect };
+    modoMarcar(false);
+    renderPlano(false);
+    renderRevisionPanel();
+    const t = $("#rev-texto");
+    if (t) { t.focus(); t.scrollIntoView({ block: "nearest", behavior: "smooth" }); }
+  }
+
+  /** Lo que hay dentro del recuadro, para que la nota tenga contexto al leerla después. */
+  function contextoDe({ nivel, rect: [x, y, w, h] }) {
+    const dentro = ([px, py]) => px >= x && px <= x + w && py >= y && py <= y + h;
+    const cruza = (poly) => { const b = bbox(poly); return b.x0 < x + w && b.x1 > x && b.y0 < y + h && b.y1 > y; };
+    const d = S.desagues;
+    const enNivel = (o) => o.nivel === nivel;
+    return {
+      nivel_nombre: nivelNombre(nivel),
+      ambientes: S.casa.ambientes.filter((a) => enNivel(a) && cruza(a.poligono)).map((a) => a.id),
+      artefactos: d.artefactos.filter((o) => enNivel(o) && dentro(o.pos)).map((o) => o.id),
+      camaras: d.camaras.filter((o) => enNivel(o) && dentro(o.pos)).map((o) => o.id),
+      ventilaciones: d.ventilaciones.filter((o) => enNivel(o) && dentro(o.pos)).map((o) => o.id),
+      tramos: d.tramos.filter((o) => enNivel(o) && o.puntos.some(dentro)).map((o) => o.id),
+      proyectos: S.proyectos.proyectos.filter((p) => (p.overlay || []).some((o) => enNivel(o) && cruza(o.puntos))).map((p) => p.id),
+      capas_visibles: Object.keys(S.capas).filter((k) => S.capas[k]),
+    };
+  }
+
+  function dibujarRevision(g, nivel) {
+    for (const n of S.rev.notas.filter((n) => n.nivel === nivel)) {
+      const [x, y, w, h] = n.rect;
+      const sel = S.sel?.tipo === "rev" && S.sel.id === n.id;
+      const grupo = el("g", { class: `rev ${n.estado}${sel ? " sel" : ""}`, "data-rev": n.id }, g);
+      el("rect", { x, y, width: w, height: h, class: "rev-box" }, grupo);
+      el("circle", { cx: x, cy: y, r: 20, class: "rev-badge" }, grupo);
+      el("text", { x, y, class: "rev-n" }, grupo, n.n);
+      el("title", {}, grupo, n.texto);
+    }
+    const b = S.rev.borrador;
+    if (b && b.nivel === nivel) el("rect", { x: b.rect[0], y: b.rect[1], width: b.rect[2], height: b.rect[3], class: "rev-temp" }, g);
+  }
+
+  function renderRevisionPanel() {
+    const box = $("#revision");
+    if (!S.rev.on) return;
+    const abiertas = S.rev.notas.filter((n) => n.estado !== "resuelta");
+    const resueltas = S.rev.notas.filter((n) => n.estado === "resuelta");
+    const item = (n) => `<li><button type="button" data-accion="ir" data-id="${n.id}" class="rev-item ${n.estado}">
+        <span class="rev-chip">${n.n}</span><span><span class="muted">${esc(nivelNombre(n.nivel))} · </span>${esc(n.texto.length > 80 ? n.texto.slice(0, 80) + "…" : n.texto)}</span></button></li>`;
+    let h = `<h2 class="label">Revisión <span class="muted" style="text-transform:none;letter-spacing:0">· solo local</span></h2>`;
+    if (S.rev.borrador) {
+      h += `<p style="margin:0 0 6px;font-size:13px"><strong>¿Qué está mal en este recuadro?</strong> <span class="muted">(${esc(nivelNombre(S.rev.borrador.nivel))})</span></p>
+        <textarea id="rev-texto" rows="4" placeholder="Ej.: la pileta de patio está del otro lado del baño, al lado de la puerta"></textarea>
+        <div class="rev-acciones"><button type="button" class="btn primario" data-accion="guardar">Guardar marca</button><button type="button" class="btn" data-accion="cancelar">Cancelar</button></div>`;
+    } else if (S.rev.marcando) {
+      h += `<p class="aviso" style="margin:0">Arrastrá sobre el plano para dibujar un recuadro. <kbd>Esc</kbd> para cancelar.</p>`;
+    } else {
+      h += `<button type="button" class="btn primario" data-accion="marcar" style="width:100%">✎ Marcar un error en el plano</button>`;
+    }
+    if (abiertas.length) h += `<p class="t-grupo">Abiertas (${abiertas.length})</p><ul class="rev-lista">${abiertas.map(item).join("")}</ul>`;
+    if (resueltas.length) h += `<details><summary class="t-grupo" style="cursor:pointer">Resueltas (${resueltas.length})</summary><ul class="rev-lista">${resueltas.map(item).join("")}</ul></details>`;
+    if (!S.rev.notas.length && !S.rev.borrador) h += `<p class="muted" style="font-size:13px;margin:8px 0 0">Las marcas se guardan en <code>revision/notas.json</code>. Después pedime "tomá las marcas" y las reviso.</p>`;
+    box.innerHTML = h;
+  }
+
+  function irANota(id) {
+    const n = S.rev.notas.find((x) => x.id === id);
+    if (!n) return;
+    S.sel = { tipo: "rev", id };
+    if (S.nivel !== n.nivel) { S.nivel = n.nivel; store.set("nivel", S.nivel); history.replaceState(null, "", `#plano/${S.nivel}`); renderNiveles(); }
+    const [x, y, w, h] = n.rect;
+    const m = Math.max(w, h) * 1.2 + 200;
+    const rect = $("#plano").getBoundingClientRect();
+    const ratio = rect.height / rect.width || 1;
+    const vw = Math.max(m, m / ratio), vh = vw * ratio;
+    S.view = { x: x + w / 2 - vw / 2, y: y + h / 2 - vh / 2, w: vw, h: vh };
+    renderPlano(false);
+    renderDetalle();
+  }
+
+  function detalleRevision(box, id) {
+    const n = S.rev.notas.find((x) => x.id === id);
+    if (!n) { box.innerHTML = ""; return; }
+    const c = n.contexto || {};
+    const nombres = (ids, lista, campo = "nombre") => (ids || []).map((i) => lista.find((o) => o.id === i)?.[campo] || i);
+    const cosas = [
+      ...nombres(c.ambientes, S.casa.ambientes),
+      ...nombres(c.artefactos, S.desagues.artefactos),
+      ...nombres(c.camaras, S.desagues.camaras),
+      ...nombres(c.tramos, S.desagues.tramos),
+      ...nombres(c.proyectos, S.proyectos.proyectos),
+    ];
+    box.innerHTML = `
+      <h3><span class="rev-chip">${n.n}</span> Marca de revisión</h3>
+      <span class="muted">${esc(nivelNombre(n.nivel))} · ${esc(n.creada.replace("T", " "))} · ${n.estado === "resuelta" ? "resuelta" : "abierta"}</span>
+      <p style="white-space:pre-wrap">${esc(n.texto)}</p>
+      ${n.respuesta ? `<p class="aviso" style="border-left-color:var(--ok)"><strong>Respuesta:</strong> ${esc(n.respuesta)}</p>` : ""}
+      ${cosas.length ? `<p class="muted" style="font-size:12px;margin:6px 0">Dentro del recuadro: ${cosas.map(esc).join(", ")}</p>` : ""}
+      <textarea id="rev-edit" rows="3">${esc(n.texto)}</textarea>
+      <div class="rev-acciones">
+        <button type="button" class="btn" data-rev-acc="editar">Guardar texto</button>
+        <button type="button" class="btn" data-rev-acc="estado">${n.estado === "resuelta" ? "Reabrir" : "Marcar resuelta"}</button>
+        <button type="button" class="btn peligro" data-rev-acc="borrar">Borrar</button>
+      </div>`;
+    box.onclick = async (e) => {
+      const acc = e.target.closest("[data-rev-acc]")?.dataset.revAcc;
+      if (!acc) return;
+      try {
+        if (acc === "editar") await api("PUT", `api/revision/${n.id}`, { texto: $("#rev-edit").value.trim() || n.texto });
+        if (acc === "estado") await api("PUT", `api/revision/${n.id}`, { estado: n.estado === "resuelta" ? "abierta" : "resuelta" });
+        if (acc === "borrar") {
+          if (!confirm(`¿Borrar la marca ${n.n}?`)) return;
+          await api("DELETE", `api/revision/${n.id}`);
+          S.sel = null;
+        }
+        await recargarRevision();
+      } catch (err) { alert("No se pudo guardar: " + err.message); }
+    };
   }
 
   // ---------- fases ----------

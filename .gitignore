@@ -5,3 +5,6 @@ privado/
 .DS_Store
 __pycache__/
 .claude/
+
+# Marcas de revisión locales (tools/servidor.py)
+revision/

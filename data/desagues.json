@@ -155,7 +155,9 @@
         1095,
         1137
       ],
-      "estado": "plano"
+      "estado": "plano",
+      "nota": "Remate de la bajada cloacal del baño de planta alta. Según las notas del plano, sale a la altura reglamentaria.",
+      "fuente": "sanitario-1998"
     },
     {
       "id": "cv-2",
@@ -165,7 +167,9 @@
         1095,
         1160
       ],
-      "estado": "plano"
+      "estado": "plano",
+      "nota": "Probable ventilación del ramal de planta baja (lavadero y cocina), que sube por la misma pared.",
+      "fuente": "sanitario-1998"
     },
     {
       "id": "ch-tt",
@@ -175,7 +179,9 @@
         1095,
         1114
       ],
-      "estado": "plano"
+      "estado": "plano",
+      "nota": "Conducto de humos del termotanque del lavadero. Sube recto por la pared derecha hasta el techo.",
+      "fuente": "sanitario-1998"
     },
     {
       "id": "vf-lavadero",
@@ -209,6 +215,18 @@
         1135
       ],
       "estado": "plano"
+    },
+    {
+      "id": "ch-tt-pa",
+      "nombre": "Conducto del termotanque (pasa por PA)",
+      "nivel": "pa",
+      "pos": [
+        1075,
+        1105
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "nota": "Tramo vertical de la chimenea del termotanque, que viene del lavadero y atraviesa la planta alta embutido en la pared derecha."
     }
   ],
   "fuentes": [
@@ -239,7 +257,7 @@
     {
       "n": 3,
       "titulo": "Planta alta: bajada del baño y caños de ventilación",
-      "estado": "pendiente"
+      "estado": "aplicado"
     },
     {
       "n": 4,
@@ -292,6 +310,48 @@
       "estado": "estimado",
       "fuente": "sanitario-1998",
       "nota": "Estimada por criterio habitual: en los baños el lavatorio (y la ducha o bañera) descarga a una pileta de patio cerrada, que va a la principal. Puede ser una tapa ciega o una rejilla en el piso del baño."
+    },
+    {
+      "id": "bc-pa",
+      "tipo": "bajada",
+      "sigla": "BC",
+      "nombre": "Bajada cloacal Ø 100 (arranque en PA)",
+      "nivel": "pa",
+      "pos": [
+        1075,
+        1162
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "nota": "Caño vertical que baja por la pared de la medianera derecha, debajo de los caños de ventilación (CV) que se ven en el techo. Recibe el inodoro y la pileta de patio del baño de planta alta."
+    },
+    {
+      "id": "bc-pb",
+      "tipo": "bajada",
+      "sigla": "BC",
+      "nombre": "Bajada cloacal Ø 100 (llegada a PB)",
+      "nivel": "pb",
+      "pos": [
+        1075,
+        1162
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "nota": "La misma bajada del baño de planta alta, ya en planta baja. Empalma con la cañería principal a la altura del inodoro de PB y sigue hacia la cámara de inspección."
+    },
+    {
+      "id": "ppc-bano-pa",
+      "tipo": "pileta-patio-cerrada",
+      "sigla": "PPC",
+      "nombre": "Pileta de patio cerrada (baño PA)",
+      "nivel": "pa",
+      "pos": [
+        1005,
+        1180
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "nota": "Recibe bañera, bidet y lavatorio del baño de planta alta y descarga a la bajada. En planta alta suele ser una tapa ciega en el piso del baño."
     }
   ],
   "tramos": [
@@ -449,13 +509,138 @@
           1290
         ]
       ]
+    },
+    {
+      "id": "pa-inodoro",
+      "nombre": "Inodoro PA a bajada",
+      "red": "cloacal",
+      "diametro": "Ø 100 mm",
+      "nivel": "pa",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          919,
+          1270
+        ],
+        [
+          1010,
+          1245
+        ],
+        [
+          1075,
+          1162
+        ]
+      ],
+      "nota": "Ramal horizontal bajo el piso del baño de planta alta, desde el inodoro hasta la bajada en la pared derecha."
+    },
+    {
+      "id": "pa-banera",
+      "nombre": "Desagüe de la bañera",
+      "red": "secundaria",
+      "diametro": "Ø 40–50 mm",
+      "nivel": "pa",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          1008,
+          1070
+        ],
+        [
+          1005,
+          1180
+        ]
+      ]
+    },
+    {
+      "id": "pa-lavatorio",
+      "nombre": "Desagüe del lavatorio (baño PA)",
+      "red": "secundaria",
+      "diametro": "Ø 40 mm",
+      "nivel": "pa",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          1058,
+          1203
+        ],
+        [
+          1005,
+          1180
+        ]
+      ]
+    },
+    {
+      "id": "pa-bidet",
+      "nombre": "Desagüe del bidet",
+      "red": "secundaria",
+      "diametro": "Ø 40 mm",
+      "nivel": "pa",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          977,
+          1290
+        ],
+        [
+          960,
+          1230
+        ],
+        [
+          1005,
+          1180
+        ]
+      ]
+    },
+    {
+      "id": "pa-ppc",
+      "nombre": "PPC del baño PA a bajada",
+      "red": "secundaria",
+      "diametro": "Ø 60 mm",
+      "nivel": "pa",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          1005,
+          1180
+        ],
+        [
+          1075,
+          1162
+        ]
+      ]
+    },
+    {
+      "id": "pb-bajada",
+      "nombre": "Bajada del baño PA a cañería principal",
+      "red": "cloacal",
+      "diametro": "Ø 100 mm",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          1075,
+          1162
+        ],
+        [
+          1048,
+          1215
+        ]
+      ],
+      "nota": "Al pie de la bajada suele haber una curva con tapa de inspección o una boca de acceso."
     }
   ],
   "pendiente_relevar": [
     "Confirmar la ubicación de la cámara de inspección (tapa en el jardín del frente)",
     "Ubicar la PPA en el piso del lavadero y la PPC en el baño de PB (rejilla o tapa)",
     "¿El lavarropas descarga a la PPA o directo a la pileta de lavadero?",
-    "Bajada del baño de planta alta",
+    "Confirmar por dónde baja el caño del baño de PA (¿pared derecha, junto a la PPC?)",
+    "Ver si al pie de la bajada hay tapa de inspección",
     "Bajadas pluviales de los tres techos y su descarga (patio, vereda, cordón)",
     "Desagües del quincho y del garage (agregados después del plano de 1998)"
   ]

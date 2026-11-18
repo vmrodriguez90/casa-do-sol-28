@@ -6,10 +6,21 @@ El repositorio es también la página (GitHub Pages, sin build).
 ## Ver en local
 
 ```bash
-python3 -m http.server 8765
+python3 tools/servidor.py
 ```
 
 Después abrí <http://localhost:8765>. Si abrís `index.html` con doble click no funciona, porque el navegador bloquea la lectura de los JSON.
+
+## Marcar errores en el plano (solo local)
+
+Con `tools/servidor.py` corriendo aparece el botón **✎ Marcar un error** en el plano:
+
+1. Tocás el botón y arrastrás un recuadro sobre la zona que está mal.
+2. Escribís qué está mal y guardás.
+3. La marca queda en `revision/notas.json`, junto con lo que hay dentro del recuadro (ambientes, artefactos, caños). Esa carpeta está en `.gitignore`: no se publica.
+4. Le pedís a Claude "tomá las marcas". Corrige los datos y deja cada marca como `resuelta`, con una respuesta.
+
+En GitHub Pages el botón no aparece.
 
 ## Qué hay en cada archivo
 
