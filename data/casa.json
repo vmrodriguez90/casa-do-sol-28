@@ -493,7 +493,7 @@
       "area_m2": 2.73,
       "cota_piso": "+0.10",
       "humedo": true,
-      "nota": "Ventilación forzada por conducto 4\". Bacha rectangular ubicada hacia el medio, no pegada a la pared.",
+      "nota": "Ventilación forzada por conducto 4\". Inodoro, bacha rectangular hacia el medio y ducha en el rincón.",
       "etiqueta": [
         965,
         1232
@@ -1310,6 +1310,36 @@
         270
       ],
       "fijo": true
+    },
+    {
+      "id": "ducha-pb",
+      "nivel": "pb",
+      "tipo": "ducha",
+      "nombre": "Ducha",
+      "poligono": [
+        [
+          1015,
+          1262
+        ],
+        [
+          1041,
+          1236
+        ],
+        [
+          1085,
+          1236
+        ],
+        [
+          1085,
+          1320
+        ],
+        [
+          1015,
+          1320
+        ]
+      ],
+      "fijo": true,
+      "revision": 38
     }
   ],
   "correcciones": [
@@ -1516,6 +1546,18 @@
       ],
       "motivo": "Puerta entre cocina y pasillo que no existe",
       "revision": 25
+    },
+    {
+      "nivel": "pb",
+      "tipo": "agregar-muro",
+      "rect": [
+        655,
+        1010,
+        10,
+        343
+      ],
+      "motivo": "Pared entre el comedor y la escalera de H°A°",
+      "revision": 36
     }
   ],
   "_ayuda_aberturas": "aberturas: puertas (bisagra → cierre = hoja cerrada; 'abre' 1 o -1 elige de qué lado barre) y ventanas (p1 → p2 sobre el eje del muro, 'espesor' del muro). escaleras: tramos con pedadas, compensados y línea de corte. Todo en cm.",
@@ -1787,6 +1829,23 @@
         1610
       ],
       "espesor": 20
+    },
+    {
+      "id": "puerta-cocina-comedor",
+      "nivel": "pb",
+      "tipo": "puerta-vaiven",
+      "nombre": "Puerta de vaivén entre cocina y comedor",
+      "linea": [
+        [
+          660,
+          868
+        ],
+        [
+          660,
+          988
+        ]
+      ],
+      "revision": 37
     }
   ],
   "escaleras": [

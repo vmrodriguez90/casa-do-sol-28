@@ -159,6 +159,19 @@
       ],
       "desague": false,
       "estado": "verificado"
+    },
+    {
+      "id": "ducha-pb",
+      "tipo": "ducha",
+      "nombre": "Ducha",
+      "nivel": "pb",
+      "ambiente": "bano-pb",
+      "pos": [
+        1050,
+        1285
+      ],
+      "desague": "secundario",
+      "estado": "verificado"
     }
   ],
   "ventilaciones": [
@@ -1308,6 +1321,29 @@
         ]
       ],
       "nota": "Sube desde el termotanque del lavadero por la pared y alimenta la bañera y el lavatorio."
+    },
+    {
+      "id": "sec-ducha-pb",
+      "nombre": "Desagüe de la ducha",
+      "red": "secundaria",
+      "diametro": "Ø 50 mm",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "revision",
+      "puntos": [
+        [
+          1050,
+          1285
+        ],
+        [
+          1000,
+          1250
+        ],
+        [
+          965,
+          1215
+        ]
+      ]
     }
   ],
   "pendiente_relevar": [

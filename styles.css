@@ -433,3 +433,4 @@ kbd { font: 12px ui-monospace, monospace; border: 1px solid var(--line); border-
 .escala .esc-b { fill: var(--surface); }
 .escala text { fill: var(--ink-2); font-size: 14px; text-anchor: middle; }
 .capa-pdf { opacity: .55; }
+.eq-vaiven { stroke-dasharray: 6 4; }

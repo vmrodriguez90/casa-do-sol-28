@@ -500,7 +500,15 @@
       el("title", {}, grupo, m.nombre);
       if (m.linea) {
         const [[x1, y1], [x2, y2]] = m.linea;
-        if (m.tipo === "puerta-batiente") {
+        if (m.tipo === "puerta-vaiven") {
+          // hoja cerrada + barrido hacia los dos lados
+          const L = Math.hypot(x2 - x1, y2 - y1);
+          el("line", { x1, y1, x2, y2, class: "eq-linea" }, grupo);
+          for (const sgn of [1, -1]) {
+            const ox = x1 - (y2 - y1) * sgn, oy = y1 + (x2 - x1) * sgn;
+            el("path", { d: `M${x2},${y2} A${L},${L} 0 0 ${sgn > 0 ? 1 : 0} ${ox},${oy}`, class: "eq-linea-f eq-vaiven" }, grupo);
+          }
+        } else if (m.tipo === "puerta-batiente") {
           // hoja abierta a 90° desde la bisagra (x1,y1) + arco de barrido
           const L = Math.hypot(x2 - x1, y2 - y1), sgn = m.abre || 1;
           const ox = x1 - (y2 - y1) * sgn, oy = y1 + (x2 - x1) * sgn;
@@ -539,6 +547,16 @@
           el("ellipse", { cx: 0, cy: -4, rx: 17, ry: 26, class: "eq-cuerpo" }, t);
           el("ellipse", { cx: 0, cy: -4, rx: 10, ry: 17, class: "eq-linea-f" }, t);
           el("circle", { cx: 0, cy: 14, r: 2.5, class: "eq-linea-f" }, t);
+        }
+        continue;
+      }
+      if (m.poligono) {
+        el("polygon", { points: pts(m.poligono), class: "eq-cuerpo" }, grupo);
+        const b = bbox(m.poligono);
+        if (m.tipo === "ducha") {
+          el("line", { x1: b.x0 + 8, y1: b.y1 - 8, x2: b.x1 - 8, y2: b.y0 + 8, class: "eq-linea-f eq-tenue" }, grupo);
+          el("line", { x1: b.x0 + 18, y1: b.y0 + 18, x2: b.x1 - 8, y2: b.y1 - 8, class: "eq-linea-f eq-tenue" }, grupo);
+          el("circle", { cx: b.cx + 4, cy: b.cy + 4, r: 4, class: "eq-linea-f" }, grupo);
         }
         continue;
       }
@@ -589,7 +607,6 @@
           importar(s.detalle, "detalle-svg", det);
           ocultarDetalle(det, corr.filter((c) => c.tipo === "ocultar-detalle"));
         }
-        if (!opts.mini) dibujarEquipamiento(el("g", {}, raiz), nivel, capas.muebles !== false);
         importar(s.muros, "muros", raiz);
         const g2 = el("g", {}, raiz);
         for (const c of corr) {
@@ -597,6 +614,7 @@
           if (c.tipo === "quitar-muro") el("rect", { x, y, width: w, height: h, class: "muro-quitado" }, g2);
           if (c.tipo === "agregar-muro") el("rect", { x, y, width: w, height: h, class: "muro-agregado" }, g2);
         }
+        if (!opts.mini) dibujarEquipamiento(el("g", {}, raiz), nivel, capas.muebles !== false);
         dibujarAberturas(el("g", {}, raiz), nivel);
         if (!opts.mini) dibujarEscaleras(el("g", {}, raiz), nivel);
       }
