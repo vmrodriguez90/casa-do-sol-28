@@ -1,25 +1,215 @@
 {
-  "_ayuda": "Instalación sanitaria. estado: 'plano' = figura en el plano conforme a obra; 'estimado' = supuesto, falta confirmar; 'verificado' = confirmado en obra. Coordenadas en cm (mismo sistema que casa.json). Para agregar un caño: sumá un objeto a 'tramos' con red ('cloacal' | 'pluvial' | 'ventilacion' | 'agua'), diametro, estado y 'puntos' (polilínea).",
+  "_ayuda": "Instalación sanitaria. estado: 'plano' = figura en el plano conforme a obra; 'estimado' = supuesto, falta confirmar; 'verificado' = confirmado en obra. Coordenadas en cm (mismo sistema que casa.json). Para agregar un caño: sumá un objeto a 'tramos' con red ('cloacal' = primaria | 'secundaria' | 'pluvial' | 'ventilacion' | 'agua'), diametro, estado y 'puntos' (polilínea).",
   "artefactos": [
-    { "id": "anafe", "tipo": "anafe", "nombre": "Anafe / cocina", "nivel": "pb", "ambiente": "cocina", "pos": [1057, 752], "desague": false, "estado": "plano" },
-    { "id": "pileta-cocina", "tipo": "pileta", "nombre": "Pileta de cocina", "nivel": "pb", "ambiente": "cocina", "pos": [1057, 868], "desague": "secundario", "estado": "plano" },
-    { "id": "pileta-lavadero", "tipo": "pileta", "nombre": "Pileta de lavadero", "nivel": "pb", "ambiente": "lavadero", "pos": [914, 1117], "desague": "secundario", "estado": "plano" },
-    { "id": "termotanque", "tipo": "termotanque", "nombre": "Termotanque (TT)", "nivel": "pb", "ambiente": "lavadero", "pos": [1062, 1100], "desague": false, "estado": "plano", "nota": "Sale por la chimenea CH TT 4\" al techo." },
-    { "id": "lavatorio-pb", "tipo": "lavatorio", "nombre": "Lavatorio", "nivel": "pb", "ambiente": "bano-pb", "pos": [914, 1169], "desague": "secundario", "estado": "plano" },
-    { "id": "inodoro-pb", "tipo": "inodoro", "nombre": "Inodoro", "nivel": "pb", "ambiente": "bano-pb", "pos": [1048, 1193], "desague": "primario", "estado": "plano" },
-    { "id": "banera-pa", "tipo": "banera", "nombre": "Bañera", "nivel": "pa", "ambiente": "bano-pa", "pos": [1008, 1049], "desague": "secundario", "estado": "plano" },
-    { "id": "inodoro-pa", "tipo": "inodoro", "nombre": "Inodoro", "nivel": "pa", "ambiente": "bano-pa", "pos": [919, 1285], "desague": "primario", "estado": "plano" },
-    { "id": "bidet-pa", "tipo": "bidet", "nombre": "Bidet", "nivel": "pa", "ambiente": "bano-pa", "pos": [977, 1296], "desague": "secundario", "estado": "plano" },
-    { "id": "lavatorio-pa", "tipo": "lavatorio", "nombre": "Lavatorio", "nivel": "pa", "ambiente": "bano-pa", "pos": [1058, 1203], "desague": "secundario", "estado": "plano" },
-    { "id": "parrilla", "tipo": "parrilla", "nombre": "Parrilla", "nivel": "pb", "ambiente": "quincho", "pos": [165, 45], "desague": false, "estado": "plano" }
+    {
+      "id": "anafe",
+      "tipo": "anafe",
+      "nombre": "Anafe / cocina",
+      "nivel": "pb",
+      "ambiente": "cocina",
+      "pos": [
+        1057,
+        752
+      ],
+      "desague": false,
+      "estado": "plano"
+    },
+    {
+      "id": "pileta-cocina",
+      "tipo": "pileta",
+      "nombre": "Pileta de cocina",
+      "nivel": "pb",
+      "ambiente": "cocina",
+      "pos": [
+        1057,
+        868
+      ],
+      "desague": "secundario",
+      "estado": "plano"
+    },
+    {
+      "id": "pileta-lavadero",
+      "tipo": "pileta",
+      "nombre": "Pileta de lavadero",
+      "nivel": "pb",
+      "ambiente": "lavadero",
+      "pos": [
+        914,
+        1117
+      ],
+      "desague": "secundario",
+      "estado": "plano"
+    },
+    {
+      "id": "termotanque",
+      "tipo": "termotanque",
+      "nombre": "Termotanque (TT)",
+      "nivel": "pb",
+      "ambiente": "lavadero",
+      "pos": [
+        1062,
+        1100
+      ],
+      "desague": false,
+      "estado": "plano",
+      "nota": "Sale por la chimenea CH TT 4\" al techo."
+    },
+    {
+      "id": "lavatorio-pb",
+      "tipo": "lavatorio",
+      "nombre": "Lavatorio",
+      "nivel": "pb",
+      "ambiente": "bano-pb",
+      "pos": [
+        914,
+        1169
+      ],
+      "desague": "secundario",
+      "estado": "plano"
+    },
+    {
+      "id": "inodoro-pb",
+      "tipo": "inodoro",
+      "nombre": "Inodoro",
+      "nivel": "pb",
+      "ambiente": "bano-pb",
+      "pos": [
+        1048,
+        1193
+      ],
+      "desague": "primario",
+      "estado": "plano"
+    },
+    {
+      "id": "banera-pa",
+      "tipo": "banera",
+      "nombre": "Bañera",
+      "nivel": "pa",
+      "ambiente": "bano-pa",
+      "pos": [
+        1008,
+        1049
+      ],
+      "desague": "secundario",
+      "estado": "plano"
+    },
+    {
+      "id": "inodoro-pa",
+      "tipo": "inodoro",
+      "nombre": "Inodoro",
+      "nivel": "pa",
+      "ambiente": "bano-pa",
+      "pos": [
+        919,
+        1285
+      ],
+      "desague": "primario",
+      "estado": "plano"
+    },
+    {
+      "id": "bidet-pa",
+      "tipo": "bidet",
+      "nombre": "Bidet",
+      "nivel": "pa",
+      "ambiente": "bano-pa",
+      "pos": [
+        977,
+        1296
+      ],
+      "desague": "secundario",
+      "estado": "plano"
+    },
+    {
+      "id": "lavatorio-pa",
+      "tipo": "lavatorio",
+      "nombre": "Lavatorio",
+      "nivel": "pa",
+      "ambiente": "bano-pa",
+      "pos": [
+        1058,
+        1203
+      ],
+      "desague": "secundario",
+      "estado": "plano"
+    },
+    {
+      "id": "parrilla",
+      "tipo": "parrilla",
+      "nombre": "Parrilla",
+      "nivel": "pb",
+      "ambiente": "quincho",
+      "pos": [
+        165,
+        45
+      ],
+      "desague": false,
+      "estado": "plano"
+    }
   ],
   "ventilaciones": [
-    { "id": "cv-1", "nombre": "Caño de ventilación cloacal CV 4\"", "nivel": "techos", "pos": [1095, 1137], "estado": "plano" },
-    { "id": "cv-2", "nombre": "Caño de ventilación cloacal CV 4\"", "nivel": "techos", "pos": [1095, 1160], "estado": "plano" },
-    { "id": "ch-tt", "nombre": "Chimenea termotanque CH TT 4\"", "nivel": "techos", "pos": [1095, 1114], "estado": "plano" },
-    { "id": "vf-lavadero", "nombre": "Ventilación forzada por conducto 4\" (lavadero)", "nivel": "pb", "ambiente": "lavadero", "pos": [1075, 1020], "estado": "plano" },
-    { "id": "vf-bano-pb", "nombre": "Ventilación forzada por conducto 4\" (baño PB)", "nivel": "pb", "ambiente": "bano-pb", "pos": [1075, 1160], "estado": "plano" },
-    { "id": "vf-bano-pa", "nombre": "Ventilación forzada por conducto 4\" (baño PA)", "nivel": "pa", "ambiente": "bano-pa", "pos": [1075, 1135], "estado": "plano" }
+    {
+      "id": "cv-1",
+      "nombre": "Caño de ventilación cloacal CV 4\"",
+      "nivel": "techos",
+      "pos": [
+        1095,
+        1137
+      ],
+      "estado": "plano"
+    },
+    {
+      "id": "cv-2",
+      "nombre": "Caño de ventilación cloacal CV 4\"",
+      "nivel": "techos",
+      "pos": [
+        1095,
+        1160
+      ],
+      "estado": "plano"
+    },
+    {
+      "id": "ch-tt",
+      "nombre": "Chimenea termotanque CH TT 4\"",
+      "nivel": "techos",
+      "pos": [
+        1095,
+        1114
+      ],
+      "estado": "plano"
+    },
+    {
+      "id": "vf-lavadero",
+      "nombre": "Ventilación forzada por conducto 4\" (lavadero)",
+      "nivel": "pb",
+      "ambiente": "lavadero",
+      "pos": [
+        1075,
+        1020
+      ],
+      "estado": "plano"
+    },
+    {
+      "id": "vf-bano-pb",
+      "nombre": "Ventilación forzada por conducto 4\" (baño PB)",
+      "nivel": "pb",
+      "ambiente": "bano-pb",
+      "pos": [
+        1075,
+        1160
+      ],
+      "estado": "plano"
+    },
+    {
+      "id": "vf-bano-pa",
+      "nombre": "Ventilación forzada por conducto 4\" (baño PA)",
+      "nivel": "pa",
+      "ambiente": "bano-pa",
+      "pos": [
+        1075,
+        1135
+      ],
+      "estado": "plano"
+    }
   ],
   "fuentes": [
     {
@@ -36,22 +226,235 @@
     "Provisión de agua con caño Ø 13 mm."
   ],
   "pasos": [
-    { "n": 1, "titulo": "Cloaca principal: cámara de inspección y conexión a colectora", "estado": "aplicado" },
-    { "n": 2, "titulo": "Desagües secundarios: piletas de patio de cocina, lavadero y baños", "estado": "pendiente" },
-    { "n": 3, "titulo": "Planta alta: bajada del baño y caños de ventilación", "estado": "pendiente" },
-    { "n": 4, "titulo": "Pluviales: bajadas de techo y caño a la calle", "estado": "pendiente" },
-    { "n": 5, "titulo": "Agua: entrada Ø 13 mm, tanque y termotanque", "estado": "pendiente" }
+    {
+      "n": 1,
+      "titulo": "Cloaca principal: cámara de inspección y conexión a colectora",
+      "estado": "aplicado"
+    },
+    {
+      "n": 2,
+      "titulo": "Desagües secundarios: piletas de patio de cocina, lavadero y baños",
+      "estado": "aplicado"
+    },
+    {
+      "n": 3,
+      "titulo": "Planta alta: bajada del baño y caños de ventilación",
+      "estado": "pendiente"
+    },
+    {
+      "n": 4,
+      "titulo": "Pluviales: bajadas de techo y caño a la calle",
+      "estado": "pendiente"
+    },
+    {
+      "n": 5,
+      "titulo": "Agua: entrada Ø 13 mm, tanque y termotanque",
+      "estado": "pendiente"
+    }
   ],
   "camaras": [
-    { "id": "ci-frente", "nombre": "Cámara de inspección 60 × 60", "nivel": "pb", "pos": [1010, 1730], "estado": "estimado", "fuente": "sanitario-1998", "nota": "En el plano de 1998 está en el jardín del frente, del lado de la medianera derecha, cerca de la línea municipal. Ubicarla en el terreno: tiene una tapa de ~60 × 60 cm." }
+    {
+      "id": "ci-frente",
+      "nombre": "Cámara de inspección 60 × 60",
+      "nivel": "pb",
+      "pos": [
+        1010,
+        1730
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "nota": "En el plano de 1998 está en el jardín del frente, del lado de la medianera derecha, cerca de la línea municipal. Ubicarla en el terreno: tiene una tapa de ~60 × 60 cm."
+    },
+    {
+      "id": "ppa-lavadero",
+      "tipo": "pileta-patio-abierta",
+      "sigla": "PPA",
+      "nombre": "Pileta de patio abierta (lavadero)",
+      "nivel": "pb",
+      "pos": [
+        955,
+        1075
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "nota": "En el plano de 1998 hay una PPA en el núcleo de cocina y lavadero. Recibe la pileta de lavadero, el lavarropas y la pileta de cocina, y descarga a la cañería principal. Buscala en el piso del lavadero: es una rejilla con sifón."
+    },
+    {
+      "id": "ppc-bano-pb",
+      "tipo": "pileta-patio-cerrada",
+      "sigla": "PPC",
+      "nombre": "Pileta de patio cerrada (baño PB)",
+      "nivel": "pb",
+      "pos": [
+        965,
+        1215
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "nota": "Estimada por criterio habitual: en los baños el lavatorio (y la ducha o bañera) descarga a una pileta de patio cerrada, que va a la principal. Puede ser una tapa ciega o una rejilla en el piso del baño."
+    }
   ],
   "tramos": [
-    { "id": "conexion-colectora", "nombre": "Conexión a colectora Ø 100", "red": "cloacal", "diametro": "Ø 100 mm", "pendiente": "1:50", "nivel": "pb", "estado": "estimado", "fuente": "sanitario-1998", "puntos": [[1010, 1752], [1010, 2230]], "nota": "Desde la cámara de inspección, bajo la vereda, hasta la red cloacal de la Calle 28." },
-    { "id": "cloaca-principal", "nombre": "Cañería principal Ø 100 (desde el baño PB a la cámara)", "red": "cloacal", "diametro": "Ø 100 mm", "pendiente": "1:50", "nivel": "pb", "estado": "estimado", "fuente": "sanitario-1998", "puntos": [[1048, 1215], [1010, 1290], [1010, 1708]], "nota": "En el plano de 1998 corre por el lado de la medianera derecha, desde el núcleo húmedo (baño, lavadero, cocina) hasta la cámara. Pasa por debajo del estar. El recorrido exacto se confirma abriendo la cámara y mirando hacia dónde llegan los caños." }
+    {
+      "id": "conexion-colectora",
+      "nombre": "Conexión a colectora Ø 100",
+      "red": "cloacal",
+      "diametro": "Ø 100 mm",
+      "pendiente": "1:50",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          1010,
+          1752
+        ],
+        [
+          1010,
+          2230
+        ]
+      ],
+      "nota": "Desde la cámara de inspección, bajo la vereda, hasta la red cloacal de la Calle 28."
+    },
+    {
+      "id": "cloaca-principal",
+      "nombre": "Cañería principal Ø 100 (desde el baño PB a la cámara)",
+      "red": "cloacal",
+      "diametro": "Ø 100 mm",
+      "pendiente": "1:50",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          1048,
+          1215
+        ],
+        [
+          1010,
+          1290
+        ],
+        [
+          1010,
+          1708
+        ]
+      ],
+      "nota": "En el plano de 1998 corre por el lado de la medianera derecha, desde el núcleo húmedo (baño, lavadero, cocina) hasta la cámara. Pasa por debajo del estar. El recorrido exacto se confirma abriendo la cámara y mirando hacia dónde llegan los caños."
+    },
+    {
+      "id": "sec-cocina",
+      "nombre": "Desagüe de la pileta de cocina",
+      "red": "secundaria",
+      "diametro": "Ø 50–60 mm",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          1057,
+          868
+        ],
+        [
+          1065,
+          1000
+        ],
+        [
+          990,
+          1060
+        ],
+        [
+          955,
+          1075
+        ]
+      ],
+      "nota": "Desde la pileta de cocina hasta la PPA del lavadero, por el lado de la medianera derecha."
+    },
+    {
+      "id": "sec-lavadero",
+      "nombre": "Desagüe de la pileta de lavadero",
+      "red": "secundaria",
+      "diametro": "Ø 50–60 mm",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          914,
+          1117
+        ],
+        [
+          955,
+          1075
+        ]
+      ]
+    },
+    {
+      "id": "ppa-a-principal",
+      "nombre": "PPA a cañería principal",
+      "red": "cloacal",
+      "diametro": "Ø 100 mm",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          955,
+          1075
+        ],
+        [
+          990,
+          1150
+        ],
+        [
+          1010,
+          1290
+        ]
+      ],
+      "nota": "La salida de la pileta de patio va a la cañería principal en Ø 100, pasando bajo el baño."
+    },
+    {
+      "id": "sec-lavatorio-pb",
+      "nombre": "Desagüe del lavatorio (baño PB)",
+      "red": "secundaria",
+      "diametro": "Ø 40–50 mm",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          914,
+          1169
+        ],
+        [
+          965,
+          1215
+        ]
+      ]
+    },
+    {
+      "id": "ppc-a-principal",
+      "nombre": "PPC del baño a cañería principal",
+      "red": "cloacal",
+      "diametro": "Ø 100 mm",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          965,
+          1215
+        ],
+        [
+          1010,
+          1290
+        ]
+      ]
+    }
   ],
   "pendiente_relevar": [
     "Confirmar la ubicación de la cámara de inspección (tapa en el jardín del frente)",
-    "Piletas de patio abiertas / cerradas en cocina, lavadero y baños",
+    "Ubicar la PPA en el piso del lavadero y la PPC en el baño de PB (rejilla o tapa)",
+    "¿El lavarropas descarga a la PPA o directo a la pileta de lavadero?",
     "Bajada del baño de planta alta",
     "Bajadas pluviales de los tres techos y su descarga (patio, vereda, cordón)",
     "Desagües del quincho y del garage (agregados después del plano de 1998)"

@@ -182,8 +182,10 @@
             <div class="leyenda-item">${sw("--drain-2")} Artefacto a desagüe secundario</div>
             <div class="leyenda-item">${sw("--drain-0")} Sin desagüe</div>
             <div class="leyenda-item">${sw("--vent", "rect")} Ventilación / chimenea</div>
-            <div class="leyenda-item">${sw("--drain-1", "line")} Cañería cloacal</div>
-            <div class="leyenda-item">${sw("--drain-2", "line")} Cañería pluvial</div>
+            <div class="leyenda-item">${sw("--drain-1", "line")} Cloaca primaria (Ø 100)</div>
+            <div class="leyenda-item">${sw("--drain-2", "line")} Desagüe secundario</div>
+            <div class="leyenda-item">${sw("--rain", "line")} Pluvial</div>
+            <div class="leyenda-item"><svg width="18" height="18" viewBox="0 0 18 18"><rect x="2" y="2" width="14" height="14" rx="7" style="fill:var(--surface);stroke:var(--drain-1);stroke-width:2"/></svg> Pileta de patio (PPA / PPC) · <b style="font-weight:600">CI</b> cámara</div>
             <div class="leyenda-item">${sw("--warn", "dash")} Estimado, a verificar</div>`;
       const d = S.desagues;
       if ((d.pasos || []).length) {
@@ -316,9 +318,12 @@
       el("path", { d: "M-14,-11 L10,0 L-14,11 Z", class: `tramo-flecha ${t.red}`, transform: `translate(${(a[0] + b[0]) / 2},${(a[1] + b[1]) / 2}) rotate(${ang})` }, g);
     }
     for (const c of d.camaras.filter((c) => c.nivel === nivel)) {
-      const n = el("g", { class: `camara ${c.estado}`, "data-cam": c.id }, g);
-      el("rect", { x: c.pos[0] - 22, y: c.pos[1] - 22, width: 44, height: 44, rx: 4 }, n);
-      el("text", { x: c.pos[0], y: c.pos[1] }, n, "CI");
+      const chica = (c.tipo || "").startsWith("pileta");
+      const r = chica ? 17 : 22;
+      const sel = S.sel?.tipo === "cam" && S.sel.id === c.id;
+      const n = el("g", { class: `camara ${c.estado}${chica ? " pp" : ""}${sel ? " sel" : ""}`, "data-cam": c.id }, g);
+      el("rect", { x: c.pos[0] - r, y: c.pos[1] - r, width: 2 * r, height: 2 * r, rx: chica ? r : 4 }, n);
+      el("text", { x: c.pos[0], y: c.pos[1], style: chica ? "font-size:11px" : null }, n, c.sigla || "CI");
       el("title", {}, n, c.nombre);
     }
     for (const v of d.ventilaciones.filter((v) => v.nivel === nivel)) {
