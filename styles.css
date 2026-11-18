@@ -23,6 +23,8 @@
   --drain-2: #2f78b7;
   --drain-0: #8e8a83;
   --rain: #2a9d8f;
+  --water: #0ea5e9;
+  --hot: #e5484d;
   --vent: #6a5acd;
   --f-aprobada: #4f86c6;
   --f-cerramiento: #e0a526;
@@ -61,6 +63,8 @@
     --drain-2: #6aaee8;
     --drain-0: #8e8a83;
     --rain: #4cc2b3;
+    --water: #38bdf8;
+    --hot: #f87171;
     --vent: #a99cf0;
     color-scheme: dark;
   }
@@ -70,7 +74,7 @@
   --accent: #e8954a; --accent-ink: #f3b77d; --room: #23211e; --room-wet: #1c2a35;
   --room-hover: #3a2d1e; --room-sel: #5a3d1c; --wall: #ece8e1; --detail: #a29c92; --ghost: #47433d;
   --grass: #24301e; --paving: #2a2824; --sidewalk: #2f2c28; --tree: #4f6b40; --roof: #2c2620;
-  --roof-line: #7d6c55; --drain-1: #e3a15f; --drain-2: #6aaee8; --drain-0: #8e8a83; --rain: #4cc2b3; --vent: #a99cf0;
+  --roof-line: #7d6c55; --drain-1: #e3a15f; --drain-2: #6aaee8; --drain-0: #8e8a83; --rain: #4cc2b3; --water: #38bdf8; --hot: #f87171; --vent: #a99cf0;
   color-scheme: dark;
 }
 
@@ -199,7 +203,12 @@ main { padding: 20px 24px 8px; max-width: 1400px; margin: 0 auto; }
 .tramo.pluvial { stroke: var(--rain); }
 .tramo.secundaria { stroke: var(--drain-2); stroke-width: 5; }
 .tramo.ventilacion { stroke: var(--vent); stroke-width: 4; }
-.tramo.agua { stroke: #2aa6a0; stroke-width: 4; }
+.tramo.agua { stroke: var(--water); stroke-width: 3.5; }
+.tramo.agua-caliente { stroke: var(--hot); stroke-width: 3.5; }
+.tramo-flecha.agua { fill: var(--water); }
+.tramo-flecha.agua-caliente { fill: var(--hot); }
+.camara.medidor rect, .camara.subida-agua rect, .camara.bajada-agua rect, .camara.tanque rect { stroke: var(--water); }
+.camara.medidor text, .camara.subida-agua text, .camara.bajada-agua text, .camara.tanque text { fill: var(--water); }
 .tramo.estimado { stroke-dasharray: 16 10; }
 .proy-amb { fill: var(--accent); fill-opacity: .14; stroke: var(--accent); stroke-width: 4; stroke-dasharray: 14 8; pointer-events: none; }
 .proy-ov { stroke: var(--f-futura); stroke-width: 6; fill: var(--f-futura); fill-opacity: .18; }
@@ -396,3 +405,5 @@ kbd { font: 12px ui-monospace, monospace; border: 1px solid var(--line); border-
 .camara.bajada-pluvial rect { fill: var(--rain); }
 .tramo.pluvial.canaleta { stroke-width: 5; stroke-dasharray: 4 6; }
 .eq-cerrada { stroke: var(--detail); stroke-width: 1.2; stroke-dasharray: 6 5; vector-effect: non-scaling-stroke; }
+.camara.bajada.bajada-agua rect, .camara.subida-agua rect, .camara.medidor rect, .camara.tanque rect { fill: var(--surface); stroke: var(--water); stroke-width: 4; stroke-dasharray: none; }
+.camara.bajada.bajada-agua text { fill: var(--water); }

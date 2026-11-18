@@ -9,7 +9,7 @@
     casa: null, fases: null, desagues: null, proyectos: null, config: null,
     svgs: {},            // nivel -> {muros, rellenos, detalle} (nodos importados)
     nivel: "pb",
-    capas: { etiquetas: true, muebles: true, desagues: true, proyectos: true, cotas: false, exterior: true },
+    capas: { etiquetas: true, muebles: true, desagues: true, agua: false, proyectos: true, cotas: false, exterior: true },
     sel: null,           // {tipo:'amb'|'art'|'vent', id}
     resaltar: null,      // id de ambiente pedido por URL
     fase: "actual",
@@ -140,6 +140,7 @@
     ["etiquetas", "Nombres y medidas"],
     ["muebles", "Muebles y equipamiento"],
     ["desagues", "Desagües y ventilaciones"],
+    ["agua", "Agua (fría y caliente)"],
     ["proyectos", "Proyectos activos"],
     ["cotas", "Cotas generales"],
     ["exterior", "Patio, frente y vereda"],
@@ -182,6 +183,11 @@
       : shape === "rect" ? `<svg width="18" height="18" viewBox="0 0 18 18"><rect x="2" y="2" width="14" height="14" rx="2" style="fill:var(${cls})"/></svg>`
       : `<svg width="22" height="18" viewBox="0 0 22 18"><line x1="2" y1="9" x2="20" y2="9" style="stroke:var(${cls});stroke-width:4;stroke-dasharray:${shape === "dash" ? "5 3" : "none"}"/></svg>`;
     let h = `<h2 class="label">Referencias</h2>`;
+    if (S.capas.agua) {
+      h += `<div class="leyenda-item">${sw("--water", "line")} Agua fría</div>
+            <div class="leyenda-item">${sw("--hot", "line")} Agua caliente</div>
+            <div class="leyenda-item"><span><b>M</b> medidor · <b>AF</b> subida · <b>BT</b> bajada de tanque · <b>TR</b> tanque</span></div>`;
+    }
     if (S.capas.desagues) {
       h += `<div class="leyenda-item">${sw("--drain-1")} Artefacto a cloaca primaria</div>
             <div class="leyenda-item">${sw("--drain-2")} Artefacto a desagüe secundario</div>
@@ -310,9 +316,12 @@
   }
 
   const ICONO = { lavarropas: "Lr", inodoro: "I", bidet: "Bd", lavatorio: "L", pileta: "P", banera: "B", termotanque: "TT", anafe: "A", parrilla: "Pa", ducha: "D", rejilla: "R" };
-  function dibujarDesagues(g, nivel) {
+  const RED_AGUA = ["agua", "agua-caliente"], TIPO_AGUA = ["medidor", "subida-agua", "bajada-agua", "tanque"];
+  const esAgua = (o) => RED_AGUA.includes(o.red) || TIPO_AGUA.includes(o.tipo);
+  function dibujarDesagues(g, nivel, capas = S.capas) {
     const d = S.desagues;
-    for (const t of d.tramos.filter((t) => t.nivel === nivel || (nivel === "techos" && t.red === "pluvial" && t.nivel === "techos"))) {
+    const ver = (o) => o.nivel === nivel && (esAgua(o) ? capas.agua : capas.desagues);
+    for (const t of d.tramos.filter(ver)) {
       const sel = S.sel?.tipo === "tramo" && S.sel.id === t.id;
       el("polyline", { points: pts(t.puntos), class: `tramo ${t.red} ${t.estado} ${t.tipo || ""}${sel ? " sel" : ""}` }, g);
       const hit = el("polyline", { points: pts(t.puntos), class: "tramo-hit", "data-tramo": t.id }, g);
@@ -322,23 +331,23 @@
       const ang = Math.atan2(b[1] - a[1], b[0] - a[0]) * 180 / Math.PI;
       el("path", { d: "M-14,-11 L10,0 L-14,11 Z", class: `tramo-flecha ${t.red}`, transform: `translate(${(a[0] + b[0]) / 2},${(a[1] + b[1]) / 2}) rotate(${ang})` }, g);
     }
-    for (const c of d.camaras.filter((c) => c.nivel === nivel)) {
+    for (const c of d.camaras.filter(ver)) {
       const bajada = (c.tipo || "").startsWith("bajada");
-      const chica = bajada || (c.tipo || "").startsWith("pileta");
+      const chica = bajada || (c.tipo || "").startsWith("pileta") || ["subida-agua", "medidor"].includes(c.tipo);
       const r = bajada ? 15 : chica ? 17 : 22;
       const sel = S.sel?.tipo === "cam" && S.sel.id === c.id;
-      const n = el("g", { class: `camara ${c.estado}${chica ? " pp" : ""}${bajada ? " bajada " + c.tipo : ""}${sel ? " sel" : ""}`, "data-cam": c.id }, g);
+      const n = el("g", { class: `camara ${c.estado}${chica ? " pp" : ""}${bajada ? " bajada" : ""} ${c.tipo || ""}${sel ? " sel" : ""}`, "data-cam": c.id }, g);
       el("rect", { x: c.pos[0] - r, y: c.pos[1] - r, width: 2 * r, height: 2 * r, rx: chica ? r : 4 }, n);
       el("text", { x: c.pos[0], y: c.pos[1], style: chica ? "font-size:11px" : null }, n, c.sigla || "CI");
       el("title", {}, n, c.nombre);
     }
-    for (const v of d.ventilaciones.filter((v) => v.nivel === nivel)) {
+    for (const v of d.ventilaciones.filter((v) => v.nivel === nivel && capas.desagues)) {
       const n = el("g", { class: "vent", "data-vent": v.id, style: "cursor:pointer" }, g);
       el("rect", { x: v.pos[0] - 13, y: v.pos[1] - 10, width: 26, height: 20, rx: 3 }, n);
       el("text", { x: v.pos[0], y: v.pos[1] }, n, v.id.startsWith("ch") ? "CH" : v.id.startsWith("cv") ? "CV" : "V");
       el("title", {}, n, v.nombre);
     }
-    for (const a of d.artefactos.filter((a) => a.nivel === nivel)) {
+    for (const a of d.artefactos.filter((a) => a.nivel === nivel && (capas.desagues || capas.agua))) {
       const tipo = a.desague === "primario" ? "primario" : a.desague === "secundario" ? "secundario" : "sin";
       const n = el("g", { class: `art ${tipo} ${a.estado}`, "data-art": a.id }, g);
       el("circle", { cx: a.pos[0], cy: a.pos[1], r: 17 }, n);
@@ -474,7 +483,7 @@
     if (capas.cotas) dibujarCotas(el("g", {}, raiz), nivel);
     if (capas.proyectos) dibujarProyectos(el("g", {}, raiz), nivel);
     if (capas.etiquetas && nivel !== "techos") dibujarEtiquetas(el("g", {}, raiz), nivel);
-    if (capas.desagues) dibujarDesagues(el("g", {}, raiz), nivel);
+    if (capas.desagues || capas.agua) dibujarDesagues(el("g", {}, raiz), nivel, capas);
     if (S.rev.on && (capas.revision || S.rev.borrador)) dibujarRevision(el("g", {}, raiz), nivel);
   }
 

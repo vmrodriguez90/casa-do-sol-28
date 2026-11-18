@@ -1110,11 +1110,11 @@
       "nombre": "Horno empotrado",
       "rect": [
         1028,
-        864,
+        940,
         52,
-        54
+        55
       ],
-      "revision": 14
+      "revision": 28
     },
     {
       "id": "barra-cocina",
@@ -1148,12 +1148,12 @@
       "tipo": "heladera",
       "nombre": "Heladera en mueble de melamina",
       "rect": [
-        932,
+        912,
         935,
-        89,
+        73,
         65
       ],
-      "revision": 8
+      "revision": 27
     },
     {
       "id": "mesada-lavadero",
@@ -1298,7 +1298,7 @@
       "rect": [
         875,
         998,
-        57,
+        37,
         14
       ],
       "motivo": "Paso abierto cocina–lavadero",
@@ -1308,13 +1308,13 @@
       "nivel": "pb",
       "tipo": "quitar-muro",
       "rect": [
-        1021,
+        985,
         998,
-        64,
+        38,
         14
       ],
-      "motivo": "Paso abierto cocina–lavadero",
-      "revision": 7
+      "motivo": "Paso entre la heladera y la mesada",
+      "revision": 27
     },
     {
       "nivel": "pb",
@@ -1335,7 +1335,7 @@
         1010,
         824,
         88,
-        130
+        180
       ],
       "motivo": "Pileta de cocina mal ubicada",
       "revision": 10

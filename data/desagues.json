@@ -287,7 +287,7 @@
     {
       "n": 5,
       "titulo": "Agua: entrada Ø 13 mm, tanque y termotanque",
-      "estado": "pendiente"
+      "estado": "aplicado"
     }
   ],
   "camaras": [
@@ -480,6 +480,88 @@
       ],
       "estado": "estimado",
       "fuente": "sanitario-1998"
+    },
+    {
+      "id": "medidor-agua",
+      "tipo": "medidor",
+      "sigla": "M",
+      "nombre": "Medidor / conexión de agua Ø 13 mm",
+      "nivel": "pb",
+      "pos": [
+        700,
+        1812
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "nota": "El plano de 1998 indica provisión de agua con caño Ø 13 mm. La ubicación es estimada, junto al acceso peatonal: buscá la tapa del medidor o la llave de paso general en el frente o en la vereda."
+    },
+    {
+      "id": "subida-agua-pb",
+      "tipo": "subida-agua",
+      "sigla": "AF",
+      "nombre": "Subida de agua de red al tanque",
+      "nivel": "pb",
+      "pos": [
+        1078,
+        1040
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "nota": "Caño que sube por la pared de la medianera derecha hasta el tanque, por el mismo lugar que la bajada cloacal y las ventilaciones."
+    },
+    {
+      "id": "subida-agua-pa",
+      "tipo": "subida-agua",
+      "sigla": "AF",
+      "nombre": "Subida de agua de red al tanque",
+      "nivel": "pa",
+      "pos": [
+        1078,
+        1040
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998"
+    },
+    {
+      "id": "bajada-tanque-pa",
+      "tipo": "bajada-agua",
+      "sigla": "BT",
+      "nombre": "Bajada de tanque Ø 25 (agua fría)",
+      "nivel": "pa",
+      "pos": [
+        1078,
+        1072
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "nota": "Según el plano de 1998, la bajada del tanque es Ø 25 mm, con colector y 3 llaves de paso."
+    },
+    {
+      "id": "bajada-tanque-pb",
+      "tipo": "bajada-agua",
+      "sigla": "BT",
+      "nombre": "Bajada de tanque Ø 25 (agua fría)",
+      "nivel": "pb",
+      "pos": [
+        1078,
+        1072
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998"
+    },
+    {
+      "id": "tanque",
+      "tipo": "tanque",
+      "sigla": "TR",
+      "nombre": "Tanque de reserva 1.000 L",
+      "nivel": "techos",
+      "pos": [
+        1000,
+        1150
+      ],
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "nota": "El plano sanitario de 1998 indica un tanque de reserva de 1.000 L con flotante automático, colector con 3 llaves de paso y bajada Ø 25, a 2,00 m sobre el artefacto más alto. Lo ubiqué bajo el techo de planta alta, sobre el núcleo húmedo: confirmá dónde está realmente."
     }
   ],
   "tramos": [
@@ -959,6 +1041,273 @@
         ]
       ],
       "nota": "Probable: baja en el frente, junto a la medianera derecha, y va a la calle por la vereda."
+    },
+    {
+      "id": "agua-conexion",
+      "nombre": "Conexión a la red de agua Ø 13",
+      "red": "agua",
+      "diametro": "Ø 13 mm",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          700,
+          2230
+        ],
+        [
+          700,
+          1812
+        ]
+      ]
+    },
+    {
+      "id": "agua-entrada",
+      "nombre": "Agua de red: medidor a subida al tanque",
+      "red": "agua",
+      "diametro": "Ø 13 mm",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          700,
+          1812
+        ],
+        [
+          700,
+          1640
+        ],
+        [
+          790,
+          1610
+        ],
+        [
+          870,
+          1330
+        ],
+        [
+          870,
+          1060
+        ],
+        [
+          1078,
+          1040
+        ]
+      ],
+      "nota": "Recorrido aproximado bajo el piso. Es común que la canilla de la cocina salga directo de la red, antes del tanque: confirmalo."
+    },
+    {
+      "id": "agua-subida-techo",
+      "nombre": "Subida al tanque",
+      "red": "agua",
+      "diametro": "Ø 13 mm",
+      "nivel": "techos",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          1078,
+          1040
+        ],
+        [
+          1000,
+          1150
+        ]
+      ]
+    },
+    {
+      "id": "agua-bajada-techo",
+      "nombre": "Bajada del tanque Ø 25",
+      "red": "agua",
+      "diametro": "Ø 25 mm",
+      "nivel": "techos",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          1000,
+          1150
+        ],
+        [
+          1078,
+          1072
+        ]
+      ]
+    },
+    {
+      "id": "af-pa",
+      "nombre": "Agua fría al baño PA",
+      "red": "agua",
+      "diametro": "Ø 19 mm",
+      "nivel": "pa",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          1078,
+          1072
+        ],
+        [
+          1078,
+          1200
+        ],
+        [
+          980,
+          1300
+        ],
+        [
+          919,
+          1300
+        ]
+      ]
+    },
+    {
+      "id": "af-pb-tt",
+      "nombre": "Agua fría al termotanque",
+      "red": "agua",
+      "diametro": "Ø 19 mm",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          1078,
+          1072
+        ],
+        [
+          1078,
+          1110
+        ],
+        [
+          1062,
+          1110
+        ]
+      ]
+    },
+    {
+      "id": "af-pb-bano",
+      "nombre": "Agua fría al baño PB",
+      "red": "agua",
+      "diametro": "Ø 19 mm",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          1078,
+          1110
+        ],
+        [
+          1078,
+          1160
+        ],
+        [
+          1048,
+          1193
+        ]
+      ]
+    },
+    {
+      "id": "af-pb-cocina",
+      "nombre": "Agua fría a la cocina",
+      "red": "agua",
+      "diametro": "Ø 13 mm",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          1078,
+          1072
+        ],
+        [
+          1078,
+          1005
+        ],
+        [
+          1000,
+          990
+        ],
+        [
+          960,
+          745
+        ]
+      ]
+    },
+    {
+      "id": "ac-pb-cocina",
+      "nombre": "Agua caliente a la cocina",
+      "red": "agua-caliente",
+      "diametro": "Ø 13 mm",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          1062,
+          1110
+        ],
+        [
+          1062,
+          1005
+        ],
+        [
+          990,
+          995
+        ],
+        [
+          945,
+          745
+        ]
+      ]
+    },
+    {
+      "id": "ac-pb-bano",
+      "nombre": "Agua caliente al baño PB y lavadero",
+      "red": "agua-caliente",
+      "diametro": "Ø 13 mm",
+      "nivel": "pb",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          1062,
+          1110
+        ],
+        [
+          1020,
+          1145
+        ],
+        [
+          945,
+          1172
+        ]
+      ]
+    },
+    {
+      "id": "ac-subida-pa",
+      "nombre": "Agua caliente: subida al baño PA",
+      "red": "agua-caliente",
+      "diametro": "Ø 13 mm",
+      "nivel": "pa",
+      "estado": "estimado",
+      "fuente": "sanitario-1998",
+      "puntos": [
+        [
+          1062,
+          1110
+        ],
+        [
+          1040,
+          1060
+        ],
+        [
+          1008,
+          1055
+        ]
+      ],
+      "nota": "Sube desde el termotanque del lavadero por la pared y alimenta la bañera y el lavatorio."
     }
   ],
   "pendiente_relevar": [
@@ -969,6 +1318,8 @@
     "Ver si al pie de la bajada hay tapa de inspección",
     "Desagües del quincho y del garage (agregados después del plano de 1998)",
     "Pluviales: contar cuántas bajadas hay y dónde están (fondo, frente, quincho)",
-    "Pluviales: buscar la salida al cordón en la vereda (¿una o dos?)"
+    "Pluviales: buscar la salida al cordón en la vereda (¿una o dos?)",
+    "Agua: ubicar el medidor y la llave de paso general",
+    "Agua: confirmar dónde está el tanque de reserva y si la canilla de cocina es directa de red"
   ]
 }
