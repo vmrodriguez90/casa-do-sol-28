@@ -407,3 +407,29 @@ kbd { font: 12px ui-monospace, monospace; border: 1px solid var(--line); border-
 .eq-cerrada { stroke: var(--detail); stroke-width: 1.2; stroke-dasharray: 6 5; vector-effect: non-scaling-stroke; }
 .camara.bajada.bajada-agua rect, .camara.subida-agua rect, .camara.medidor rect, .camara.tanque rect { fill: var(--surface); stroke: var(--water); stroke-width: 4; stroke-dasharray: none; }
 .camara.bajada.bajada-agua text { fill: var(--water); }
+
+/* Plano de obra: aberturas, escaleras, cotas, rótulos */
+.ventana-marco { fill: var(--surface); stroke: var(--wall); stroke-width: 1.4; vector-effect: non-scaling-stroke; }
+.ventana-vidrio { stroke: var(--wall); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+.escalera { pointer-events: none; }
+.esc-linea { stroke: var(--wall); stroke-width: 1.1; vector-effect: non-scaling-stroke; fill: none; }
+.esc-oculta { stroke: var(--detail); stroke-width: 1; stroke-dasharray: 5 4; vector-effect: non-scaling-stroke; fill: none; }
+.esc-descanso { fill: none; stroke: var(--wall); stroke-width: 1.1; vector-effect: non-scaling-stroke; }
+.esc-descanso.oculta { stroke: var(--detail); stroke-dasharray: 5 4; }
+.esc-corte { fill: none; stroke: var(--wall); stroke-width: 1.6; vector-effect: non-scaling-stroke; }
+.esc-flecha { fill: none; stroke: var(--wall); stroke-width: 1.4; vector-effect: non-scaling-stroke; }
+.esc-flecha-p { fill: var(--wall); }
+.esc-texto { fill: var(--ink); font-size: 12px; font-weight: 700; text-anchor: middle; letter-spacing: .05em; }
+.cota line { stroke: var(--ink-2); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.cota text { fill: var(--ink); text-anchor: middle; font-variant-numeric: tabular-nums; }
+.tag .etq { letter-spacing: .03em; }
+.tag-num { fill: none; stroke: var(--ink); stroke-width: 1.2; vector-effect: non-scaling-stroke; }
+.tag-num-t { fill: var(--ink); text-anchor: middle; dominant-baseline: central; font-weight: 700; }
+.npt { fill: var(--surface); stroke: var(--ink-2); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.npt-t { fill: var(--ink-2); font-size: 12px; text-anchor: middle; dominant-baseline: middle; font-variant-numeric: tabular-nums; }
+.eq-tenue { opacity: .5; }
+.escala rect { stroke: var(--ink); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.escala .esc-n { fill: var(--ink); }
+.escala .esc-b { fill: var(--surface); }
+.escala text { fill: var(--ink-2); font-size: 14px; text-anchor: middle; }
+.capa-pdf { opacity: .55; }

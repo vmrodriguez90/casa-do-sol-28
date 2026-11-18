@@ -26,12 +26,13 @@ En GitHub Pages el botón no aparece.
 
 | Archivo | Para qué |
 |---|---|
-| `data/casa.json` | Ambientes (polígonos clickeables, medidas, superficie, nivel de piso), zonas exteriores, techos |
+| `data/casa.json` | Ambientes, aberturas (puertas y ventanas), escaleras, equipamiento, correcciones al plano importado, zonas exteriores y techos |
 | `data/fases.json` | Etapas de la casa: superficie aprobada original, cerramientos, ampliación, estado actual. Acá se suman las fases futuras |
 | `data/desagues.json` | Artefactos, ventilaciones, cámaras y tramos de cañería (cloacal, pluvial, ventilación, agua) |
 | `data/proyectos.json` | Proyectos con tareas, ambientes afectados, presupuesto y dibujo opcional del cambio |
 | `data/config.json` | Tipo de cambio ARS/USD de referencia |
-| `planos/*.svg` | Muros y detalle de cada planta, importados del plano en PDF |
+| `planos/*.svg` | Muros de cada planta, importados del plano en PDF (el detalle original queda como capa opcional) |
+| `planos/cotas.json` | Cotas extraídas del PDF; solo se guardan las que coinciden con el número escrito |
 | `tools/importar_pdf.py` | Script que generó los SVG a partir del PDF de ArchiCAD |
 
 Cada JSON tiene un campo `_ayuda` con lo que acepta. El historial de git queda como registro de cambios.
@@ -75,7 +76,10 @@ El PDF original no se sube al repositorio: va en `privado/`, que está en `.giti
 ```bash
 brew install poppler
 python3 tools/importar_pdf.py privado/obra.pdf
+python3 tools/extraer_cotas.py privado/obra.pdf
 ```
+
+El plano se dibuja así: los muros salen del PDF y todo lo demás (puertas, ventanas, escaleras, artefactos, cotas, rótulos) se dibuja desde los datos. Para cambiar una puerta o una ventana se edita `aberturas` en `data/casa.json`.
 
 ## Publicar en GitHub Pages
 

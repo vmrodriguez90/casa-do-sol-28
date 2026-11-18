@@ -328,6 +328,10 @@
           15,
           685
         ]
+      ],
+      "etiqueta": [
+        175,
+        330
       ]
     },
     {
@@ -391,6 +395,10 @@
           15,
           1460
         ]
+      ],
+      "etiqueta": [
+        160,
+        1000
       ]
     },
     {
@@ -431,6 +439,10 @@
           290,
           1460
         ]
+      ],
+      "etiqueta": [
+        550,
+        1095
       ]
     },
     {
@@ -1000,7 +1012,8 @@
         150,
         60
       ],
-      "revision": 1
+      "revision": 1,
+      "fijo": true
     },
     {
       "id": "mesada-quincho",
@@ -1013,43 +1026,8 @@
         150,
         60
       ],
-      "revision": 1
-    },
-    {
-      "id": "puerta-quincho-garage",
-      "nivel": "pb",
-      "tipo": "puerta-plegadiza",
-      "nombre": "Puerta de 4 módulos (abre casi completa)",
-      "linea": [
-        [
-          40,
-          692
-        ],
-        [
-          270,
-          692
-        ]
-      ],
-      "modulos": 4,
-      "revision": 26,
-      "abre": 1
-    },
-    {
-      "id": "porton-garage",
-      "nivel": "pb",
-      "tipo": "porton",
-      "nombre": "Portón de garage",
-      "linea": [
-        [
-          15,
-          1470
-        ],
-        [
-          275,
-          1470
-        ]
-      ],
-      "revision": 21
+      "revision": 1,
+      "fijo": true
     },
     {
       "id": "mesada-cocina-fondo",
@@ -1062,7 +1040,8 @@
         209,
         62
       ],
-      "revision": 12
+      "revision": 12,
+      "fijo": true
     },
     {
       "id": "mesada-cocina-lateral",
@@ -1075,7 +1054,8 @@
         62,
         238
       ],
-      "revision": 13
+      "revision": 13,
+      "fijo": true
     },
     {
       "id": "bacha-cocina",
@@ -1088,7 +1068,8 @@
         75,
         40
       ],
-      "revision": 11
+      "revision": 11,
+      "fijo": true
     },
     {
       "id": "anafe",
@@ -1101,7 +1082,8 @@
         48,
         50
       ],
-      "revision": 15
+      "revision": 15,
+      "fijo": true
     },
     {
       "id": "horno",
@@ -1114,7 +1096,8 @@
         52,
         55
       ],
-      "revision": 28
+      "revision": 28,
+      "fijo": true
     },
     {
       "id": "barra-cocina",
@@ -1127,7 +1110,8 @@
         40,
         178
       ],
-      "revision": 16
+      "revision": 16,
+      "fijo": true
     },
     {
       "id": "mesa-cocina",
@@ -1140,7 +1124,8 @@
         95,
         50
       ],
-      "revision": 17
+      "revision": 17,
+      "fijo": true
     },
     {
       "id": "heladera",
@@ -1153,7 +1138,8 @@
         73,
         65
       ],
-      "revision": 27
+      "revision": 27,
+      "fijo": false
     },
     {
       "id": "mesada-lavadero",
@@ -1166,7 +1152,8 @@
         210,
         55
       ],
-      "revision": 9
+      "revision": 9,
+      "fijo": true
     },
     {
       "id": "lavarropas",
@@ -1179,7 +1166,8 @@
         60,
         50
       ],
-      "revision": 23
+      "revision": 23,
+      "fijo": false
     },
     {
       "id": "pileta-lavadero",
@@ -1192,7 +1180,8 @@
         50,
         38
       ],
-      "revision": 23
+      "revision": 23,
+      "fijo": true
     },
     {
       "id": "bacha-bano-pb",
@@ -1205,42 +1194,122 @@
         56,
         32
       ],
-      "revision": 2
+      "revision": 2,
+      "fijo": true
     },
     {
-      "id": "puerta-oficina",
+      "id": "inodoro-pb",
       "nivel": "pb",
-      "tipo": "puerta",
-      "nombre": "Puerta en diagonal (de pared a pared)",
-      "linea": [
-        [
-          869,
-          1409
-        ],
-        [
-          801,
-          1466
-        ]
+      "tipo": "inodoro",
+      "nombre": "Inodoro",
+      "pos": [
+        1057,
+        1193
       ],
-      "revision": 19
+      "rot": -90,
+      "fijo": true
     },
     {
-      "id": "puerta-pasillo",
-      "nivel": "pb",
-      "tipo": "puerta-batiente",
-      "nombre": "Puerta del pasillo",
-      "linea": [
-        [
-          777,
-          1110
-        ],
-        [
-          863,
-          1110
-        ]
+      "id": "inodoro-pa",
+      "nivel": "pa",
+      "tipo": "inodoro",
+      "nombre": "Inodoro",
+      "pos": [
+        919,
+        1292
       ],
-      "abre": 1,
-      "revision": 24
+      "rot": 0,
+      "fijo": true
+    },
+    {
+      "id": "bidet-pa",
+      "nivel": "pa",
+      "tipo": "bidet",
+      "nombre": "Bidet",
+      "pos": [
+        977,
+        1292
+      ],
+      "rot": 0,
+      "fijo": true
+    },
+    {
+      "id": "banera-pa",
+      "nivel": "pa",
+      "tipo": "banera",
+      "nombre": "Bañera",
+      "rect": [
+        940,
+        1016,
+        140,
+        63
+      ],
+      "fijo": true
+    },
+    {
+      "id": "lavatorio-pa",
+      "nivel": "pa",
+      "tipo": "bacha",
+      "nombre": "Lavatorio",
+      "rect": [
+        1043,
+        1180,
+        40,
+        46
+      ],
+      "fijo": true
+    },
+    {
+      "id": "placard-pb-1",
+      "nivel": "pb",
+      "tipo": "placard",
+      "nombre": "Placard",
+      "rect": [
+        875,
+        1270,
+        130,
+        50
+      ],
+      "fijo": true
+    },
+    {
+      "id": "placard-pa-1",
+      "nivel": "pa",
+      "tipo": "placard",
+      "nombre": "Placard",
+      "rect": [
+        875,
+        1010,
+        50,
+        130
+      ],
+      "fijo": true
+    },
+    {
+      "id": "placard-pa-2",
+      "nivel": "pa",
+      "tipo": "placard",
+      "nombre": "Placard",
+      "rect": [
+        665,
+        700,
+        50,
+        300
+      ],
+      "fijo": true
+    },
+    {
+      "id": "placard-pa-3",
+      "nivel": "pa",
+      "tipo": "placard",
+      "nombre": "Placard",
+      "rect": [
+        665,
+        1330,
+        50,
+        270
+      ],
+      "fijo": true
     }
   ],
   "correcciones": [
@@ -1447,6 +1516,317 @@
       ],
       "motivo": "Puerta entre cocina y pasillo que no existe",
       "revision": 25
+    }
+  ],
+  "_ayuda_aberturas": "aberturas: puertas (bisagra → cierre = hoja cerrada; 'abre' 1 o -1 elige de qué lado barre) y ventanas (p1 → p2 sobre el eje del muro, 'espesor' del muro). escaleras: tramos con pedadas, compensados y línea de corte. Todo en cm.",
+  "aberturas": [
+    {
+      "id": "puerta-quincho-garage",
+      "nivel": "pb",
+      "tipo": "puerta-plegadiza",
+      "nombre": "Puerta de 4 módulos (abre casi completa)",
+      "linea": [
+        [
+          40,
+          692
+        ],
+        [
+          270,
+          692
+        ]
+      ],
+      "modulos": 4,
+      "revision": 26,
+      "abre": 1
+    },
+    {
+      "id": "porton-garage",
+      "nivel": "pb",
+      "tipo": "porton",
+      "nombre": "Portón de garage",
+      "linea": [
+        [
+          15,
+          1470
+        ],
+        [
+          275,
+          1470
+        ]
+      ],
+      "revision": 21
+    },
+    {
+      "id": "puerta-oficina",
+      "nivel": "pb",
+      "tipo": "puerta",
+      "nombre": "Puerta en diagonal (de pared a pared)",
+      "linea": [
+        [
+          869,
+          1409
+        ],
+        [
+          801,
+          1466
+        ]
+      ],
+      "revision": 19
+    },
+    {
+      "id": "puerta-pasillo",
+      "nivel": "pb",
+      "tipo": "puerta-batiente",
+      "nombre": "Puerta del pasillo",
+      "linea": [
+        [
+          777,
+          1110
+        ],
+        [
+          863,
+          1110
+        ]
+      ],
+      "abre": 1,
+      "revision": 24
+    },
+    {
+      "id": "puerta-entrada",
+      "nivel": "pb",
+      "tipo": "puerta-batiente",
+      "nombre": "Puerta de entrada",
+      "linea": [
+        [
+          665,
+          1581
+        ],
+        [
+          665,
+          1499
+        ]
+      ],
+      "abre": 1
+    },
+    {
+      "id": "puerta-bano-pb",
+      "nivel": "pb",
+      "tipo": "puerta-batiente",
+      "nombre": "Puerta baño PB",
+      "linea": [
+        [
+          875,
+          1246
+        ],
+        [
+          875,
+          1194
+        ]
+      ],
+      "abre": 1
+    },
+    {
+      "id": "pv-cocina",
+      "nivel": "pb",
+      "tipo": "ventana",
+      "subtipo": "corrediza",
+      "nombre": "Puerta-ventana corrediza cocina (acceso al patio)",
+      "p1": [
+        730,
+        692
+      ],
+      "p2": [
+        870,
+        692
+      ],
+      "espesor": 15
+    },
+    {
+      "id": "v-cocina",
+      "nivel": "pb",
+      "tipo": "ventana",
+      "subtipo": "corrediza",
+      "nombre": "Ventana cocina",
+      "p1": [
+        885,
+        692
+      ],
+      "p2": [
+        1025,
+        692
+      ],
+      "espesor": 15
+    },
+    {
+      "id": "pv-comedor",
+      "nivel": "pb",
+      "tipo": "ventana",
+      "subtipo": "corrediza",
+      "nombre": "Puerta-ventana corrediza comedor (acceso desde la galería)",
+      "p1": [
+        390,
+        812
+      ],
+      "p2": [
+        570,
+        812
+      ],
+      "espesor": 15
+    },
+    {
+      "id": "v-comedor",
+      "nivel": "pb",
+      "tipo": "ventana",
+      "subtipo": "corrediza",
+      "nombre": "Ventana comedor (frente)",
+      "p1": [
+        394,
+        1470
+      ],
+      "p2": [
+        544,
+        1470
+      ],
+      "espesor": 20
+    },
+    {
+      "id": "v-habitacion",
+      "nivel": "pb",
+      "tipo": "ventana",
+      "subtipo": "corrediza",
+      "nombre": "Ventana habitación (frente)",
+      "p1": [
+        825,
+        1610
+      ],
+      "p2": [
+        975,
+        1610
+      ],
+      "espesor": 20
+    },
+    {
+      "id": "puerta-dorm-fondo",
+      "nivel": "pa",
+      "tipo": "puerta-batiente",
+      "nombre": "Puerta dormitorio fondo",
+      "linea": [
+        [
+          784,
+          1000
+        ],
+        [
+          846,
+          1000
+        ]
+      ],
+      "abre": -1
+    },
+    {
+      "id": "puerta-dorm-frente",
+      "nivel": "pa",
+      "tipo": "puerta-batiente",
+      "nombre": "Puerta dormitorio frente",
+      "linea": [
+        [
+          784,
+          1330
+        ],
+        [
+          846,
+          1330
+        ]
+      ],
+      "abre": 1
+    },
+    {
+      "id": "puerta-bano-pa",
+      "nivel": "pa",
+      "tipo": "puerta-batiente",
+      "nombre": "Puerta baño PA",
+      "linea": [
+        [
+          875,
+          1164
+        ],
+        [
+          875,
+          1226
+        ]
+      ],
+      "abre": -1
+    },
+    {
+      "id": "v-dorm-fondo",
+      "nivel": "pa",
+      "tipo": "ventana",
+      "subtipo": "corrediza",
+      "nombre": "Ventana dormitorio fondo",
+      "p1": [
+        825,
+        692
+      ],
+      "p2": [
+        975,
+        692
+      ],
+      "espesor": 15
+    },
+    {
+      "id": "v-dorm-frente",
+      "nivel": "pa",
+      "tipo": "ventana",
+      "subtipo": "corrediza",
+      "nombre": "Ventana dormitorio frente",
+      "p1": [
+        825,
+        1610
+      ],
+      "p2": [
+        975,
+        1610
+      ],
+      "espesor": 20
+    }
+  ],
+  "escaleras": [
+    {
+      "id": "esc-entrepiso",
+      "nombre": "Escalera de madera dura al entrepiso (+2,45)",
+      "x0": 290,
+      "x1": 360,
+      "y_inicio": 1455,
+      "y_fin": 1140,
+      "pedadas": 12,
+      "descanso": [
+        290,
+        1070,
+        70,
+        70
+      ],
+      "sale": "oeste",
+      "corte": 1300,
+      "niveles": {
+        "pb": "sube",
+        "ent": "baja"
+      }
+    },
+    {
+      "id": "esc-pa",
+      "nombre": "Escalera de H°A° a planta alta (+2,85)",
+      "x0": 665,
+      "x1": 765,
+      "y_inicio": 1353,
+      "y_fin": 1100,
+      "pedadas": 10,
+      "compensados": 3,
+      "gira": "este",
+      "y_tope": 1010,
+      "corte": 1190,
+      "niveles": {
+        "pb": "sube",
+        "pa": "baja"
+      }
     }
   ]
 }
