@@ -83,6 +83,7 @@
     if (!S.casa.niveles.some((n) => n.id === S.nivel)) S.nivel = "pb";
     armarControles();
     armarZoom();
+    armarTema();
     window.addEventListener("hashchange", ruta);
     ruta();
   }
@@ -110,6 +111,24 @@
     } else if (v === "fases") renderFases(sub);
     else if (v === "proyectos") renderProyectos();
     else renderPresupuesto();
+  }
+
+  // ---------- modo día / noche ----------
+  function armarTema() {
+    const box = document.querySelector(".tema");
+    const pintar = () => {
+      const actual = store.get("tema", "auto");
+      box.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.tema === actual)));
+    };
+    box.addEventListener("click", (e) => {
+      const t = e.target.closest("button")?.dataset.tema;
+      if (!t) return;
+      store.set("tema", t);
+      if (t === "auto") document.documentElement.removeAttribute("data-theme");
+      else document.documentElement.setAttribute("data-theme", t);
+      pintar();
+    });
+    pintar();
   }
 
   // ---------- controles del plano ----------
@@ -167,9 +186,15 @@
             <div class="leyenda-item">${sw("--drain-2", "line")} Cañería pluvial</div>
             <div class="leyenda-item">${sw("--warn", "dash")} Estimado, a verificar</div>`;
       const d = S.desagues;
-      if (!d.tramos.length) {
-        h += `<div class="aviso"><strong>Recorridos sin relevar.</strong> El plano no dibuja los desagües. Falta:
-          <ul>${d.pendiente_relevar.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>`;
+      if ((d.pasos || []).length) {
+        h += `<div class="aviso"><strong>Plano sanitario 1998: carga por pasos</strong>
+          <ul class="pasos">${d.pasos.map((x) => `<li class="${x.estado}">${x.estado === "aplicado" ? "✓" : "○"} ${x.n}. ${esc(x.titulo)}</li>`).join("")}</ul></div>`;
+      }
+      if ((d.notas_plano || []).length) {
+        h += `<details class="notas-plano"><summary>Notas del plano sanitario</summary><ul>${d.notas_plano.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></details>`;
+      }
+      if ((d.pendiente_relevar || []).length) {
+        h += `<details class="notas-plano"><summary>Falta verificar en obra (${d.pendiente_relevar.length})</summary><ul>${d.pendiente_relevar.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></details>`;
       }
     }
     h += `<div class="leyenda-item">${sw("--room-wet", "rect")} Local húmedo</div>`;
@@ -281,12 +306,20 @@
   function dibujarDesagues(g, nivel) {
     const d = S.desagues;
     for (const t of d.tramos.filter((t) => t.nivel === nivel || (nivel === "techos" && t.red === "pluvial" && t.nivel === "techos"))) {
-      el("polyline", { points: pts(t.puntos), class: `tramo ${t.red} ${t.estado}` }, g);
+      const sel = S.sel?.tipo === "tramo" && S.sel.id === t.id;
+      el("polyline", { points: pts(t.puntos), class: `tramo ${t.red} ${t.estado}${sel ? " sel" : ""}` }, g);
+      const hit = el("polyline", { points: pts(t.puntos), class: "tramo-hit", "data-tramo": t.id }, g);
+      el("title", {}, hit, t.nombre);
+      // flecha de sentido de escurrimiento en el último segmento
+      const [a, b] = t.puntos.slice(-2);
+      const ang = Math.atan2(b[1] - a[1], b[0] - a[0]) * 180 / Math.PI;
+      el("path", { d: "M-14,-11 L10,0 L-14,11 Z", class: `tramo-flecha ${t.red}`, transform: `translate(${(a[0] + b[0]) / 2},${(a[1] + b[1]) / 2}) rotate(${ang})` }, g);
     }
     for (const c of d.camaras.filter((c) => c.nivel === nivel)) {
-      const n = el("g", { class: `vent ${c.estado}`, "data-cam": c.id }, g);
-      el("rect", { x: c.pos[0] - 22, y: c.pos[1] - 22, width: 44, height: 44, style: "fill:var(--drain-1)" }, n);
+      const n = el("g", { class: `camara ${c.estado}`, "data-cam": c.id }, g);
+      el("rect", { x: c.pos[0] - 22, y: c.pos[1] - 22, width: 44, height: 44, rx: 4 }, n);
       el("text", { x: c.pos[0], y: c.pos[1] }, n, "CI");
+      el("title", {}, n, c.nombre);
     }
     for (const v of d.ventilaciones.filter((v) => v.nivel === nivel)) {
       const n = el("g", { class: "vent", "data-vent": v.id, style: "cursor:pointer" }, g);
@@ -313,10 +346,19 @@
         if (a && a.nivel === nivel) el("polygon", { points: pts(a.poligono), class: "proy-amb" }, g);
       }
       for (const o of (p.overlay || []).filter((o) => o.nivel === nivel)) {
-        if (o.tipo === "poligono") el("polygon", { points: pts(o.puntos), class: "proy-ov" }, g);
-        else if (o.tipo === "linea") el("polyline", { points: pts(o.puntos), class: "proy-ov", style: "fill:none" }, g);
-        else if (o.tipo === "punto") el("circle", { cx: o.puntos[0][0], cy: o.puntos[0][1], r: 18, class: "proy-ov" }, g);
-        if (o.etiqueta) { const b = bbox(o.puntos); el("text", { x: b.cx, y: b.y0 - 14, class: "etq-meta", style: "fill:var(--f-futura)" }, g, o.etiqueta); }
+        const cls = `proy-ov ov-${o.estilo || "nuevo"}`;
+        if (o.tipo === "poligono") el("polygon", { points: pts(o.puntos), class: cls }, g);
+        else if (o.tipo === "linea") el("polyline", { points: pts(o.puntos), class: cls + " ov-linea" }, g);
+        else if (o.tipo === "punto") el("rect", { x: o.puntos[0][0] - 10, y: o.puntos[0][1] - 10, width: 20, height: 20, class: cls }, g);
+        if (o.etiqueta) {
+          const b = bbox(o.puntos);
+          const t = o.tipo === "punto"
+            ? el("text", { x: b.cx + 18, y: b.cy + 6, class: `ov-etq ov-${o.estilo || "nuevo"}-t`, style: "text-anchor:start" }, g, o.etiqueta)
+            : o.tipo === "linea"
+              ? el("text", { x: b.x0 + 10, y: b.y0 - 8, class: `ov-etq ov-${o.estilo || "nuevo"}-t`, style: "text-anchor:start" }, g, o.etiqueta)
+              : el("text", { x: b.cx, y: b.h > 200 ? b.cy : b.y0 - 12, class: `ov-etq ov-${o.estilo || "nuevo"}-t` }, g, o.etiqueta);
+          t.dataset.proy = p.id;
+        }
       }
     }
   }
@@ -417,9 +459,11 @@
 
     svg.addEventListener("click", (e) => {
       if (movido) return;
-      const t = e.target.closest("[data-amb],[data-art],[data-vent]");
+      const t = e.target.closest("[data-amb],[data-art],[data-vent],[data-tramo],[data-cam]");
       if (!t) { S.sel = null; }
       else if (t.dataset.art) S.sel = { tipo: "art", id: t.dataset.art };
+      else if (t.dataset.tramo) S.sel = { tipo: "tramo", id: t.dataset.tramo };
+      else if (t.dataset.cam) S.sel = { tipo: "cam", id: t.dataset.cam };
       else if (t.dataset.vent) S.sel = { tipo: "vent", id: t.dataset.vent };
       else S.sel = { tipo: "amb", id: t.dataset.amb };
       renderPlano(false);
@@ -465,7 +509,7 @@
           return `<li><a href="#proyectos">${esc(p.nombre)}</a> <span class="muted">· ${esc(p.estado)} · ${t.hechas}/${t.total} tareas</span></li>`;
         }).join("")}</ul>` : ""}`;
     } else {
-      const lista = s.tipo === "art" ? S.desagues.artefactos : S.desagues.ventilaciones;
+      const lista = { art: S.desagues.artefactos, vent: S.desagues.ventilaciones, tramo: S.desagues.tramos, cam: S.desagues.camaras }[s.tipo] || [];
       const x = lista.find((y) => y.id === s.id);
       if (!x) { box.innerHTML = ""; return; }
       const a = x.ambiente ? ambiente(x.ambiente) : null;
@@ -475,6 +519,10 @@
         <span class="muted">${esc(nivelNombre(x.nivel))}${a ? " · " + esc(a.nombre) : ""}</span>
         <dl>
           ${s.tipo === "art" ? `<dt>Desagüe</dt><dd>${des[String(x.desague)] || esc(x.desague)}</dd>` : ""}
+          ${x.red ? `<dt>Red</dt><dd>${esc(x.red)}</dd>` : ""}
+          ${x.diametro ? `<dt>Diámetro</dt><dd>${esc(x.diametro)}</dd>` : ""}
+          ${x.pendiente ? `<dt>Pendiente</dt><dd>${esc(x.pendiente)}</dd>` : ""}
+          ${x.fuente ? `<dt>Fuente</dt><dd>${esc((S.desagues.fuentes || []).find((f) => f.id === x.fuente)?.nombre || x.fuente)}</dd>` : ""}
           <dt>Estado</dt><dd>${{ plano: "Figura en el plano", estimado: "Estimado, a verificar", verificado: "Verificado en obra" }[x.estado] || esc(x.estado)}</dd>
         </dl>
         ${x.nota ? `<p>${esc(x.nota)}</p>` : ""}
@@ -511,6 +559,10 @@
     $("#fase-info").innerHTML = `
       <h3>${esc(sel.nombre)}</h3>
       <p class="muted" style="margin:4px 0 0">${esc(sel.descripcion || "")}</p>
+      ${(sel.proyectos || []).length ? `<p style="margin:6px 0 0;font-size:14px">Proyecto: ${sel.proyectos.map((id) => {
+        const pr = S.proyectos.proyectos.find((x) => x.id === id);
+        return `<a href="#proyectos">${esc(pr?.nombre || id)}</a>`;
+      }).join(", ")}</p>` : ""}
       ${filas.length ? `<table>
         <thead><tr><th>N°</th><th>Planta</th><th>Tipo</th><th>Medidas</th><th class="num">m²</th>${sel.tipo === "actual" ? "<th>Etapa</th>" : ""}</tr></thead>
         <tbody>${filas.map(({ f, s }) => `<tr><td>${s.n}</td><td>${esc(nivelNombre(s.nivel))}</td><td>${esc(s.tipo)}</td><td>${esc(s.medidas)}</td><td class="num">${fmtM(s.m2)}</td>${sel.tipo === "actual" ? `<td><span style="color:${colorFase(f)}">●</span> ${esc(f.nombre)}</td>` : ""}</tr>`).join("")}
@@ -545,11 +597,19 @@
 
   // ---------- proyectos ----------
   const ESTADOS = ["idea", "planificado", "en-curso", "terminado", "descartado"];
-  function subtotales(p) {
-    let ars = 0, usd = 0;
-    for (const i of p.presupuesto || []) { ars += toARS(i.monto, i.moneda); usd += toUSD(i.monto, i.moneda); }
-    return { ars, usd };
+  /** Suma ítems no condicionales. Devuelve mínimos y máximos en ARS y USD. */
+  function sumar(items) {
+    const r = { ars: 0, usd: 0, arsMax: 0, usdMax: 0 };
+    for (const i of items) {
+      if (i.condicional) continue;
+      const max = i.monto_max ?? i.monto;
+      r.ars += toARS(i.monto, i.moneda); r.usd += toUSD(i.monto, i.moneda);
+      r.arsMax += toARS(max, i.moneda); r.usdMax += toUSD(max, i.moneda);
+    }
+    return r;
   }
+  const subtotales = (p) => sumar(p.presupuesto || []);
+  const rango = (min, max, cur) => Math.round(min) === Math.round(max) ? fmtMoney(min, cur) : `${fmtMoney(min, cur)} – ${fmtMoney(max, cur).replace(/^(US)?\$ /, "")}`;
   function renderProyectos() {
     const P = S.proyectos.proyectos;
     const fe = $("#f-estado"), fa = $("#f-ambiente");
@@ -562,36 +622,62 @@
     const lista = P.filter((p) => (!fe.value || p.estado === fe.value) && (!fa.value || (p.ambientes || []).includes(fa.value)));
     const box = $("#proyectos");
     if (!lista.length) { box.innerHTML = `<div class="empty">No hay proyectos con ese filtro.</div>`; return; }
-    box.innerHTML = lista.map((p) => {
-      const t = tareasDe(p);
-      const st = subtotales(p);
-      return `<article class="card">
-        <div class="badges"><span class="badge ${p.estado}">${esc(p.estado)}</span>${p.prioridad ? `<span class="badge ${p.prioridad}">prioridad ${esc(p.prioridad)}</span>` : ""}</div>
-        <h3>${esc(p.nombre)}</h3>
-        <p>${esc(p.descripcion || "")}</p>
-        ${(p.ambientes || []).length ? `<div class="chips">${p.ambientes.map((id) => `<a href="#plano?amb=${id}">${esc(ambiente(id)?.nombre || id)}</a>`).join("")}</div>` : ""}
-        ${t.total ? `<div><div class="bar" title="${t.hechas} de ${t.total} tareas"><span style="width:${(100 * t.hechas / t.total).toFixed(0)}%"></span></div>
-          <span class="muted" style="font-size:12px">${t.hechas} de ${t.total} tareas</span></div>
-          <ul class="tareas">${p.tareas.map((x) => `<li class="${x.estado}"><span class="chk"></span><span>${esc(x.titulo)}${x.responsable ? ` <span class="muted">· ${esc(x.responsable)}</span>` : ""}${x.fecha ? ` <span class="muted">· ${esc(x.fecha)}</span>` : ""}</span></li>`).join("")}</ul>` : ""}
-        <div class="subtotal"><span class="muted">Presupuesto</span><span>${(p.presupuesto || []).length ? `${fmtMoney(st.ars, "ARS")} · ${fmtMoney(st.usd, "USD")}` : "sin cargar"}</span></div>
-      </article>`;
-    }).join("");
+    box.innerHTML = lista.map(tarjetaProyecto).join("");
+  }
+
+  function tareasHTML(p) {
+    const grupos = [];
+    for (const x of p.tareas || []) {
+      const g = x.grupo || "";
+      let gr = grupos.find((y) => y.nombre === g);
+      if (!gr) grupos.push(gr = { nombre: g, items: [] });
+      gr.items.push(x);
+    }
+    return grupos.map((g) => `${g.nombre ? `<p class="t-grupo">${esc(g.nombre)}</p>` : ""}
+      <ul class="tareas">${g.items.map((x) => `<li class="${x.estado}"><span class="chk"></span><span>${esc(x.titulo)}${x.responsable ? ` <span class="muted">· ${esc(x.responsable)}</span>` : ""}${x.fecha ? ` <span class="muted">· ${esc(x.fecha)}</span>` : ""}</span></li>`).join("")}</ul>`).join("");
+  }
+
+  function tarjetaProyecto(p) {
+    const t = tareasDe(p);
+    const st = subtotales(p);
+    const cond = (p.presupuesto || []).filter((i) => i.condicional);
+    const fase = p.fase && S.fases.fases.find((f) => f.id === p.fase);
+    const niveles = [...new Set((p.overlay || []).map((o) => o.nivel))];
+    const mat = p.materiales || [];
+    const totMat = mat.reduce((a, m) => a + (m.subtotal || 0), 0);
+    return `<article class="card" id="proy-${p.id}">
+      <div class="badges"><span class="badge ${p.estado}">${esc(p.estado)}</span>${p.prioridad ? `<span class="badge ${p.prioridad}">prioridad ${esc(p.prioridad)}</span>` : ""}${fase ? `<a class="badge futura" href="#fases/${fase.id}">fase: ${esc(fase.nombre)}</a>` : ""}</div>
+      <h3>${esc(p.nombre)}</h3>
+      ${p.version ? `<span class="muted" style="font-size:12px">${esc(p.version)}</span>` : ""}
+      <p>${esc(p.descripcion || "")}</p>
+      ${p.aviso ? `<p class="aviso" style="margin:0">${esc(p.aviso)}</p>` : ""}
+      ${(p.ambientes || []).length ? `<div class="chips">${p.ambientes.map((id) => `<a href="#plano?amb=${id}">${esc(ambiente(id)?.nombre || id)}</a>`).join("")}</div>` : ""}
+      ${niveles.length ? `<div class="ver-plano">Ver el cambio en el plano: ${niveles.map((n) => `<a href="#plano/${n}">${esc(nivelNombre(n))}</a>`).join(" · ")}</div>` : ""}
+      ${t.total ? `<div><div class="bar" title="${t.hechas} de ${t.total} tareas"><span style="width:${(100 * t.hechas / t.total).toFixed(0)}%"></span></div>
+        <span class="muted" style="font-size:12px">${t.hechas} de ${t.total} tareas</span></div>` : ""}
+      ${(p.medidas || []).length ? `<details><summary>Medidas clave</summary><dl class="kv">${p.medidas.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl></details>` : ""}
+      ${t.total ? (t.total > 6 ? `<details><summary>Tareas (${t.total})</summary>${tareasHTML(p)}</details>` : tareasHTML(p)) : ""}
+      ${(p.presupuesto || []).length ? `<details><summary>Presupuesto por partida</summary><table class="mini-tabla">${p.presupuesto.map((i) => `<tr class="${i.condicional ? "cond" : ""}"><td>${esc(i.concepto)}</td><td class="num">${rango(i.monto, i.monto_max ?? i.monto, i.moneda)}</td></tr>`).join("")}</table></details>` : ""}
+      ${mat.length ? `<details><summary>Materiales (${mat.length} ítems · ${fmtMoney(totMat, "ARS")})</summary><div class="tabla-wrap"><table class="mini-tabla">
+          <thead><tr><th>Producto</th><th>Para qué</th><th>Cant.</th><th class="num">Subtotal</th></tr></thead>
+          ${mat.map((m) => `<tr><td>${esc(m.producto)}<br><span class="muted">${esc(m.rubro)} · ${esc(m.proveedor || "")}</span></td><td>${esc(m.para)}</td><td>${esc(m.cantidad)}</td><td class="num">${m.subtotal ? fmtMoney(m.subtotal, "ARS") : "–"}</td></tr>`).join("")}
+        </table></div></details>` : ""}
+      ${(p.notas || []).length ? `<details><summary>Notas y decisiones</summary><ul class="mini">${p.notas.map((n) => `<li>${esc(n)}</li>`).join("")}</ul></details>` : ""}
+      <div class="subtotal"><span class="muted">Presupuesto</span><span>${(p.presupuesto || []).length ? `${rango(st.ars, st.arsMax, "ARS")}<br><span class="muted">${rango(st.usd, st.usdMax, "USD")}</span>` : "sin cargar"}</span></div>
+      ${cond.length ? `<div class="muted" style="font-size:12px">Más ${cond.map((i) => `${rango(i.monto, i.monto_max ?? i.monto, i.moneda)} si hace falta: ${esc(i.concepto.toLowerCase())}`).join("; ")}.</div>` : ""}
+    </article>`;
   }
 
   // ---------- presupuesto ----------
   function renderPresupuesto() {
     const P = S.proyectos.proyectos;
     const items = P.flatMap((p) => (p.presupuesto || []).map((i) => ({ p, i })));
-    const porEstado = { estimado: [0, 0], cotizado: [0, 0], pagado: [0, 0] };
-    let total = [0, 0];
-    for (const { i } of items) {
-      const a = toARS(i.monto, i.moneda), u = toUSD(i.monto, i.moneda);
-      total[0] += a; total[1] += u;
-      if (porEstado[i.estado]) { porEstado[i.estado][0] += a; porEstado[i.estado][1] += u; }
-    }
+    const todos = items.map((x) => x.i);
+    const total = sumar(todos);
+    const por = (e) => sumar(todos.filter((i) => i.estado === e));
     const t = S.config.tipo_cambio;
-    const tile = (k, [a, u]) => `<div class="tot"><div class="k">${k}</div><div class="v">${fmtMoney(a, "ARS")}</div><div class="v2">${fmtMoney(u, "USD")}</div></div>`;
-    $("#totales").innerHTML = tile("Total", total) + tile("Estimado", porEstado.estimado) + tile("Cotizado", porEstado.cotizado) + tile("Pagado", porEstado.pagado) +
+    const tile = (k, r) => `<div class="tot"><div class="k">${k}</div><div class="v">${rango(r.ars, r.arsMax, "ARS")}</div><div class="v2">${rango(r.usd, r.usdMax, "USD")}</div></div>`;
+    $("#totales").innerHTML = tile("Total", total) + tile("Estimado", por("estimado")) + tile("Cotizado", por("cotizado")) + tile("Pagado", por("pagado")) +
       `<div class="tot"><div class="k">Tipo de cambio</div><div class="v">$ ${tc().toLocaleString("es-AR")}</div><div class="v2">por US$ · ${esc(t.fecha || "")} · ${esc(t.fuente || "")}</div></div>`;
     const box = $("#presupuesto");
     if (!items.length) {
@@ -601,17 +687,20 @@
   { "concepto": "Destapación y cámara nueva", "proveedor": "Plomero X",
     "monto": 350000, "moneda": "ARS", "estado": "cotizado", "fecha": "2026-12-01" },
   { "concepto": "Inodoro y bidet", "proveedor": "Corralón Y",
-    "monto": 420, "moneda": "USD", "estado": "estimado" }
+    "monto": 420, "monto_max": 600, "moneda": "USD", "estado": "estimado" }
 ]</pre></div>`;
       return;
     }
     let rows = "";
     for (const p of P.filter((p) => (p.presupuesto || []).length)) {
       const st = subtotales(p);
-      rows += `<tr class="grupo"><td colspan="4">${esc(p.nombre)}</td><td class="num">${fmtMoney(st.ars, "ARS")}</td><td class="num">${fmtMoney(st.usd, "USD")}</td></tr>`;
-      rows += p.presupuesto.map((i) => `<tr>
-        <td>${esc(i.concepto)}</td><td>${esc(i.proveedor || "")}</td><td><span class="badge">${esc(i.estado)}</span></td>
-        <td class="num">${fmtMoney(i.monto, i.moneda)}</td><td class="num">${fmtMoney(toARS(i.monto, i.moneda), "ARS")}</td><td class="num">${fmtMoney(toUSD(i.monto, i.moneda), "USD")}</td></tr>`).join("");
+      rows += `<tr class="grupo"><td colspan="4"><a href="#proyectos">${esc(p.nombre)}</a></td><td class="num">${rango(st.ars, st.arsMax, "ARS")}</td><td class="num">${rango(st.usd, st.usdMax, "USD")}</td></tr>`;
+      rows += p.presupuesto.map((i) => {
+        const max = i.monto_max ?? i.monto;
+        return `<tr class="${i.condicional ? "cond" : ""}">
+          <td class="concepto">${esc(i.concepto)}${i.condicional ? ' <span class="badge">condicional, no suma</span>' : ""}</td><td>${esc(i.proveedor || "")}</td><td><span class="badge">${esc(i.estado)}</span></td>
+          <td class="num">${rango(i.monto, max, i.moneda)}</td><td class="num">${rango(toARS(i.monto, i.moneda), toARS(max, i.moneda), "ARS")}</td><td class="num">${rango(toUSD(i.monto, i.moneda), toUSD(max, i.moneda), "USD")}</td></tr>`;
+      }).join("");
     }
     box.innerHTML = `<div class="tabla-wrap"><table class="tabla">
       <thead><tr><th>Concepto</th><th>Proveedor</th><th>Estado</th><th class="num">Monto original</th><th class="num">En ARS</th><th class="num">En USD</th></tr></thead>

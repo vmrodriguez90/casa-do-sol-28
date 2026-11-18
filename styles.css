@@ -155,7 +155,7 @@ main { padding: 20px 24px 8px; max-width: 1400px; margin: 0 auto; }
 .detalle-svg path { fill: none; stroke: var(--detail); stroke-width: 1.3; vector-effect: non-scaling-stroke; }
 .relleno-svg path { fill: var(--surface); stroke: none; }
 .ghost path { fill: var(--ghost); stroke: none; }
-.amb { fill: var(--room); stroke: none; cursor: pointer; transition: fill .12s; }
+.amb { fill: var(--room); stroke: none; cursor: pointer; }
 .amb.humedo { fill: var(--room-wet); }
 .amb:hover { fill: var(--room-hover); }
 .amb.sel { fill: var(--room-sel); }
@@ -263,7 +263,7 @@ main { padding: 20px 24px 8px; max-width: 1400px; margin: 0 auto; }
 .totales { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 16px; }
 .tot { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; }
 .tot .k { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); }
-.tot .v { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.tot .v { font-size: 19px; font-weight: 600; font-variant-numeric: tabular-nums; }
 .tot .v2 { font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
 .tabla-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow-x: auto; }
 table.tabla { border-collapse: collapse; width: 100%; font-size: 14px; }
@@ -288,3 +288,61 @@ table.tabla { border-collapse: collapse; width: 100%; font-size: 14px; }
   .cards { grid-template-columns: 1fr; }
   .error { margin: 12px 16px 0; }
 }
+
+/* Overlays de proyectos */
+.proy-ov { stroke-width: 4; }
+.ov-linea { fill: none !important; }
+.ov-nuevo { fill: var(--accent); fill-opacity: .35; stroke: var(--accent); }
+.ov-demoler { fill: #d6453a; fill-opacity: .18; stroke: #d6453a; stroke-dasharray: 10 6; }
+.ov-estructura { fill: #2f6fd0; fill-opacity: .9; stroke: #2f6fd0; stroke-width: 6; }
+.ov-referencia { fill: none; stroke: var(--f-futura); stroke-dasharray: 18 8 4 8; stroke-width: 3; }
+.ov-proyeccion { fill: var(--accent); fill-opacity: .08; stroke: var(--accent); stroke-dasharray: 12 8; stroke-width: 3; }
+.ov-etq { font-size: 19px; font-weight: 600; text-anchor: middle; paint-order: stroke; stroke: var(--surface); stroke-width: 5px; stroke-linejoin: round; }
+.ov-nuevo-t, .ov-proyeccion-t { fill: var(--accent-ink); }
+.ov-demoler-t { fill: #c0392b; }
+.ov-estructura-t { fill: #2f6fd0; }
+.ov-referencia-t { fill: var(--f-futura); }
+
+/* Tarjetas de proyecto: detalle */
+.card details { border-top: 1px solid var(--line); padding-top: 8px; }
+.card summary { cursor: pointer; font-weight: 600; font-size: 14px; list-style-position: outside; }
+.card summary:hover { color: var(--accent-ink); }
+.card details[open] summary { margin-bottom: 8px; }
+.kv { display: grid; grid-template-columns: minmax(120px, 40%) 1fr; gap: 4px 12px; margin: 0; font-size: 13px; }
+.kv dt { color: var(--ink-2); }
+.kv dd { margin: 0; }
+.mini-tabla { width: 100%; border-collapse: collapse; font-size: 13px; }
+.mini-tabla td, .mini-tabla th { padding: 5px 6px; border-bottom: 1px solid var(--line); vertical-align: top; text-align: left; }
+.mini-tabla th { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-2); font-weight: 500; }
+.mini-tabla .num { white-space: nowrap; }
+.card .tabla-wrap { border: none; border-radius: 0; }
+tr.cond td { color: var(--ink-2); font-style: italic; }
+.t-grupo { font-size: 12px !important; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-2); margin: 10px 0 4px !important; font-weight: 600; }
+.ver-plano { font-size: 13px; color: var(--ink-2); }
+.ver-plano a { color: var(--accent-ink); font-weight: 600; }
+.badge.futura { color: var(--f-futura); text-decoration: none; }
+.badge.media { color: var(--f-aprobada); }
+.tabla td.concepto { white-space: normal; min-width: 260px; }
+.tabla a, .fase-info a { color: inherit; }
+.card .mini { padding-left: 18px; margin: 0; font-size: 13px; display: flex; flex-direction: column; gap: 6px; }
+.tramo-hit { fill: none; stroke: transparent; stroke-width: 24; cursor: pointer; }
+
+/* Selector día / noche */
+.tema { display: flex; gap: 2px; background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+.tema button { font: inherit; font-size: 13px; border: 0; background: transparent; color: var(--ink-2); padding: 5px 10px; border-radius: 999px; cursor: pointer; }
+.tema button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+.top-right { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+@media (max-width: 600px) { .top-right { width: 100%; } .top-right .tabs { flex: 1 1 100%; } }
+.camara { cursor: pointer; }
+.camara rect { fill: var(--surface); stroke: var(--drain-1); stroke-width: 6; }
+.camara.estimado rect { stroke-dasharray: 8 5; }
+.camara text { fill: var(--drain-1); font-size: 16px; font-weight: 700; text-anchor: middle; dominant-baseline: central; pointer-events: none; }
+.tramo.sel { stroke-width: 12; }
+.tramo-flecha.cloacal { fill: var(--drain-1); }
+.tramo-flecha.pluvial { fill: var(--drain-2); }
+.tramo-flecha { pointer-events: none; }
+.pasos { list-style: none; padding-left: 0 !important; }
+.pasos li.aplicado { color: var(--ok); font-weight: 600; }
+.notas-plano { font-size: 13px; margin-top: 8px; }
+.notas-plano summary { cursor: pointer; font-weight: 600; }
+.notas-plano ul { margin: 6px 0 0; padding-left: 18px; }

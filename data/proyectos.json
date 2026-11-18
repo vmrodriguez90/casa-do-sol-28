@@ -1,5 +1,5 @@
 {
-  "_ayuda": "Proyectos de obra. estado del proyecto: 'idea' | 'planificado' | 'en-curso' | 'terminado' | 'descartado'. estado de tarea: 'pendiente' | 'en-curso' | 'hecha'. Ítems de presupuesto: monto (número), moneda 'ARS' | 'USD', estado 'estimado' | 'cotizado' | 'pagado'. 'ambientes' resalta esos locales en el plano (ids de casa.json). 'overlay' (opcional) dibuja el cambio propuesto: lista de {nivel, tipo: 'linea'|'poligono'|'punto', puntos, etiqueta}.",
+  "_ayuda": "Proyectos de obra. estado del proyecto: 'idea' | 'planificado' | 'en-curso' | 'terminado' | 'descartado'. Tareas: estado 'pendiente' | 'en-curso' | 'hecha', 'grupo' opcional para agruparlas. Ítems de presupuesto: monto (número), monto_max (opcional, para rangos), moneda 'ARS' | 'USD', estado 'estimado' | 'cotizado' | 'pagado', condicional: true si solo se gasta en cierto caso (no suma al total). 'materiales' (opcional): listado detallado de compras. 'medidas' y 'notas' (opcionales) se muestran en la tarjeta. 'ambientes' resalta esos locales en el plano (ids de casa.json). 'overlay' dibuja el cambio propuesto: lista de {nivel, tipo: 'linea'|'poligono'|'punto', estilo: 'nuevo'|'demoler'|'estructura'|'referencia'|'proyeccion', puntos, etiqueta}.",
   "proyectos": [
     {
       "id": "relevamiento-sanitario",
@@ -18,6 +18,97 @@
       ],
       "presupuesto": [],
       "overlay": []
+    },
+    {
+      "id": "pasillo-pa",
+      "nombre": "Pasillo en altura: entrepiso ↔ planta alta",
+      "estado": "planificado",
+      "prioridad": "media",
+      "fase": "futura-pasillo",
+      "version": "Anteproyecto v3, 17/11/2026 (precios relevados el 15/11/2026)",
+      "descripcion": "Pasillo de 3,65 × 1,00 m a nivel +2,48 que une el entrepiso del garage con la escalera de H°A° de la planta alta, cruzando por encima del comedor y centrado bajo la cumbrera. Estructura de hierro: 2 vigas IPN 140, viguetas de caño, fenólico + piso flotante y baranda de 1,00 m en los dos lados. Se demuele la escalera de madera y su tabique (el comedor pasa de 2,80 a 3,65 m de ancho en ese sector), se saca todo el cielorraso (el comedor queda en doble altura) y se abre un vano con dintel en el muro oeste de la planta alta.",
+      "aviso": "Anteproyecto orientativo: antes de ejecutar, lo tiene que verificar un ingeniero o arquitecto.",
+      "ambientes": ["comedor", "entrepiso", "circulacion-pa", "circulacion-pb"],
+      "medidas": [
+        ["Largo (luz entre apoyos)", "3,65 m (0,70 escalera + 0,15 tabique + 2,80 comedor)"],
+        ["Ancho total / paso libre", "1,00 m / ~0,92 m entre barandas"],
+        ["Nivel de piso del pasillo", "+2,48 (entrepiso +2,45 · escalón H°A° +2,48 · PA +2,85)"],
+        ["Altura libre arriba", "~2,15 m en los bordes / ~2,45 m en el centro"],
+        ["Altura libre abajo (comedor)", "~2,20 m (piso +0,10, fondo de viga ~+2,31)"],
+        ["Vigas / viguetas", "2 × IPN 140 de 3,85 m (~110 kg) / 10 caños 40×60 cada 40 cm"],
+        ["Flecha estimada", "≈ 4 mm con carga total (L/900)"],
+        ["Carga de diseño", "~1.450 kg total (300 kg/m²) · ~370 kg por apoyo"]
+      ],
+      "tareas": [
+        { "id": "p-v1", "grupo": "Verificar antes de empezar", "titulo": "Medir desde el piso del entrepiso hasta abajo de la viga del techo (≥ 2,00 m OK · 1,90–2,00 justo · < 1,90 repensar)", "estado": "pendiente", "responsable": null, "fecha": null },
+        { "id": "p-v2", "grupo": "Verificar antes de empezar", "titulo": "Foto desde el medio del entrepiso mirando hacia el comedor", "estado": "pendiente", "responsable": null, "fecha": null },
+        { "id": "p-v3", "grupo": "Verificar antes de empezar", "titulo": "Ver dónde apoya la viga sobre la pared de la escalera chica (¿toca el steel frame? ¿hay tacos o cuñas?)", "estado": "pendiente", "responsable": null, "fecha": null },
+        { "id": "p-v4", "grupo": "Verificar antes de empezar", "titulo": "Abrir una tapa del cielorraso del comedor y fotografiar hacia arriba (¿tirantes horizontales o cabriadas?)", "estado": "pendiente", "responsable": null, "fecha": null },
+        { "id": "p-v5", "grupo": "Verificar antes de empezar", "titulo": "Ubicar los últimos escalones de la escalera de H°A° respecto del muro donde va el vano", "estado": "pendiente", "responsable": null, "fecha": null },
+        { "id": "p-v6", "grupo": "Verificar antes de empezar", "titulo": "Confirmar la pendiente real del techo (el plano dice 30 % en techos y 60 % en cortes)", "estado": "pendiente", "responsable": null, "fecha": null },
+        { "id": "p-v7", "grupo": "Verificar antes de empezar", "titulo": "Validar todo con ingeniero o arquitecto (cálculo, apoyos, vano en muro portante)", "estado": "pendiente", "responsable": "Ingeniero", "fecha": null },
+        { "id": "p-o1", "grupo": "Obra", "titulo": "Si hay cabriadas o tirantes: colocar primero la viga cumbrera portante", "estado": "pendiente", "responsable": "Herrero", "fecha": null },
+        { "id": "p-o2", "grupo": "Obra", "titulo": "Retirar el cielorraso. Cortar la luz, apuntalar la viga del techo y desarmar escalera de madera y tabique de steel frame", "estado": "pendiente", "responsable": "Propietario + albañil", "fecha": null },
+        { "id": "p-o3", "grupo": "Obra", "titulo": "Abrir el vano en el muro de la planta alta junto a los últimos escalones, colocando primero el dintel", "estado": "pendiente", "responsable": "Albañil", "fecha": null },
+        { "id": "p-o4", "grupo": "Obra", "titulo": "Cajear el muro garage/entrepiso (2 huecos ~15×20 cm) y colocar los postes P1 y P2 con placas base", "estado": "pendiente", "responsable": "Albañil + herrero", "fecha": null },
+        { "id": "p-o5", "grupo": "Obra", "titulo": "Montar V1 y V2 niveladas a +2,31 (fondo), asentar placas y rellenar cajeados", "estado": "pendiente", "responsable": "Herrero", "fecha": null },
+        { "id": "p-o6", "grupo": "Obra", "titulo": "Soldar las 10 viguetas, parantes y baranda. Amolar, limpiar y pintar con 2 manos de esmalte 3 en 1", "estado": "pendiente", "responsable": "Herrero", "fecha": null },
+        { "id": "p-o7", "grupo": "Obra", "titulo": "Atornillar el fenólico, colocar manta y piso flotante, resolver encuentros con entrepiso y escalón H°A°", "estado": "pendiente", "responsable": "Carpintero / colocador", "fecha": null },
+        { "id": "p-o8", "grupo": "Obra", "titulo": "Aislar y revestir la cara inferior del techo, reubicar la iluminación y reparar piso, revoque y pintura del comedor", "estado": "pendiente", "responsable": "Carpintero + electricista", "fecha": null }
+      ],
+      "presupuesto": [
+        { "concepto": "Materiales Easy (estructura, baranda, piso, fijaciones, pintura, aislación y machimbre)", "proveedor": "Easy", "monto": 1850000, "moneda": "ARS", "estado": "cotizado", "fecha": "2026-11-15" },
+        { "concepto": "Vigas IPN 140 (2 × 4 m) + chapas de apoyo", "proveedor": "Hierros Torrent / herrería", "monto": 420000, "moneda": "ARS", "estado": "cotizado", "fecha": "2026-11-15" },
+        { "concepto": "Albañil: sacar cielorraso, cajear muro, vano con dintel, reparaciones del comedor", "proveedor": null, "monto": 800000, "monto_max": 1100000, "moneda": "ARS", "estado": "estimado" },
+        { "concepto": "Herrero: montaje de vigas, viguetas, postes, baranda y pintura", "proveedor": null, "monto": 1200000, "monto_max": 1800000, "moneda": "ARS", "estado": "estimado" },
+        { "concepto": "Carpintero / colocador: fenólico, piso, aislación y machimbre del techo (~30 m² en altura)", "proveedor": null, "monto": 500000, "monto_max": 850000, "moneda": "ARS", "estado": "estimado" },
+        { "concepto": "Electricista: reubicar la iluminación del comedor", "proveedor": null, "monto": 150000, "monto_max": 250000, "moneda": "ARS", "estado": "estimado" },
+        { "concepto": "Ingeniero: visita, cálculo y firma", "proveedor": null, "monto": 300000, "monto_max": 600000, "moneda": "ARS", "estado": "estimado" },
+        { "concepto": "Varios: volquete / bolsas, andamio, consumibles", "proveedor": null, "monto": 200000, "monto_max": 350000, "moneda": "ARS", "estado": "estimado" },
+        { "concepto": "Imprevistos 15 %", "proveedor": null, "monto": 813000, "monto_max": 1083000, "moneda": "ARS", "estado": "estimado" },
+        { "concepto": "Viga cumbrera portante + refuerzos (solo si aparecen tirantes o cabriadas)", "proveedor": null, "monto": 400000, "monto_max": 600000, "moneda": "ARS", "estado": "estimado", "condicional": true }
+      ],
+      "materiales": [
+        { "rubro": "Estructura", "producto": "Caño estructural rectangular 40×60×1,6 mm, 3 m", "para": "Viguetas: 10 piezas de 0,83 m", "cantidad": "3 barras", "unitario": 29090, "subtotal": 87270, "proveedor": "Easy" },
+        { "rubro": "Estructura", "producto": "Caño estructural cuadrado 100×100×1,6 mm, 3 m", "para": "Postes P1 y P2 (mejor en 2 mm)", "cantidad": "2 barras", "unitario": 64190, "subtotal": 128380, "proveedor": "Easy" },
+        { "rubro": "Estructura", "producto": "Vigueta pretensada 220×12×9 cm", "para": "Dintel del vano nuevo: 2 cortadas a 1,30 m (o el que indique el ingeniero)", "cantidad": "2 u", "unitario": 10329, "subtotal": 20658, "proveedor": "Easy" },
+        { "rubro": "Estructura", "producto": "Perfil IPN 140 (acero F-24)", "para": "Vigas V1 y V2, 2 tramos de 4 m", "cantidad": "2 × 4 m", "unitario": 198244, "subtotal": 396500, "proveedor": "Hierros Torrent" },
+        { "rubro": "Estructura", "producto": "Chapa 1/4\" recortada", "para": "2 placas de apoyo 15×15 + 2 placas base 20×20", "cantidad": "~5,5 kg", "unitario": null, "subtotal": 20000, "proveedor": "Herrería" },
+        { "rubro": "Baranda", "producto": "Caño estructural cuadrado 40×40×1,6 mm, 3 m", "para": "8 parantes de 1,10 m + 2 pasamanos de 3,65 m", "cantidad": "7 barras", "unitario": 23190, "subtotal": 162330, "proveedor": "Easy" },
+        { "rubro": "Baranda", "producto": "Caño estructural rectangular 20×40×1,6 mm, 3 m", "para": "Travesaño inferior, 2 × 3,65 m", "cantidad": "3 barras", "unitario": 16800, "subtotal": 50400, "proveedor": "Easy" },
+        { "rubro": "Baranda", "producto": "Caño estructural cuadrado 20×20×1,2 mm, 3 m", "para": "~64 barrotes de 0,86 m (3 por barra)", "cantidad": "22 barras", "unitario": 8990, "subtotal": 197780, "proveedor": "Easy" },
+        { "rubro": "Piso", "producto": "Placa fenólica 18 mm 1,22 × 2,44 m", "para": "Tablero del pasillo (2,40 + 1,25 m)", "cantidad": "2 placas", "unitario": 58490, "subtotal": 116980, "proveedor": "Easy" },
+        { "rubro": "Piso", "producto": "Piso flotante roble 8 mm, caja 2,4 m²", "para": "Terminación (3,65 m² + desperdicio)", "cantidad": "2 cajas", "unitario": 71988, "subtotal": 143976, "proveedor": "Easy" },
+        { "rubro": "Piso", "producto": "Manta para piso flotante 2 mm", "para": "Bajo el piso flotante", "cantidad": "~4 m²", "unitario": null, "subtotal": null, "proveedor": "Easy / casa de pisos" },
+        { "rubro": "Fijaciones", "producto": "Tornillo T2 autoperforante 6 × 1 1/8\" × 100 u", "para": "Fenólico a viguetas", "cantidad": "2 cajas", "unitario": 9250, "subtotal": 18500, "proveedor": "Easy" },
+        { "rubro": "Fijaciones", "producto": "Tarugo metálico 3/8\" × 10 u", "para": "Placas base de P1 y P2 al piso", "cantidad": "1 pack", "unitario": 20060, "subtotal": 20060, "proveedor": "Easy" },
+        { "rubro": "Fijaciones", "producto": "Bulón hexagonal 3/8 × 2\" × 5 u", "para": "Para los tarugos metálicos", "cantidad": "2 packs", "unitario": 4680, "subtotal": 9360, "proveedor": "Easy" },
+        { "rubro": "Fijaciones", "producto": "Adhesivo epoxi Sikadur-31, 1 kg", "para": "Asiento de placas de apoyo en muro y columna", "cantidad": "1 u", "unitario": 66900, "subtotal": 66900, "proveedor": "Easy" },
+        { "rubro": "Techo", "producto": "Lana de vidrio con foil de aluminio 80 mm, 1,2 × 7 m", "para": "Aislar la cara inferior del techo al sacar el cielorraso (~30 m²)", "cantidad": "4 rollos", "unitario": 139900, "subtotal": 559600, "proveedor": "Easy" },
+        { "rubro": "Techo", "producto": "Machimbre pino 1/2 × 4 × 3,05 m, paquete 3,10 m²", "para": "Revestir la cara inferior del techo (~30 m²)", "cantidad": "10 paquetes", "unitario": 20731, "subtotal": 207310, "proveedor": "Easy" },
+        { "rubro": "Pintura", "producto": "Esmalte sintético 3 en 1 negro, 4 L", "para": "Antióxido + convertidor + esmalte, 2 manos", "cantidad": "1 lata", "unitario": 57990, "subtotal": 57990, "proveedor": "Easy" }
+      ],
+      "notas": [
+        "Se eligió sacar todo el cielorraso (opción A): el comedor queda en doble altura con la madera del techo a la vista. La opción B, abrir solo una franja de ~1,30 m, costaba ≈ $ 50.000 en materiales contra ≈ $ 767.000 de la A.",
+        "Probablemente el techo del comedor está armado con correas o una viga a lo largo, sin tirantes. Hay que confirmarlo abriendo el cielorraso antes de cortar nada.",
+        "Las vigas del lado oeste apoyan en la pared de ladrillo del garage/entrepiso (cajeadas 12 cm sobre una placa). Del lado este van 2 postes nuevos de caño 100×100, o anclaje a la escalera de H°A° si el ingeniero lo aprueba.",
+        "Lo que más mueve el número es el herrero (puede ser la mitad o el doble). Conviene pedirle que cotice con y sin materiales, y pedir 2 o 3 presupuestos.",
+        "Alternativa toda de madera: vigas 2 × pino 3\" × 8\", viguetas 2\" × 4\" cada 40 cm y postes de quebracho 4\" × 4\". Deja un paquete de ~23 cm (abajo quedan ~2,15 m libres en vez de 2,20) y probablemente sale más barata.",
+        "Para confirmar qué muros son portantes: pedir el expediente completo en la municipalidad y que el ingeniero haga cateos."
+      ],
+      "overlay": [
+        { "nivel": "ent", "tipo": "poligono", "estilo": "nuevo", "etiqueta": "Pasillo +2,48 · 3,65 × 1,00 m", "puntos": [[290, 1101], [655, 1101], [655, 1201], [290, 1201]] },
+        { "nivel": "ent", "tipo": "linea", "estilo": "estructura", "puntos": [[278, 1106], [663, 1106]] },
+        { "nivel": "ent", "tipo": "linea", "estilo": "estructura", "puntos": [[278, 1196], [663, 1196]] },
+        { "nivel": "ent", "tipo": "punto", "estilo": "estructura", "etiqueta": "P2", "puntos": [[660, 1104]] },
+        { "nivel": "ent", "tipo": "punto", "estilo": "estructura", "etiqueta": "P1", "puntos": [[660, 1198]] },
+        { "nivel": "ent", "tipo": "linea", "estilo": "referencia", "etiqueta": "Cumbrera (aprox.)", "puntos": [[15, 1151], [650, 1151]] },
+        { "nivel": "pb", "tipo": "poligono", "estilo": "proyeccion", "etiqueta": "Pasillo arriba (+2,48)", "puntos": [[290, 1101], [655, 1101], [655, 1201], [290, 1201]] },
+        { "nivel": "pb", "tipo": "poligono", "estilo": "demoler", "etiqueta": "Demoler escalera de madera + tabique", "puntos": [[290, 1055], [375, 1055], [375, 1390], [290, 1390]] },
+        { "nivel": "pb", "tipo": "punto", "estilo": "estructura", "etiqueta": "P1/P2", "puntos": [[660, 1151]] },
+        { "nivel": "pa", "tipo": "poligono", "estilo": "nuevo", "etiqueta": "Vano nuevo con dintel", "puntos": [[648, 1101], [667, 1101], [667, 1201], [648, 1201]] },
+        { "nivel": "pa", "tipo": "poligono", "estilo": "proyeccion", "etiqueta": "Pasillo (+2,48, más abajo)", "puntos": [[290, 1101], [648, 1101], [648, 1201], [290, 1201]] }
+      ]
     }
   ]
 }

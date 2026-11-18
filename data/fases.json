@@ -53,6 +53,19 @@
       "incluye": ["aprobada", "cerramiento", "ampliacion"],
       "superficies": [],
       "total_m2": 177.37
+    },
+    {
+      "id": "futura-pasillo",
+      "nombre": "Pasillo en altura (proyecto)",
+      "fecha": "propuesta",
+      "tipo": "futura",
+      "color": "futura",
+      "descripcion": "Pasillo a +2,48 sobre el comedor que une el entrepiso con la escalera de la planta alta. Se demuele la escalera de madera y el comedor queda en doble altura.",
+      "proyectos": ["pasillo-pa"],
+      "superficies": [
+        { "n": "P", "nivel": "ent", "tipo": "pasillo (nuevo)", "medidas": "3,65 × 1,00", "m2": 3.65, "poligono": [[290, 1101], [655, 1101], [655, 1201], [290, 1201]] }
+      ],
+      "total_m2": 3.65
     }
   ]
 }

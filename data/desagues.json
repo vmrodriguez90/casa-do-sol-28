@@ -21,13 +21,39 @@
     { "id": "vf-bano-pb", "nombre": "Ventilación forzada por conducto 4\" (baño PB)", "nivel": "pb", "ambiente": "bano-pb", "pos": [1075, 1160], "estado": "plano" },
     { "id": "vf-bano-pa", "nombre": "Ventilación forzada por conducto 4\" (baño PA)", "nivel": "pa", "ambiente": "bano-pa", "pos": [1075, 1135], "estado": "plano" }
   ],
-  "camaras": [],
-  "tramos": [],
+  "fuentes": [
+    {
+      "id": "sanitario-1998",
+      "nombre": "Plano de instalación sanitaria aprobado (1998)",
+      "nota": "Es el proyecto original, de antes del quincho, el cerramiento del garage y el entrepiso. Lo que se carga desde este plano queda como 'estimado' hasta verificarlo en obra. Se aplica de a pasos."
+    }
+  ],
+  "notas_plano": [
+    "Aguas servidas a colectora (red cloacal de la calle).",
+    "Aguas de lluvia a la calle.",
+    "Ventilaciones cloacales (CV) a la altura reglamentaria.",
+    "Tanque de reserva a 2,00 m sobre el artefacto más alto.",
+    "Provisión de agua con caño Ø 13 mm."
+  ],
+  "pasos": [
+    { "n": 1, "titulo": "Cloaca principal: cámara de inspección y conexión a colectora", "estado": "aplicado" },
+    { "n": 2, "titulo": "Desagües secundarios: piletas de patio de cocina, lavadero y baños", "estado": "pendiente" },
+    { "n": 3, "titulo": "Planta alta: bajada del baño y caños de ventilación", "estado": "pendiente" },
+    { "n": 4, "titulo": "Pluviales: bajadas de techo y caño a la calle", "estado": "pendiente" },
+    { "n": 5, "titulo": "Agua: entrada Ø 13 mm, tanque y termotanque", "estado": "pendiente" }
+  ],
+  "camaras": [
+    { "id": "ci-frente", "nombre": "Cámara de inspección 60 × 60", "nivel": "pb", "pos": [1010, 1730], "estado": "estimado", "fuente": "sanitario-1998", "nota": "En el plano de 1998 está en el jardín del frente, del lado de la medianera derecha, cerca de la línea municipal. Ubicarla en el terreno: tiene una tapa de ~60 × 60 cm." }
+  ],
+  "tramos": [
+    { "id": "conexion-colectora", "nombre": "Conexión a colectora Ø 100", "red": "cloacal", "diametro": "Ø 100 mm", "pendiente": "1:50", "nivel": "pb", "estado": "estimado", "fuente": "sanitario-1998", "puntos": [[1010, 1752], [1010, 2230]], "nota": "Desde la cámara de inspección, bajo la vereda, hasta la red cloacal de la Calle 28." },
+    { "id": "cloaca-principal", "nombre": "Cañería principal Ø 100 (desde el baño PB a la cámara)", "red": "cloacal", "diametro": "Ø 100 mm", "pendiente": "1:50", "nivel": "pb", "estado": "estimado", "fuente": "sanitario-1998", "puntos": [[1048, 1215], [1010, 1290], [1010, 1708]], "nota": "En el plano de 1998 corre por el lado de la medianera derecha, desde el núcleo húmedo (baño, lavadero, cocina) hasta la cámara. Pasa por debajo del estar. El recorrido exacto se confirma abriendo la cámara y mirando hacia dónde llegan los caños." }
+  ],
   "pendiente_relevar": [
-    "Cámara de inspección y conexión a la red cloacal (frente, Calle 28)",
+    "Confirmar la ubicación de la cámara de inspección (tapa en el jardín del frente)",
     "Piletas de patio abiertas / cerradas en cocina, lavadero y baños",
-    "Recorrido de la cañería primaria (inodoros) y secundaria",
+    "Bajada del baño de planta alta",
     "Bajadas pluviales de los tres techos y su descarga (patio, vereda, cordón)",
-    "Rejillas de piso en patio, galería y frente"
+    "Desagües del quincho y del garage (agregados después del plano de 1998)"
   ]
 }
